@@ -57,7 +57,8 @@ uint8_t res;
 uint8_t i;
 float g[3];
 
-res = adxl345_basic_init(ADXL345_INTERFACE_IIC, ADXL345_ADDRESS_ALT_0);                 if (res)
+res = adxl345_basic_init(ADXL345_INTERFACE_IIC, ADXL345_ADDRESS_ALT_0);                
+if (res)
 {
     return 1;
 }
