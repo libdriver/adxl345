@@ -208,7 +208,8 @@ if (res)
 {
     return 1;
 }
-res = adxl345_interrupt_init(ADXL345_INTERFACE_SPI, ADXL345_ADDRESS_ALT_0,                                            interrupt_callback,
+res = adxl345_interrupt_init(ADXL345_INTERFACE_SPI, ADXL345_ADDRESS_ALT_0,
+                             interrupt_callback,
                              ADXL345_BOOL_TRUE 
                              ADXL345_BOOL_TRUE,
                              ADXL345_BOOL_TRUE,
