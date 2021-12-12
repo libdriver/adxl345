@@ -1,5 +1,5 @@
 /**
- * Copyright (C) LibDriver 2015-2021 All rights reserved
+ * Copyright (c) 2015 - present LibDriver All rights reservedd
  * 
  * The MIT License (MIT)
  *
