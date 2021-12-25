@@ -3193,6 +3193,12 @@ uint8_t adxl345_init(adxl345_handle_t *handle)
        
         return 3;                                                                   /* return error */
     }
+    if (handle->receive_callback == NULL)                                           /* check receive_callback */
+    {
+        handle->debug_print("adxl345: receive_callback is null.\n");                /* receive_callback is null */
+       
+        return 3;                                                                   /* return error */
+    }
     
     if (handle->iic_spi == ADXL345_INTERFACE_IIC)                                   /* iic interface */
     {
@@ -3503,56 +3509,56 @@ uint8_t adxl345_irq_handler(adxl345_handle_t *handle)
         
         return 1;                                                                            /* return error */
     }
-    if (prev & (1<<ADXL345_INTERRUPT_DATA_READY))                                            /* if data ready */
+    if (prev & (1 << ADXL345_INTERRUPT_DATA_READY))                                          /* if data ready */
     {
         if (handle->receive_callback)                                                        /* if receive callback */
         {
             handle->receive_callback(ADXL345_INTERRUPT_DATA_READY);                          /* run callback */
         }
     }
-    if (prev & (1<<ADXL345_INTERRUPT_SINGLE_TAP))                                            /* if single tap */
+    if (prev & (1 << ADXL345_INTERRUPT_SINGLE_TAP))                                          /* if single tap */
     {
         if (handle->receive_callback)                                                        /* if receive callback */
         {
             handle->receive_callback(ADXL345_INTERRUPT_SINGLE_TAP);                          /* run callback */
         }
     }
-    if (prev & (1<<ADXL345_INTERRUPT_DOUBLE_TAP))                                            /* if double tap */
+    if (prev & (1 << ADXL345_INTERRUPT_DOUBLE_TAP))                                          /* if double tap */
     {
         if (handle->receive_callback)                                                        /* if receive callback */
         {
             handle->receive_callback(ADXL345_INTERRUPT_DOUBLE_TAP);                          /* run callback */
         }
     }
-    if (prev & (1<<ADXL345_INTERRUPT_ACTIVITY))                                              /* if activity */
+    if (prev & (1 << ADXL345_INTERRUPT_ACTIVITY))                                            /* if activity */
     {
         if (handle->receive_callback)                                                        /*if receive callback */
         {
             handle->receive_callback(ADXL345_INTERRUPT_ACTIVITY);                            /* run callback */
         }
     }
-    if (prev & (1<<ADXL345_INTERRUPT_INACTIVITY))                                            /* if inactivity */
+    if (prev & (1 << ADXL345_INTERRUPT_INACTIVITY))                                          /* if inactivity */
     {
         if (handle->receive_callback)                                                        /*if receive callback */
         {
             handle->receive_callback(ADXL345_INTERRUPT_INACTIVITY);                          /* run callback */
         }
     }
-    if (prev & (1<<ADXL345_INTERRUPT_FREE_FALL))                                             /* if free fall */
+    if (prev & (1 << ADXL345_INTERRUPT_FREE_FALL))                                           /* if free fall */
     {
         if (handle->receive_callback)                                                        /* if receive callback */
         {
             handle->receive_callback(ADXL345_INTERRUPT_FREE_FALL);                           /* run callback */
         }
     }
-    if (prev & (1<<ADXL345_INTERRUPT_WATERMARK))                                             /* if wartermark */
+    if (prev & (1 << ADXL345_INTERRUPT_WATERMARK))                                           /* if wartermark */
     {
         if (handle->receive_callback)                                                        /* if receive callback */
         {
             handle->receive_callback(ADXL345_INTERRUPT_WATERMARK);                           /* run callback */
         }
     }
-    if (prev & (1<<ADXL345_INTERRUPT_OVERRUN))                                               /* if overrun */
+    if (prev & (1 << ADXL345_INTERRUPT_OVERRUN))                                             /* if overrun */
     {
         if (handle->receive_callback)                                                        /* if receive callback */
         {
