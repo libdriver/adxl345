@@ -75,7 +75,7 @@ adxl345: SPI interface MOSI connected to GPIO10(BCM).
 adxl345: SPI interface CS connected to GPIO8(BCM).
 adxl345: IIC interface SCL connected to GPIO3(BCM).
 adxl345: IIC interface SDA connected to GPIO2(BCM).
-adxl345: INT connected to GPIOB17(BCM).
+adxl345: INT connected to GPIO17(BCM).
 ```
 
 ```shell

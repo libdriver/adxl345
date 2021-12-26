@@ -169,7 +169,7 @@ uint8_t adxl345(uint8_t argc, char **argv)
             adxl345_interface_debug_print("adxl345: SPI interface CS connected to GPIO8(BCM).\n");
             adxl345_interface_debug_print("adxl345: IIC interface SCL connected to GPIO3(BCM).\n");
             adxl345_interface_debug_print("adxl345: IIC interface SDA connected to GPIO2(BCM).\n");
-            adxl345_interface_debug_print("adxl345: INT connected to GPIOB17(BCM).\n");
+            adxl345_interface_debug_print("adxl345: INT connected to GPIO17(BCM).\n");
             
             return 0;
         }
