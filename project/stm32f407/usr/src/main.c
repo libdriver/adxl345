@@ -268,7 +268,7 @@ uint8_t adxl345(uint8_t argc, char **argv)
                     {
                         return 1;
                     }
-                    g_gpio_irq = adxl345_interface_fifo_test_irq_handler;
+                    g_gpio_irq = adxl345_fifo_test_irq_handler;
                     
                     /* run fifo test */
                     res = adxl345_fifo_test(ADXL345_INTERFACE_SPI, ADXL345_ADDRESS_ALT_0);
@@ -300,7 +300,7 @@ uint8_t adxl345(uint8_t argc, char **argv)
                     {
                         return 1;
                     }
-                    g_gpio_irq = adxl345_interface_action_test_irq_handler;
+                    g_gpio_irq = adxl345_action_test_irq_handler;
                     
                     /* run interrupt test */
                     res = adxl345_tap_action_fall_test(ADXL345_INTERFACE_SPI, ADXL345_ADDRESS_ALT_0);
@@ -394,7 +394,7 @@ uint8_t adxl345(uint8_t argc, char **argv)
                     {
                         return 1;
                     }
-                    g_gpio_irq = adxl345_interface_fifo_test_irq_handler;
+                    g_gpio_irq = adxl345_fifo_test_irq_handler;
                     
                     /* fifo test */
                     res = adxl345_fifo_test(ADXL345_INTERFACE_IIC, addr_pin);
@@ -440,7 +440,7 @@ uint8_t adxl345(uint8_t argc, char **argv)
                     {
                         return 1;
                     }
-                    g_gpio_irq = adxl345_interface_action_test_irq_handler;
+                    g_gpio_irq = adxl345_action_test_irq_handler;
                     
                     /* interrupt test */
                     res = adxl345_tap_action_fall_test(ADXL345_INTERFACE_IIC, addr_pin);

@@ -47,7 +47,7 @@ static uint8_t gs_tap_action_fall_flag;        /**< tap action fall flag */
  *         - 1 run failed
  * @note   none
  */
-uint8_t adxl345_interface_action_test_irq_handler(void)
+uint8_t adxl345_action_test_irq_handler(void)
 {
     if (adxl345_irq_handler(&gs_handle))
     {

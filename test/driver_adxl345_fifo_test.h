@@ -56,7 +56,7 @@ extern "C"{
  *         - 1 run failed
  * @note   none
  */
-uint8_t adxl345_interface_fifo_test_irq_handler(void);
+uint8_t adxl345_fifo_test_irq_handler(void);
 
 /**
  * @brief     fifo test

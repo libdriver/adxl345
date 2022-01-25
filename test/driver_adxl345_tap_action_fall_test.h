@@ -56,7 +56,7 @@ extern "C"{
  *         - 1 run failed
  * @note   none
  */
-uint8_t adxl345_interface_action_test_irq_handler(void);
+uint8_t adxl345_action_test_irq_handler(void);
 
 /**
  * @brief     tap action fall test
