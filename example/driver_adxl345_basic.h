@@ -82,7 +82,7 @@ extern "C"{
 #define ADXL345_BASIC_DEFAULT_INACTION_COUPLED            ADXL345_COUPLED_DC                    /**< inaction dc coupled */
 #define ADXL345_BASIC_DEFAULT_WATERMARK                   16                                    /**< watermark 16 level */
 #define ADXL345_BASIC_DEFAULT_OFFSET                      0.0f                                  /**< 0 offset */
-#define ADXL345_BASIC_DEFAULT_TAP_THRESHOLD               3.0f                                  /**< tap threshold 3.3g */
+#define ADXL345_BASIC_DEFAULT_TAP_THRESHOLD               3.0f                                  /**< tap threshold 3.0g */
 #define ADXL345_BASIC_DEFAULT_DURATION                    10 * 1000                             /**< duration 10 ms */
 #define ADXL345_BASIC_DEFAULT_LATENT                      20.0f                                 /**< latent 20 ms */
 #define ADXL345_BASIC_DEFAULT_WINDOW                      80.0f                                 /**< window 80 ms */
