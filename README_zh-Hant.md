@@ -1,4 +1,4 @@
-[English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md)
+[English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md) | [日本語](/README_ja.md) | [Deutsch](/README_de.md) | [한국어](/README_ko.md)
 
 <div align=center>
 <img src="/doc/image/logo.png"/>
@@ -6,11 +6,11 @@
 
 ## LibDriver ADXL345
 
-[![API](https://img.shields.io/badge/api-reference-blue)](https://www.libdriver.com/docs/adxl345/index.html) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](/LICENSE)
+[![MISRA](https://img.shields.io/badge/misra-compliant-brightgreen.svg)](/misra/README.md) [![API](https://img.shields.io/badge/api-reference-blue.svg)](https://www.libdriver.com/docs/adxl345/index.html) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](/LICENSE)
 
 ADXL345是亞德諾半導體公司推出的是一款小而薄的超低功耗3軸加速度計，分辨率高(13位)，測量範圍達±16g。數字輸出數據為16位二進制補碼格式，可通過SPI(3線或4線)或IIC數字接口訪問。 ADXL345非常適合移動設備應用。它可以在傾斜檢測應用中測量靜態重力加速度，還可以測量運動或衝擊導致的動態加速度。其高分辨率(3.9 mg/LSB)，能夠測量不到1.0°的傾 斜角度變化。該器件提供多種特殊檢測功能。活動和非活動檢測功能通過比較任意軸上的加速度與用戶設置的閾值來檢測有無運動發生。敲擊檢測功能可以檢測任意方向的單振和雙振動作。自由落體檢測功能可以檢測器件是否正在掉落。這些功能可以獨立映射到兩個中斷輸出引腳中的一個。正在申請專利的集成式存儲器管理系統採用一個32級先進先出 (FIFO)緩衝器，可用於存儲數據，從而將主機處理器負荷降至最低，並降低整體系統功耗。低功耗模式支持基於運動的智能電源管理，從而以極低的功耗進行閾值感測和運動加速度測量。該芯片被應用於手機、醫療設備、遊戲和定點設備、工業儀器儀表、個人導航設備和硬盤驅動器保護。
 
-LibDriver ADXL345是LibDriver推出的ADXL345的全功能驅動，該驅動提供加速度讀取、加速度FIFO模式採集、自由落體檢測、運動非運動狀態檢測、敲擊檢測等功能。
+LibDriver ADXL345是LibDriver推出的ADXL345的全功能驅動，該驅動提供加速度讀取、加速度FIFO模式採集、自由落體檢測、運動非運動狀態檢測、敲擊檢測等功能並且它符合MISRA標準。
 
 ### 目錄
 
@@ -57,7 +57,7 @@ uint8_t i;
 float g[3];
 
 res = adxl345_basic_init(ADXL345_INTERFACE_IIC, ADXL345_ADDRESS_ALT_0);                
-if (res)
+if (res != 0)
 {
     return 1;
 }
@@ -67,9 +67,9 @@ if (res)
 for (i = 0; i < 3; i++)
 {
     res = adxl345_basic_read((float *)g);
-    if (res)
+    if (res != 0)
     {
-        adxl345_basic_deinit();
+        (void)adxl345_basic_deinit();
         
         return 1;
     }
@@ -84,7 +84,7 @@ for (i = 0; i < 3; i++)
 
 ...
     
-adxl345_basic_deinit();
+(void)adxl345_basic_deinit();
 
 return 0;
 ```
@@ -95,7 +95,7 @@ return 0;
 uint8_t res;
 float g[3];
 
-uint8_t fifo_callback(float (*g)[3], uint16_t len)
+void fifo_callback(float (*g)[3], uint16_t len)
 {
     ...
     
@@ -103,14 +103,14 @@ uint8_t fifo_callback(float (*g)[3], uint16_t len)
 }
 
 res = gpio_interrupt_init(adxl345_fifo_irq_handler);
-if (res)
+if (res != 0)
 {
     return 1;
 }
 res = adxl345_fifo_init(ADXL345_INTERFACE_IIC, ADXL345_ADDRESS_ALT_0, fifo_callback);
-if (res)
+if (res != 0)
 {
-    gpio_interrupt_deinit();
+    (void)gpio_interrupt_deinit();
 
     return 1;
 }
@@ -123,8 +123,8 @@ while (1)
 }
 ...
     
-gpio_interrupt_deinit();
-adxl345_fifo_deinit();
+(void)gpio_interrupt_deinit();
+(void)adxl345_fifo_deinit();
 
 return 0;
 ```
@@ -134,7 +134,7 @@ return 0;
 ```C
 uint8_t res;
 
-uint8_t interrupt_callback(uint8_t type)
+void interrupt_callback(uint8_t type)
 {
     switch (type)
     {
@@ -197,12 +197,10 @@ uint8_t interrupt_callback(uint8_t type)
             break;
         }
     }
-
-    return 0;
 }
 
 res = gpio_interrupt_init(adxl345_interrupt_irq_handler);
-if (res)
+if (res != 0)
 {
     return 1;
 }
@@ -213,9 +211,9 @@ res = adxl345_interrupt_init(ADXL345_INTERFACE_SPI, ADXL345_ADDRESS_ALT_0,
                              ADXL345_BOOL_TRUE,
                              ADXL345_BOOL_TRUE
                             );
-if (res)
+if (res != 0)
 {
-    gpio_interrupt_deinit();
+    (void)gpio_interrupt_deinit();
 
     return 1;
 }
@@ -224,7 +222,10 @@ if (res)
     
 while (1)
 {
-    adxl345_interrupt_server();
+    if (adxl345_interrupt_server() != 0)
+    {
+        return 1;
+    }
     adxl345_interface_delay_ms(10);
     
     ...
@@ -232,8 +233,8 @@ while (1)
 
 ...
     
-gpio_interrupt_deinit();
-adxl345_interrupt_deinit();
+(void)gpio_interrupt_deinit();
+(void)adxl345_interrupt_deinit();
 
 return 0;
 ```

@@ -112,10 +112,10 @@ var group__adxl345__example__driver =
     [ "adxl345_basic_init", "group__adxl345__example__driver.html#gaef509cbc3ca31c1d758ce6c9197c4067", null ],
     [ "adxl345_basic_read", "group__adxl345__example__driver.html#ga73f16fc9dd675f3914750f910c4c0fe8", null ],
     [ "adxl345_fifo_deinit", "group__adxl345__example__driver.html#ga67c259f48793de5eae2925a4ad10ca87", null ],
-    [ "adxl345_fifo_init", "group__adxl345__example__driver.html#gab3d426db73732974d9f50f614a9acf4e", null ],
+    [ "adxl345_fifo_init", "group__adxl345__example__driver.html#ga61e623471c5b5e96b08067a19731cd0f", null ],
     [ "adxl345_fifo_irq_handler", "group__adxl345__example__driver.html#ga5d4fcd2bbbd9f427b244047277e3ff02", null ],
     [ "adxl345_interrupt_deinit", "group__adxl345__example__driver.html#gaf4fa6f3a8ac7cc610da09c01b7f8e3a2", null ],
-    [ "adxl345_interrupt_init", "group__adxl345__example__driver.html#ga598e6610b09bc890f49f985b74ced8bd", null ],
+    [ "adxl345_interrupt_init", "group__adxl345__example__driver.html#ga5e4d1a9c4a6f26158f980289afa18aa3", null ],
     [ "adxl345_interrupt_irq_handler", "group__adxl345__example__driver.html#ga092c7aaa3bc0588ba334c3f0df0ef10f", null ],
     [ "adxl345_interrupt_server", "group__adxl345__example__driver.html#gab49bb0bdbd5e5deafebe876b4681e08c", null ]
 ];

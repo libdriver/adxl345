@@ -116,12 +116,12 @@ Data Fields</h2></td></tr>
 <tr class="separator:a4355763dd3841598f34aea0b059031ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53f6c43b3a975d2569e84643ad549413"><td class="memItemLeft" align="right" valign="top">uint8_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structadxl345__handle__s.html#a53f6c43b3a975d2569e84643ad549413">spi_write</a> )(uint8_t reg, uint8_t *buf, uint16_t len)</td></tr>
 <tr class="separator:a53f6c43b3a975d2569e84643ad549413"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2f0ad453e9509af4703f1db48bb16e6"><td class="memItemLeft" align="right" valign="top">uint8_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structadxl345__handle__s.html#aa2f0ad453e9509af4703f1db48bb16e6">receive_callback</a> )(uint8_t type)</td></tr>
-<tr class="separator:aa2f0ad453e9509af4703f1db48bb16e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a9a1af4e28aea769f6d9f02a02e07c3"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a> )(uint8_t type)</td></tr>
+<tr class="separator:a4a9a1af4e28aea769f6d9f02a02e07c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a406c9433252b7366de417b7a60915c81"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structadxl345__handle__s.html#a406c9433252b7366de417b7a60915c81">delay_ms</a> )(uint32_t ms)</td></tr>
 <tr class="separator:a406c9433252b7366de417b7a60915c81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75f9f50c23e87e9407f9ec4e34bb42f2"><td class="memItemLeft" align="right" valign="top">uint16_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structadxl345__handle__s.html#a75f9f50c23e87e9407f9ec4e34bb42f2">debug_print</a> )(char *fmt,...)</td></tr>
-<tr class="separator:a75f9f50c23e87e9407f9ec4e34bb42f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a769d5b3a6c14790a0e126e8fe70b384b"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structadxl345__handle__s.html#a769d5b3a6c14790a0e126e8fe70b384b">debug_print</a> )(const char *const fmt,...)</td></tr>
+<tr class="separator:a769d5b3a6c14790a0e126e8fe70b384b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19bedf28d2b9748f6a62d9ae93f4e68f"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structadxl345__handle__s.html#a19bedf28d2b9748f6a62d9ae93f4e68f">inited</a></td></tr>
 <tr class="separator:a19bedf28d2b9748f6a62d9ae93f4e68f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00209e629162307269baa592e51144ac"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structadxl345__handle__s.html#a00209e629162307269baa592e51144ac">iic_spi</a></td></tr>
@@ -132,14 +132,14 @@ Data Fields</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="driver__adxl345_8h_source.html#l00276">276</a> of file <a class="el" href="driver__adxl345_8h_source.html">driver_adxl345.h</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a id="a75f9f50c23e87e9407f9ec4e34bb42f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75f9f50c23e87e9407f9ec4e34bb42f2">&#9670;&nbsp;</a></span>debug_print</h2>
+<a id="a769d5b3a6c14790a0e126e8fe70b384b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a769d5b3a6c14790a0e126e8fe70b384b">&#9670;&nbsp;</a></span>debug_print</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t(* debug_print) (char *fmt,...)</td>
+          <td class="memname">void(* debug_print) (const char *const fmt,...)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -285,14 +285,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="aa2f0ad453e9509af4703f1db48bb16e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2f0ad453e9509af4703f1db48bb16e6">&#9670;&nbsp;</a></span>receive_callback</h2>
+<a id="a4a9a1af4e28aea769f6d9f02a02e07c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a9a1af4e28aea769f6d9f02a02e07c3">&#9670;&nbsp;</a></span>receive_callback</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t(* receive_callback) (uint8_t type)</td>
+          <td class="memname">void(* receive_callback) (uint8_t type)</td>
         </tr>
       </table>
 </div><div class="memdoc">

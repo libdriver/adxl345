@@ -35,8 +35,8 @@
  * </table>
  */
 
-#ifndef _DRIVER_ADXL345_FIFO_TEST_H_
-#define _DRIVER_ADXL345_FIFO_TEST_H_
+#ifndef DRIVER_ADXL345_FIFO_TEST_H
+#define DRIVER_ADXL345_FIFO_TEST_H
 
 #include "driver_adxl345_interface.h"
 

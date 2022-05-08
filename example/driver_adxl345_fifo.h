@@ -35,8 +35,8 @@
  * </table>
  */
 
-#ifndef _DRIVER_ADXL345_FIFO_H_
-#define _DRIVER_ADXL345_FIFO_H_
+#ifndef DRIVER_ADXL345_FIFO_H
+#define DRIVER_ADXL345_FIFO_H
 
 #include "driver_adxl345_interface.h"
 
@@ -107,7 +107,7 @@ uint8_t adxl345_fifo_irq_handler(void);
  * @note      none
  */
 uint8_t adxl345_fifo_init(adxl345_interface_t interface, adxl345_address_t addr_pin,
-                          uint8_t (*callback)(float (*g)[3], uint16_t len));
+                          void (*callback)(float (*g)[3], uint16_t len));
 
 /**
  * @brief  fifo example deinit

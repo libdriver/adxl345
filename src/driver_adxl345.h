@@ -35,8 +35,8 @@
  * </table>
  */
 
-#ifndef _DRIVER_ADXL345_H_
-#define _DRIVER_ADXL345_H_
+#ifndef DRIVER_ADXL345_H
+#define DRIVER_ADXL345_H
 
 #include <stdint.h>
 #include <stdio.h>
@@ -284,9 +284,9 @@ typedef struct adxl345_handle_s
     uint8_t (*spi_deinit)(void);                                                        /**< point to a spi_deinit function address */
     uint8_t (*spi_read)(uint8_t reg, uint8_t *buf, uint16_t len);                       /**< point to a spi_read function address */
     uint8_t (*spi_write)(uint8_t reg, uint8_t *buf, uint16_t len);                      /**< point to a spi_write function address */
-    uint8_t (*receive_callback)(uint8_t type);                                          /**< point to a receive_callback function address */
+    void (*receive_callback)(uint8_t type);                                             /**< point to a receive_callback function address */
     void (*delay_ms)(uint32_t ms);                                                      /**< point to a delay_ms function address */
-    uint16_t (*debug_print)(char *fmt, ...);                                            /**< point to a debug_print function address */
+    void (*debug_print)(const char *const fmt, ...);                                    /**< point to a debug_print function address */
     uint8_t inited;                                                                     /**< inited flag */
     uint8_t iic_spi;                                                                    /**< iic spi interface type */
 } adxl345_handle_t;
@@ -643,7 +643,7 @@ uint8_t adxl345_offset_convert_to_data(adxl345_handle_t *handle, int8_t reg, flo
 /**
  * @brief     set the duration
  * @param[in] *handle points to a adxl345 handle structure
- * @param[in] time is the duration
+ * @param[in] t is the duration
  * @return    status code
  *            - 0 success
  *            - 1 set duration failed
@@ -651,12 +651,12 @@ uint8_t adxl345_offset_convert_to_data(adxl345_handle_t *handle, int8_t reg, flo
  *            - 3 handle is not initialized
  * @note      none
  */
-uint8_t adxl345_set_duration(adxl345_handle_t *handle, uint8_t time);
+uint8_t adxl345_set_duration(adxl345_handle_t *handle, uint8_t t);
 
 /**
  * @brief      get the duration
  * @param[in]  *handle points to a adxl345 handle structure
- * @param[out] *time points to a duration buffer
+ * @param[out] *t points to a duration buffer
  * @return     status code
  *             - 0 success
  *             - 1 get duration failed
@@ -664,7 +664,7 @@ uint8_t adxl345_set_duration(adxl345_handle_t *handle, uint8_t time);
  *             - 3 handle is not initialized
  * @note       none
  */
-uint8_t adxl345_get_duration(adxl345_handle_t *handle, uint8_t *time);
+uint8_t adxl345_get_duration(adxl345_handle_t *handle, uint8_t *t);
 
 /**
  * @brief      convert the duration to the register raw data
@@ -695,7 +695,7 @@ uint8_t adxl345_duration_convert_to_data(adxl345_handle_t *handle, uint8_t reg, 
 /**
  * @brief     set the latent
  * @param[in] *handle points to a adxl345 handle structure
- * @param[in] time is the latent time
+ * @param[in] t is the latent time
  * @return    status code
  *            - 0 success
  *            - 1 set latent failed
@@ -703,12 +703,12 @@ uint8_t adxl345_duration_convert_to_data(adxl345_handle_t *handle, uint8_t reg, 
  *            - 3 handle is not initialized
  * @note      none
  */
-uint8_t adxl345_set_latent(adxl345_handle_t *handle, uint8_t time);
+uint8_t adxl345_set_latent(adxl345_handle_t *handle, uint8_t t);
 
 /**
  * @brief      get the latent
  * @param[in]  *handle points to a adxl345 handle structure
- * @param[out] *time points to a latent time buffer
+ * @param[out] *t points to a latent time buffer
  * @return     status code
  *             - 0 success
  *             - 1 get latent failed
@@ -716,7 +716,7 @@ uint8_t adxl345_set_latent(adxl345_handle_t *handle, uint8_t time);
  *             - 3 handle is not initialized
  * @note       none
  */
-uint8_t adxl345_get_latent(adxl345_handle_t *handle, uint8_t *time);
+uint8_t adxl345_get_latent(adxl345_handle_t *handle, uint8_t *t);
 
 /**
  * @brief      convert the latent to the register raw data
@@ -747,7 +747,7 @@ uint8_t adxl345_latent_convert_to_data(adxl345_handle_t *handle, uint8_t reg, fl
 /**
  * @brief     set the window
  * @param[in] *handle points to a adxl345 handle structure
- * @param[in] time is the window time
+ * @param[in] t is the window time
  * @return    status code
  *            - 0 success
  *            - 1 set window failed
@@ -755,12 +755,12 @@ uint8_t adxl345_latent_convert_to_data(adxl345_handle_t *handle, uint8_t reg, fl
  *            - 3 handle is not initialized
  * @note      none
  */
-uint8_t adxl345_set_window(adxl345_handle_t *handle, uint8_t time);
+uint8_t adxl345_set_window(adxl345_handle_t *handle, uint8_t t);
 
 /**
  * @brief      get the window
  * @param[in]  *handle points to a adxl345 handle structure
- * @param[out] *time points to a window time buffer
+ * @param[out] *t points to a window time buffer
  * @return     status code
  *             - 0 success
  *             - 1 get window failed
@@ -768,7 +768,7 @@ uint8_t adxl345_set_window(adxl345_handle_t *handle, uint8_t time);
  *             - 3 handle is not initialized
  * @note       none
  */
-uint8_t adxl345_get_window(adxl345_handle_t *handle, uint8_t *time);
+uint8_t adxl345_get_window(adxl345_handle_t *handle, uint8_t *t);
 
 /**
  * @brief      convert the window time to the register raw data
@@ -903,7 +903,7 @@ uint8_t adxl345_inaction_threshold_convert_to_data(adxl345_handle_t *handle, uin
 /**
  * @brief     set the inaction time
  * @param[in] *handle points to a adxl345 handle structure
- * @param[in] time is the inaction time
+ * @param[in] t is the inaction time
  * @return    status code
  *            - 0 success
  *            - 1 set inaction time failed
@@ -911,12 +911,12 @@ uint8_t adxl345_inaction_threshold_convert_to_data(adxl345_handle_t *handle, uin
  *            - 3 handle is not initialized
  * @note      none
  */
-uint8_t adxl345_set_inaction_time(adxl345_handle_t *handle, uint8_t time);
+uint8_t adxl345_set_inaction_time(adxl345_handle_t *handle, uint8_t t);
 
 /**
  * @brief      get the inaction time
  * @param[in]  *handle points to a adxl345 handle structure
- * @param[out] *time points to a inaction time buffer
+ * @param[out] *t points to a inaction time buffer
  * @return     status code
  *             - 0 success
  *             - 1 get inaction time failed
@@ -924,7 +924,7 @@ uint8_t adxl345_set_inaction_time(adxl345_handle_t *handle, uint8_t time);
  *             - 3 handle is not initialized
  * @note       none
  */
-uint8_t adxl345_get_inaction_time(adxl345_handle_t *handle, uint8_t *time);
+uint8_t adxl345_get_inaction_time(adxl345_handle_t *handle, uint8_t *t);
 
 /**
  * @brief      convert the inaction time to the register raw data
@@ -1087,7 +1087,7 @@ uint8_t adxl345_free_fall_threshold_convert_to_data(adxl345_handle_t *handle, ui
 /**
  * @brief     set the free fall time
  * @param[in] *handle points to a adxl345 handle structure
- * @param[in] time is the free fall time
+ * @param[in] t is the free fall time
  * @return    status code
  *            - 0 success
  *            - 1 set free fall time failed
@@ -1095,12 +1095,12 @@ uint8_t adxl345_free_fall_threshold_convert_to_data(adxl345_handle_t *handle, ui
  *            - 3 handle is not initialized
  * @note      none
  */
-uint8_t adxl345_set_free_fall_time(adxl345_handle_t *handle, uint8_t time);
+uint8_t adxl345_set_free_fall_time(adxl345_handle_t *handle, uint8_t t);
 
 /**
  * @brief      get the free fall time
  * @param[in]  *handle points to a adxl345 handle structure
- * @param[out] *time points to a free fall time buffer
+ * @param[out] *t points to a free fall time buffer
  * @return     status code
  *             - 0 success
  *             - 1 get free fall time failed
@@ -1108,7 +1108,7 @@ uint8_t adxl345_set_free_fall_time(adxl345_handle_t *handle, uint8_t time);
  *             - 3 handle is not initialized
  * @note       none
  */
-uint8_t adxl345_get_free_fall_time(adxl345_handle_t *handle, uint8_t *time);
+uint8_t adxl345_get_free_fall_time(adxl345_handle_t *handle, uint8_t *t);
 
 /**
  * @brief      convert the free fall time to the register raw data

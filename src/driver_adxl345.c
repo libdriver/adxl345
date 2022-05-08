@@ -94,11 +94,18 @@
  *             - 1 read failed
  * @note       none
  */
-static uint8_t _adxl345_iic_spi_read(adxl345_handle_t *handle, uint8_t reg, uint8_t *buf, uint16_t len)
+static uint8_t a_adxl345_iic_spi_read(adxl345_handle_t *handle, uint8_t reg, uint8_t *buf, uint16_t len)
 {
     if (handle->iic_spi == ADXL345_INTERFACE_IIC)                        /* iic interface */
     {
-        return handle->iic_read(handle->iic_addr, reg, buf, len);        /* read data */
+        if (handle->iic_read(handle->iic_addr, reg, buf, len) != 0)      /* read data */
+        {
+            return 1;                                                    /* return error */
+        }
+        else
+        {
+            return 0;                                                    /* success return 0 */
+        }
     }
     else                                                                 /* spi interface */
     {
@@ -108,7 +115,14 @@ static uint8_t _adxl345_iic_spi_read(adxl345_handle_t *handle, uint8_t reg, uint
         }
         reg |= 1 << 7;                                                   /* flag read */
         
-        return handle->spi_read(reg, buf, len);                          /* read data */
+        if (handle->spi_read(reg, buf, len) != 0)                        /* read data */
+        {
+            return 1;                                                    /* return error */
+        }
+        else
+        {
+            return 0;                                                    /* success return 0 */
+        }
     }
 }
 
@@ -123,11 +137,18 @@ static uint8_t _adxl345_iic_spi_read(adxl345_handle_t *handle, uint8_t reg, uint
  *            - 1 write failed
  * @note      none
  */
-static uint8_t _adxl345_iic_spi_write(adxl345_handle_t *handle, uint8_t reg, uint8_t *buf, uint16_t len)
+static uint8_t a_adxl345_iic_spi_write(adxl345_handle_t *handle, uint8_t reg, uint8_t *buf, uint16_t len)
 {
     if (handle->iic_spi == ADXL345_INTERFACE_IIC)                         /* iic interface */
     {
-        return handle->iic_write(handle->iic_addr, reg, buf, len);        /* write data */
+        if (handle->iic_write(handle->iic_addr, reg, buf, len) != 0)      /* write data */
+        {
+            return 1;                                                     /* return error */
+        }
+        else
+        {
+            return 0;                                                     /* success return 0 */
+        }
     }
     else                                                                  /* spi interface */
     {
@@ -136,7 +157,14 @@ static uint8_t _adxl345_iic_spi_write(adxl345_handle_t *handle, uint8_t reg, uin
             reg |= 1 << 6;                                                /* flag length > 1 */
         }
         
-        return handle->spi_write(reg, buf, len);                          /* wrtie data */
+        if (handle->spi_write(reg, buf, len) != 0)                        /* wrtie data */
+        {
+            return 1;                                                     /* return error */
+        }
+        else
+        {
+            return 0;                                                     /* success return 0 */
+        }
     }
 }
 
@@ -151,14 +179,14 @@ static uint8_t _adxl345_iic_spi_write(adxl345_handle_t *handle, uint8_t reg, uin
  */
 uint8_t adxl345_set_interface(adxl345_handle_t *handle, adxl345_interface_t interface) 
 {
-    if (handle == NULL)                 /* check handle */
+    if (handle == NULL)                          /* check handle */
     {
-        return 2;                       /* return error */
+        return 2;                                /* return error */
     }
     
-    handle->iic_spi = interface;        /* set interface */
+    handle->iic_spi = (uint8_t)interface;        /* set interface */
     
-    return 0;                           /* success return 0 */
+    return 0;                                    /* success return 0 */
 }
 
 /**
@@ -193,14 +221,14 @@ uint8_t adxl345_get_interface(adxl345_handle_t *handle, adxl345_interface_t *int
  */
 uint8_t adxl345_set_addr_pin(adxl345_handle_t *handle, adxl345_address_t addr_pin)
 {
-    if (handle == NULL)                 /* check handle */
+    if (handle == NULL)                        /* check handle */
     {
-        return 2;                       /* return error */
+        return 2;                              /* return error */
     }
     
-    handle->iic_addr = addr_pin;        /* set pin */
+    handle->iic_addr = (uint8_t)addr_pin;      /* set pin */
     
-    return 0;                           /* success return 0 */
+    return 0;                                  /* success return 0 */
 }
 
 /**
@@ -246,7 +274,7 @@ uint8_t adxl345_set_tap_threshold(adxl345_handle_t *handle, uint8_t threshold)
         return 3;                                                                        /* return error */
     }
     
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_THRESH_TAP, &threshold, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_THRESH_TAP, &threshold, 1);       /* write config */
 }
 
 /**
@@ -271,7 +299,7 @@ uint8_t adxl345_get_tap_threshold(adxl345_handle_t *handle, uint8_t *threshold)
         return 3;                                                                      /* return error */
     }
     
-    return _adxl345_iic_spi_read(handle, ADXL345_REG_THRESH_TAP, threshold, 1);        /* read config */
+    return a_adxl345_iic_spi_read(handle, ADXL345_REG_THRESH_TAP, threshold, 1);       /* read config */
 }
 
 /**
@@ -343,7 +371,7 @@ uint8_t adxl345_tap_threshold_convert_to_data(adxl345_handle_t *handle, uint8_t 
  */
 uint8_t adxl345_set_offset(adxl345_handle_t *handle, int8_t x, int8_t y, int8_t z) 
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     if (handle == NULL)                                                              /* check handle */
     {
@@ -354,22 +382,22 @@ uint8_t adxl345_set_offset(adxl345_handle_t *handle, int8_t x, int8_t y, int8_t 
         return 3;                                                                    /* return error */
     }
     
-    res = _adxl345_iic_spi_write(handle, ADXL345_REG_OFSX, (uint8_t *)&x, 1);        /* write config */
-    if (res)                                                                         /* check result */
+    res = a_adxl345_iic_spi_write(handle, ADXL345_REG_OFSX, (uint8_t *)&x, 1);       /* write config */
+    if (res != 0)                                                                    /* check result */
     {
         handle->debug_print("adxl345: write failed.\n");                             /* write failed */
        
         return 1;                                                                    /* return error */
     }
-    res = _adxl345_iic_spi_write(handle, ADXL345_REG_OFSY, (uint8_t *)&y, 1);        /* write config */
-    if (res)                                                                         /* check result */
+    res = a_adxl345_iic_spi_write(handle, ADXL345_REG_OFSY, (uint8_t *)&y, 1);       /* write config */
+    if (res != 0)                                                                    /* check result */
     {
         handle->debug_print("adxl345: write failed.\n");                             /* write failed */
        
         return 1;                                                                    /* return error */
     }
-    res = _adxl345_iic_spi_write(handle, ADXL345_REG_OFSZ, (uint8_t *)&z, 1);        /* write config */
-    if (res)                                                                         /* check result */
+    res = a_adxl345_iic_spi_write(handle, ADXL345_REG_OFSZ, (uint8_t *)&z, 1);       /* write config */
+    if (res != 0)                                                                    /* check result */
     {
         handle->debug_print("adxl345: write failed.\n");                             /* write failed */
        
@@ -394,7 +422,7 @@ uint8_t adxl345_set_offset(adxl345_handle_t *handle, int8_t x, int8_t y, int8_t 
  */
 uint8_t adxl345_get_offset(adxl345_handle_t *handle, int8_t *x, int8_t *y, int8_t *z) 
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     if (handle == NULL)                                                            /* check handle */
     {
@@ -405,22 +433,22 @@ uint8_t adxl345_get_offset(adxl345_handle_t *handle, int8_t *x, int8_t *y, int8_
         return 3;                                                                  /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_OFSX, (uint8_t *)x, 1);        /* read config */
-    if (res)                                                                       /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_OFSX, (uint8_t *)x, 1);       /* read config */
+    if (res != 0)                                                                  /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                            /* read failed */
        
         return 1;                                                                  /* return error */
     }
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_OFSY, (uint8_t *)y, 1);        /* read config */
-    if (res)                                                                       /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_OFSY, (uint8_t *)y, 1);       /* read config */
+    if (res != 0)                                                                  /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                            /* read failed */
        
         return 1;                                                                  /* return error */
     }
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_OFSZ, (uint8_t *)z, 1);        /* read config */
-    if (res)                                                                       /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_OFSZ, (uint8_t *)z, 1);       /* read config */
+    if (res != 0)                                                                  /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                            /* read failed */
        
@@ -487,7 +515,7 @@ uint8_t adxl345_offset_convert_to_data(adxl345_handle_t *handle, int8_t reg, flo
 /**
  * @brief     set the duration
  * @param[in] *handle points to a adxl345 handle structure
- * @param[in] time is the duration
+ * @param[in] t is the duration
  * @return    status code
  *            - 0 success
  *            - 1 set duration failed
@@ -495,24 +523,24 @@ uint8_t adxl345_offset_convert_to_data(adxl345_handle_t *handle, int8_t reg, flo
  *            - 3 handle is not initialized
  * @note      none
  */
-uint8_t adxl345_set_duration(adxl345_handle_t *handle, uint8_t time) 
+uint8_t adxl345_set_duration(adxl345_handle_t *handle, uint8_t t) 
 {
-    if (handle == NULL)                                                      /* check handle */
+    if (handle == NULL)                                                   /* check handle */
     {
-        return 2;                                                            /* return error */
+        return 2;                                                         /* return error */
     }
-    if (handle->inited != 1)                                                 /* check handle initialization */
+    if (handle->inited != 1)                                              /* check handle initialization */
     {
-        return 3;                                                            /* return error */
+        return 3;                                                         /* return error */
     }
     
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_DUR, &time, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_DUR, &t, 1);       /* write config */
 }
 
 /**
  * @brief      get the duration
  * @param[in]  *handle points to a adxl345 handle structure
- * @param[out] *time points to a duration buffer
+ * @param[out] *t points to a duration buffer
  * @return     status code
  *             - 0 success
  *             - 1 get duration failed
@@ -520,18 +548,18 @@ uint8_t adxl345_set_duration(adxl345_handle_t *handle, uint8_t time)
  *             - 3 handle is not initialized
  * @note       none
  */
-uint8_t adxl345_get_duration(adxl345_handle_t *handle, uint8_t *time)
+uint8_t adxl345_get_duration(adxl345_handle_t *handle, uint8_t *t)
 {
-    if (handle == NULL)                                                    /* check handle */
+    if (handle == NULL)                                                 /* check handle */
     {
-        return 2;                                                          /* return error */
+        return 2;                                                       /* return error */
     }
-    if (handle->inited != 1)                                               /* check handle initialization */
+    if (handle->inited != 1)                                            /* check handle initialization */
     {
-        return 3;                                                          /* return error */
+        return 3;                                                       /* return error */
     }
     
-    return _adxl345_iic_spi_read(handle, ADXL345_REG_DUR, time, 1);        /* read config */
+    return a_adxl345_iic_spi_read(handle, ADXL345_REG_DUR, t, 1);       /* read config */
 }
 
 /**
@@ -574,24 +602,24 @@ uint8_t adxl345_duration_convert_to_register(adxl345_handle_t *handle, uint32_t 
  */
 uint8_t adxl345_duration_convert_to_data(adxl345_handle_t *handle, uint8_t reg, uint32_t *us)
 {
-    if (handle == NULL)              /* check handle */
+    if (handle == NULL)                             /* check handle */
     {
-        return 2;                    /* return error */
+        return 2;                                   /* return error */
     }
-    if (handle->inited != 1)         /* check handle initialization */
+    if (handle->inited != 1)                        /* check handle initialization */
     {
-        return 3;                    /* return error */
+        return 3;                                   /* return error */
     }
     
-    *us = (float)(reg) * 625;        /* convert raw data to real data */
+    *us = (uint32_t)((float)(reg) * 625.0f);        /* convert raw data to real data */
     
-    return 0;                        /* success return 0 */
+    return 0;                                       /* success return 0 */
 }
 
 /**
  * @brief     set the latent
  * @param[in] *handle points to a adxl345 handle structure
- * @param[in] time is the latent time
+ * @param[in] t is the latent time
  * @return    status code
  *            - 0 success
  *            - 1 set latent failed
@@ -599,24 +627,24 @@ uint8_t adxl345_duration_convert_to_data(adxl345_handle_t *handle, uint8_t reg, 
  *            - 3 handle is not initialized
  * @note      none
  */
-uint8_t adxl345_set_latent(adxl345_handle_t *handle, uint8_t time) 
+uint8_t adxl345_set_latent(adxl345_handle_t *handle, uint8_t t) 
 {
-    if (handle == NULL)                                                         /* check handle */
+    if (handle == NULL)                                                      /* check handle */
     {
-        return 2;                                                               /* return error */
+        return 2;                                                            /* return error */
     }
-    if (handle->inited != 1)                                                    /* check handle initialization */
+    if (handle->inited != 1)                                                 /* check handle initialization */
     {
-        return 3;                                                               /* return error */
+        return 3;                                                            /* return error */
     }
     
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_LATENT, &time, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_LATENT, &t, 1);       /* write config */
 }
 
 /**
  * @brief      get the latent
  * @param[in]  *handle points to a adxl345 handle structure
- * @param[out] *time points to a latent time buffer
+ * @param[out] *t points to a latent time buffer
  * @return     status code
  *             - 0 success
  *             - 1 get latent failed
@@ -624,18 +652,18 @@ uint8_t adxl345_set_latent(adxl345_handle_t *handle, uint8_t time)
  *             - 3 handle is not initialized
  * @note       none
  */
-uint8_t adxl345_get_latent(adxl345_handle_t *handle, uint8_t *time)
+uint8_t adxl345_get_latent(adxl345_handle_t *handle, uint8_t *t)
 {
-    if (handle == NULL)                                                       /* check handle */
+    if (handle == NULL)                                                    /* check handle */
     {
-        return 2;                                                             /* return error */
+        return 2;                                                          /* return error */
     }
-    if (handle->inited != 1)                                                  /* check handle initialization */
+    if (handle->inited != 1)                                               /* check handle initialization */
     {
-        return 3;                                                             /* return error */
+        return 3;                                                          /* return error */
     }
     
-    return _adxl345_iic_spi_read(handle, ADXL345_REG_LATENT, time, 1);        /* read config */
+    return a_adxl345_iic_spi_read(handle, ADXL345_REG_LATENT, t, 1);       /* read config */
 }
 
 /**
@@ -695,7 +723,7 @@ uint8_t adxl345_latent_convert_to_data(adxl345_handle_t *handle, uint8_t reg, fl
 /**
  * @brief     set the window
  * @param[in] *handle points to a adxl345 handle structure
- * @param[in] time is the window time
+ * @param[in] t is the window time
  * @return    status code
  *            - 0 success
  *            - 1 set window failed
@@ -703,24 +731,24 @@ uint8_t adxl345_latent_convert_to_data(adxl345_handle_t *handle, uint8_t reg, fl
  *            - 3 handle is not initialized
  * @note      none
  */
-uint8_t adxl345_set_window(adxl345_handle_t *handle, uint8_t time)
+uint8_t adxl345_set_window(adxl345_handle_t *handle, uint8_t t)
 {
-    if (handle == NULL)                                                         /* check handle */
+    if (handle == NULL)                                                      /* check handle */
     {
-        return 2;                                                               /* return error */
+        return 2;                                                            /* return error */
     }
-    if (handle->inited != 1)                                                    /* check handle initialization */
+    if (handle->inited != 1)                                                 /* check handle initialization */
     {
-        return 3;                                                               /* return error */
+        return 3;                                                            /* return error */
     }
     
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_WINDOW, &time, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_WINDOW, &t, 1);       /* write config */
 }
 
 /**
  * @brief      get the window
  * @param[in]  *handle points to a adxl345 handle structure
- * @param[out] *time points to a window time buffer
+ * @param[out] *t points to a window time buffer
  * @return     status code
  *             - 0 success
  *             - 1 get window failed
@@ -728,18 +756,18 @@ uint8_t adxl345_set_window(adxl345_handle_t *handle, uint8_t time)
  *             - 3 handle is not initialized
  * @note       none
  */
-uint8_t adxl345_get_window(adxl345_handle_t *handle, uint8_t *time)
+uint8_t adxl345_get_window(adxl345_handle_t *handle, uint8_t *t)
 {
-    if (handle == NULL)                                                       /* check handle */
+    if (handle == NULL)                                                    /* check handle */
     {
-        return 2;                                                             /* return error */
+        return 2;                                                          /* return error */
     }
-    if (handle->inited != 1)                                                  /* check handle initialization */
+    if (handle->inited != 1)                                               /* check handle initialization */
     {
-        return 3;                                                             /* return error */
+        return 3;                                                          /* return error */
     }
     
-    return _adxl345_iic_spi_read(handle, ADXL345_REG_WINDOW, time, 1);        /* read config */
+    return a_adxl345_iic_spi_read(handle, ADXL345_REG_WINDOW, t, 1);       /* read config */
 }
 
 /**
@@ -818,7 +846,7 @@ uint8_t adxl345_set_action_threshold(adxl345_handle_t *handle, uint8_t threshold
         return 3;                                                                        /* return error */
     }
     
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_THRESH_ACT, &threshold, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_THRESH_ACT, &threshold, 1);       /* write config */
 }
 
 /**
@@ -843,7 +871,7 @@ uint8_t adxl345_get_action_threshold(adxl345_handle_t *handle, uint8_t *threshol
         return 3;                                                                      /* return error */
     }
     
-    return _adxl345_iic_spi_read(handle, ADXL345_REG_THRESH_ACT, threshold, 1);        /* read config */
+    return a_adxl345_iic_spi_read(handle, ADXL345_REG_THRESH_ACT, threshold, 1);       /* read config */
 }
 
 /**
@@ -922,7 +950,7 @@ uint8_t adxl345_set_inaction_threshold(adxl345_handle_t *handle, uint8_t thresho
         return 3;                                                                          /* return error */
     }
     
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_THRESH_INACT, &threshold, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_THRESH_INACT, &threshold, 1);       /* write config */
 }
 
 /**
@@ -947,7 +975,7 @@ uint8_t adxl345_get_inaction_threshold(adxl345_handle_t *handle, uint8_t *thresh
         return 3;                                                                        /* return error */
     }
     
-    return _adxl345_iic_spi_read(handle, ADXL345_REG_THRESH_INACT, threshold, 1);        /* read config */
+    return a_adxl345_iic_spi_read(handle, ADXL345_REG_THRESH_INACT, threshold, 1);       /* read config */
 }
 
 /**
@@ -1007,7 +1035,7 @@ uint8_t adxl345_inaction_threshold_convert_to_data(adxl345_handle_t *handle, uin
 /**
  * @brief     set the inaction time
  * @param[in] *handle points to a adxl345 handle structure
- * @param[in] time is the inaction time
+ * @param[in] t is the inaction time
  * @return    status code
  *            - 0 success
  *            - 1 set inaction time failed
@@ -1015,24 +1043,24 @@ uint8_t adxl345_inaction_threshold_convert_to_data(adxl345_handle_t *handle, uin
  *            - 3 handle is not initialized
  * @note      none
  */
-uint8_t adxl345_set_inaction_time(adxl345_handle_t *handle, uint8_t time)
+uint8_t adxl345_set_inaction_time(adxl345_handle_t *handle, uint8_t t)
 {
-    if (handle == NULL)                                                             /* check handle */
+    if (handle == NULL)                                                          /* check handle */
     {
-        return 2;                                                                   /* return error */
+        return 2;                                                                /* return error */
     }
-    if (handle->inited != 1)                                                        /* check handle initialization */
+    if (handle->inited != 1)                                                     /* check handle initialization */
     {
-        return 3;                                                                   /* return error */
+        return 3;                                                                /* return error */
     }
     
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_TIME_INACT, &time, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_TIME_INACT, &t, 1);       /* write config */
 }
 
 /**
  * @brief      get the inaction time
  * @param[in]  *handle points to a adxl345 handle structure
- * @param[out] *time points to a inaction time buffer
+ * @param[out] *t points to a inaction time buffer
  * @return     status code
  *             - 0 success
  *             - 1 get inaction time failed
@@ -1040,18 +1068,18 @@ uint8_t adxl345_set_inaction_time(adxl345_handle_t *handle, uint8_t time)
  *             - 3 handle is not initialized
  * @note       none
  */
-uint8_t adxl345_get_inaction_time(adxl345_handle_t *handle, uint8_t *time)
+uint8_t adxl345_get_inaction_time(adxl345_handle_t *handle, uint8_t *t)
 {
-    if (handle == NULL)                                                           /* check handle */
+    if (handle == NULL)                                                        /* check handle */
     {
-        return 2;                                                                 /* return error */
+        return 2;                                                              /* return error */
     }
-    if (handle->inited != 1)                                                      /* check handle initialization */
+    if (handle->inited != 1)                                                   /* check handle initialization */
     {
-        return 3;                                                                 /* return error */
+        return 3;                                                              /* return error */
     }
     
-    return _adxl345_iic_spi_read(handle, ADXL345_REG_TIME_INACT, time, 1);        /* read config */
+    return a_adxl345_iic_spi_read(handle, ADXL345_REG_TIME_INACT, t, 1);       /* read config */
 }
 
 /**
@@ -1122,7 +1150,7 @@ uint8_t adxl345_inaction_time_convert_to_data(adxl345_handle_t *handle, uint8_t 
  */
 uint8_t adxl345_set_action_inaction(adxl345_handle_t *handle, adxl345_action_inaction_t type, adxl345_bool_t enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                           /* check handle */
     {
@@ -1133,8 +1161,8 @@ uint8_t adxl345_set_action_inaction(adxl345_handle_t *handle, adxl345_action_ina
         return 3;                                                                                 /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_ACT_INACT_CTL, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                      /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_ACT_INACT_CTL, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                                 /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                           /* read failed */
         
@@ -1143,7 +1171,7 @@ uint8_t adxl345_set_action_inaction(adxl345_handle_t *handle, adxl345_action_ina
     prev &= ~(1 << type);                                                                         /* clear type */
     prev |= (enable << type);                                                                     /* set type */
     
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_ACT_INACT_CTL, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_ACT_INACT_CTL, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -1160,7 +1188,7 @@ uint8_t adxl345_set_action_inaction(adxl345_handle_t *handle, adxl345_action_ina
  */
 uint8_t adxl345_get_action_inaction(adxl345_handle_t *handle, adxl345_action_inaction_t type, adxl345_bool_t *enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                         /* check handle */
     {
@@ -1171,8 +1199,8 @@ uint8_t adxl345_get_action_inaction(adxl345_handle_t *handle, adxl345_action_ina
         return 3;                                                                               /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_ACT_INACT_CTL, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                                    /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_ACT_INACT_CTL, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                               /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                         /* read failed */
        
@@ -1197,7 +1225,7 @@ uint8_t adxl345_get_action_inaction(adxl345_handle_t *handle, adxl345_action_ina
  */
 uint8_t adxl345_set_action_coupled(adxl345_handle_t *handle, adxl345_coupled_t coupled)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                           /* check handle */
     {
@@ -1208,8 +1236,8 @@ uint8_t adxl345_set_action_coupled(adxl345_handle_t *handle, adxl345_coupled_t c
         return 3;                                                                                 /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_ACT_INACT_CTL, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                      /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_ACT_INACT_CTL, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                                 /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                           /* read failed */
        
@@ -1218,7 +1246,7 @@ uint8_t adxl345_set_action_coupled(adxl345_handle_t *handle, adxl345_coupled_t c
     prev &= ~(1 << 7);                                                                            /* clear coupled */
     prev |= (coupled << 7);                                                                       /* set coupled */
 
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_ACT_INACT_CTL, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_ACT_INACT_CTL, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -1234,7 +1262,7 @@ uint8_t adxl345_set_action_coupled(adxl345_handle_t *handle, adxl345_coupled_t c
  */
 uint8_t adxl345_get_action_coupled(adxl345_handle_t *handle, adxl345_coupled_t *coupled)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                         /* check handle */
     {
@@ -1245,8 +1273,8 @@ uint8_t adxl345_get_action_coupled(adxl345_handle_t *handle, adxl345_coupled_t *
         return 3;                                                                               /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_ACT_INACT_CTL, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                                    /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_ACT_INACT_CTL, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                               /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                         /* read failed */
        
@@ -1271,7 +1299,7 @@ uint8_t adxl345_get_action_coupled(adxl345_handle_t *handle, adxl345_coupled_t *
  */
 uint8_t adxl345_set_inaction_coupled(adxl345_handle_t *handle, adxl345_coupled_t coupled)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                         /* check handle */
     {
@@ -1282,8 +1310,8 @@ uint8_t adxl345_set_inaction_coupled(adxl345_handle_t *handle, adxl345_coupled_t
         return 3;                                                                               /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_ACT_INACT_CTL, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                                    /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_ACT_INACT_CTL, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                               /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                         /* read failed */
        
@@ -1292,7 +1320,7 @@ uint8_t adxl345_set_inaction_coupled(adxl345_handle_t *handle, adxl345_coupled_t
     prev &= ~(1 << 3);                                                                          /* clear config */
     prev |= (coupled << 3);                                                                     /* set inaction coupled */
    
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_ACT_INACT_CTL, (uint8_t *)&prev, 1);      /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_ACT_INACT_CTL, (uint8_t *)&prev, 1);     /* write config */
 }
 
 /**
@@ -1308,7 +1336,7 @@ uint8_t adxl345_set_inaction_coupled(adxl345_handle_t *handle, adxl345_coupled_t
  */
 uint8_t adxl345_get_inaction_coupled(adxl345_handle_t *handle, adxl345_coupled_t *coupled)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                         /* check handle */
     {
@@ -1319,8 +1347,8 @@ uint8_t adxl345_get_inaction_coupled(adxl345_handle_t *handle, adxl345_coupled_t
         return 3;                                                                               /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_ACT_INACT_CTL, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                                    /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_ACT_INACT_CTL, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                               /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                         /* read failed */
        
@@ -1354,7 +1382,7 @@ uint8_t adxl345_set_free_fall_threshold(adxl345_handle_t *handle, uint8_t thresh
         return 3;                                                                       /* return error */
     }
     
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_THRESH_FF, &threshold, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_THRESH_FF, &threshold, 1);       /* write config */
 }
 
 /**
@@ -1379,7 +1407,7 @@ uint8_t adxl345_get_free_fall_threshold(adxl345_handle_t *handle, uint8_t *thres
         return 3;                                                                     /* return error */
     }
     
-    return _adxl345_iic_spi_read(handle, ADXL345_REG_THRESH_FF, threshold, 1);        /* read config */
+    return a_adxl345_iic_spi_read(handle, ADXL345_REG_THRESH_FF, threshold, 1);       /* read config */
 }
 
 /**
@@ -1439,7 +1467,7 @@ uint8_t adxl345_free_fall_threshold_convert_to_data(adxl345_handle_t *handle, ui
 /**
  * @brief     set the free fall time
  * @param[in] *handle points to a adxl345 handle structure
- * @param[in] time is the free fall time
+ * @param[in] t is the free fall time
  * @return    status code
  *            - 0 success
  *            - 1 set free fall time failed
@@ -1447,24 +1475,24 @@ uint8_t adxl345_free_fall_threshold_convert_to_data(adxl345_handle_t *handle, ui
  *            - 3 handle is not initialized
  * @note      none
  */
-uint8_t adxl345_set_free_fall_time(adxl345_handle_t *handle, uint8_t time)
+uint8_t adxl345_set_free_fall_time(adxl345_handle_t *handle, uint8_t t)
 {
-    if (handle == NULL)                                                          /* check handle */
+    if (handle == NULL)                                                       /* check handle */
     {
-        return 2;                                                                /* return error */
+        return 2;                                                             /* return error */
     }
-    if (handle->inited != 1)                                                     /* check handle initialization */
+    if (handle->inited != 1)                                                  /* check handle initialization */
     {
-        return 3;                                                                /* return error */
+        return 3;                                                             /* return error */
     }
     
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_TIME_FF, &time, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_TIME_FF, &t, 1);       /* write config */
 }
 
 /**
  * @brief      get the free fall time
  * @param[in]  *handle points to a adxl345 handle structure
- * @param[out] *time points to a free fall time buffer
+ * @param[out] *t points to a free fall time buffer
  * @return     status code
  *             - 0 success
  *             - 1 get free fall time failed
@@ -1472,18 +1500,18 @@ uint8_t adxl345_set_free_fall_time(adxl345_handle_t *handle, uint8_t time)
  *             - 3 handle is not initialized
  * @note       none
  */
-uint8_t adxl345_get_free_fall_time(adxl345_handle_t *handle, uint8_t *time)
+uint8_t adxl345_get_free_fall_time(adxl345_handle_t *handle, uint8_t *t)
 {
-    if (handle == NULL)                                                        /* check handle */
+    if (handle == NULL)                                                     /* check handle */
     {
-        return 2;                                                              /* return error */
+        return 2;                                                           /* return error */
     }
-    if (handle->inited != 1)                                                   /* check handle initialization */
+    if (handle->inited != 1)                                                /* check handle initialization */
     {
-        return 3;                                                              /* return error */
+        return 3;                                                           /* return error */
     }
     
-    return _adxl345_iic_spi_read(handle, ADXL345_REG_TIME_FF, time, 1);        /* read config */
+    return a_adxl345_iic_spi_read(handle, ADXL345_REG_TIME_FF, t, 1);       /* read config */
 }
 
 /**
@@ -1554,7 +1582,7 @@ uint8_t adxl345_free_fall_time_convert_to_data(adxl345_handle_t *handle, uint8_t
  */
 uint8_t adxl345_set_tap_axis(adxl345_handle_t *handle, adxl345_tap_axis_t axis, adxl345_bool_t enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                      /* check handle */
     {
@@ -1565,8 +1593,8 @@ uint8_t adxl345_set_tap_axis(adxl345_handle_t *handle, adxl345_tap_axis_t axis, 
         return 3;                                                                            /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_TAP_AXES, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                 /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_TAP_AXES, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                            /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                      /* read failed */
        
@@ -1575,7 +1603,7 @@ uint8_t adxl345_set_tap_axis(adxl345_handle_t *handle, adxl345_tap_axis_t axis, 
     prev &= ~(1 << axis);                                                                    /* clear axis */
     prev |= enable << axis;                                                                  /* set axis */
     
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_TAP_AXES, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_TAP_AXES, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -1592,7 +1620,7 @@ uint8_t adxl345_set_tap_axis(adxl345_handle_t *handle, adxl345_tap_axis_t axis, 
  */
 uint8_t adxl345_get_tap_axis(adxl345_handle_t *handle, adxl345_tap_axis_t axis, adxl345_bool_t *enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                    /* check handle */
     {
@@ -1603,8 +1631,8 @@ uint8_t adxl345_get_tap_axis(adxl345_handle_t *handle, adxl345_tap_axis_t axis, 
         return 3;                                                                          /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_TAP_AXES, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                               /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_TAP_AXES, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                          /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                    /* read failed */
        
@@ -1629,7 +1657,7 @@ uint8_t adxl345_get_tap_axis(adxl345_handle_t *handle, adxl345_tap_axis_t axis, 
  */
 uint8_t adxl345_set_tap_suppress(adxl345_handle_t *handle, adxl345_bool_t enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
    
     if (handle == NULL)                                                                      /* check handle */
     {
@@ -1640,8 +1668,8 @@ uint8_t adxl345_set_tap_suppress(adxl345_handle_t *handle, adxl345_bool_t enable
         return 3;                                                                            /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_TAP_AXES, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                 /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_TAP_AXES, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                            /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                      /* read failed */
        
@@ -1650,7 +1678,7 @@ uint8_t adxl345_set_tap_suppress(adxl345_handle_t *handle, adxl345_bool_t enable
     prev &= ~(1 << 3);                                                                       /* clear suppress */
     prev |= enable << 3;                                                                     /* set suppress */
 
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_TAP_AXES, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_TAP_AXES, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -1666,7 +1694,7 @@ uint8_t adxl345_set_tap_suppress(adxl345_handle_t *handle, adxl345_bool_t enable
  */
 uint8_t adxl345_get_tap_suppress(adxl345_handle_t *handle, adxl345_bool_t *enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                    /* check handle */
     {
@@ -1677,8 +1705,8 @@ uint8_t adxl345_get_tap_suppress(adxl345_handle_t *handle, adxl345_bool_t *enabl
         return 3;                                                                          /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_TAP_AXES, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                               /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_TAP_AXES, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                          /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                    /* read failed */
        
@@ -1703,8 +1731,6 @@ uint8_t adxl345_get_tap_suppress(adxl345_handle_t *handle, adxl345_bool_t *enabl
  */
 uint8_t adxl345_get_tap_status(adxl345_handle_t *handle, uint8_t *status)
 {
-    volatile uint8_t res, prev;
-    
     if (handle == NULL)                                                                            /* check handle */
     {
         return 2;                                                                                  /* return error */
@@ -1714,7 +1740,7 @@ uint8_t adxl345_get_tap_status(adxl345_handle_t *handle, uint8_t *status)
         return 3;                                                                                  /* return error */
     }
     
-    return _adxl345_iic_spi_read(handle, ADXL345_REG_ACT_TAP_STATUS, (uint8_t *)status, 1);        /* read config */
+    return a_adxl345_iic_spi_read(handle, ADXL345_REG_ACT_TAP_STATUS, (uint8_t *)status, 1);       /* read config */
 }
 
 /**
@@ -1730,7 +1756,7 @@ uint8_t adxl345_get_tap_status(adxl345_handle_t *handle, uint8_t *status)
  */
 uint8_t adxl345_set_rate(adxl345_handle_t *handle, adxl345_rate_t rate)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                      /* check handle */
     {
@@ -1741,8 +1767,8 @@ uint8_t adxl345_set_rate(adxl345_handle_t *handle, adxl345_rate_t rate)
         return 3;                                                                            /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_BW_RATE, (uint8_t *)&prev, 1);           /* read config */
-    if (res)                                                                                 /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_BW_RATE, (uint8_t *)&prev, 1);          /* read config */
+    if (res != 0)                                                                            /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                      /* read failed */
        
@@ -1751,7 +1777,7 @@ uint8_t adxl345_set_rate(adxl345_handle_t *handle, adxl345_rate_t rate)
     prev &= ~(0x1F);                                                                         /* clear rate */
     prev |= rate;                                                                            /* set rate */
 
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_BW_RATE, (uint8_t *)&prev, 1);         /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_BW_RATE, (uint8_t *)&prev, 1);        /* write config */
 }
 
 /**
@@ -1767,7 +1793,7 @@ uint8_t adxl345_set_rate(adxl345_handle_t *handle, adxl345_rate_t rate)
  */
 uint8_t adxl345_get_rate(adxl345_handle_t *handle, adxl345_rate_t *rate)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                   /* check handle */
     {
@@ -1778,8 +1804,8 @@ uint8_t adxl345_get_rate(adxl345_handle_t *handle, adxl345_rate_t *rate)
         return 3;                                                                         /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_BW_RATE, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                              /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_BW_RATE, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                         /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                   /* read failed */
        
@@ -1805,7 +1831,7 @@ uint8_t adxl345_get_rate(adxl345_handle_t *handle, adxl345_rate_t *rate)
  */
 uint8_t adxl345_set_interrupt(adxl345_handle_t *handle, adxl345_interrupt_t type, adxl345_bool_t enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                        /* check handle */
     {
@@ -1816,8 +1842,8 @@ uint8_t adxl345_set_interrupt(adxl345_handle_t *handle, adxl345_interrupt_t type
         return 3;                                                                              /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_INT_ENABLE, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                   /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_INT_ENABLE, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                              /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                        /* read failed */
        
@@ -1826,7 +1852,7 @@ uint8_t adxl345_set_interrupt(adxl345_handle_t *handle, adxl345_interrupt_t type
     prev &= ~(1 << type);                                                                      /* clear interrupt */
     prev |= enable << type;                                                                    /* set interrupt */
 
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_INT_ENABLE, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_INT_ENABLE, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -1843,7 +1869,7 @@ uint8_t adxl345_set_interrupt(adxl345_handle_t *handle, adxl345_interrupt_t type
  */
 uint8_t adxl345_get_interrupt(adxl345_handle_t *handle, adxl345_interrupt_t type, adxl345_bool_t *enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                      /* check handle */
     {
@@ -1854,8 +1880,8 @@ uint8_t adxl345_get_interrupt(adxl345_handle_t *handle, adxl345_interrupt_t type
         return 3;                                                                            /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_INT_ENABLE, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                                 /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_INT_ENABLE, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                            /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                      /* read failed */
         
@@ -1881,7 +1907,7 @@ uint8_t adxl345_get_interrupt(adxl345_handle_t *handle, adxl345_interrupt_t type
  */
 uint8_t adxl345_set_interrupt_map(adxl345_handle_t *handle, adxl345_interrupt_t type, adxl345_interrupt_pin_t pin)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                     /* check handle */
     {
@@ -1892,8 +1918,8 @@ uint8_t adxl345_set_interrupt_map(adxl345_handle_t *handle, adxl345_interrupt_t 
         return 3;                                                                           /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_INT_MAP, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_INT_MAP, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                           /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                     /* read failed */
        
@@ -1902,7 +1928,7 @@ uint8_t adxl345_set_interrupt_map(adxl345_handle_t *handle, adxl345_interrupt_t 
     prev &= ~(1 << type);                                                                   /* clear type */
     prev |= pin << type;                                                                    /* set interrupt map */
     
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_INT_MAP, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_INT_MAP, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -1919,7 +1945,7 @@ uint8_t adxl345_set_interrupt_map(adxl345_handle_t *handle, adxl345_interrupt_t 
  */
 uint8_t adxl345_get_interrupt_map(adxl345_handle_t *handle, adxl345_interrupt_t type, adxl345_interrupt_pin_t *pin)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                   /* check handle */
     {
@@ -1930,8 +1956,8 @@ uint8_t adxl345_get_interrupt_map(adxl345_handle_t *handle, adxl345_interrupt_t 
         return 3;                                                                         /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_INT_MAP, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                              /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_INT_MAP, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                         /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                   /* read failed */
        
@@ -1965,7 +1991,7 @@ uint8_t adxl345_get_interrupt_source(adxl345_handle_t *handle, uint8_t *source)
         return 3;                                                                              /* return error */
     }
     
-    return _adxl345_iic_spi_read(handle, ADXL345_REG_INT_ENABLE, (uint8_t *)source, 1);        /* read config */
+    return a_adxl345_iic_spi_read(handle, ADXL345_REG_INT_ENABLE, (uint8_t *)source, 1);       /* read config */
 }
 
 /**
@@ -1981,7 +2007,7 @@ uint8_t adxl345_get_interrupt_source(adxl345_handle_t *handle, uint8_t *source)
  */
 uint8_t adxl345_set_self_test(adxl345_handle_t *handle, adxl345_bool_t enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                         /* check handle */
     {
@@ -1992,8 +2018,8 @@ uint8_t adxl345_set_self_test(adxl345_handle_t *handle, adxl345_bool_t enable)
         return 3;                                                                               /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                    /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                               /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                         /* read failed */
        
@@ -2002,7 +2028,7 @@ uint8_t adxl345_set_self_test(adxl345_handle_t *handle, adxl345_bool_t enable)
     prev &= ~(1 << 7);                                                                          /* clear config */
     prev |= (enable << 7);                                                                      /* set self test */
 
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -2018,7 +2044,7 @@ uint8_t adxl345_set_self_test(adxl345_handle_t *handle, adxl345_bool_t enable)
  */
 uint8_t adxl345_get_self_test(adxl345_handle_t *handle, adxl345_bool_t *enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                       /* check handle */
     {
@@ -2029,8 +2055,8 @@ uint8_t adxl345_get_self_test(adxl345_handle_t *handle, adxl345_bool_t *enable)
         return 3;                                                                             /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                                  /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                             /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                       /* read failed */
         
@@ -2055,7 +2081,7 @@ uint8_t adxl345_get_self_test(adxl345_handle_t *handle, adxl345_bool_t *enable)
  */
 uint8_t adxl345_set_spi_wire(adxl345_handle_t *handle, adxl345_spi_wire_t wire)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                         /* check handle */
     {
@@ -2066,8 +2092,8 @@ uint8_t adxl345_set_spi_wire(adxl345_handle_t *handle, adxl345_spi_wire_t wire)
         return 3;                                                                               /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                    /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                               /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                         /* read failed */
        
@@ -2076,7 +2102,7 @@ uint8_t adxl345_set_spi_wire(adxl345_handle_t *handle, adxl345_spi_wire_t wire)
     prev &= ~(1 << 6);                                                                          /* clear config */
     prev |= (wire << 6);                                                                        /* set wire */
 
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -2092,7 +2118,7 @@ uint8_t adxl345_set_spi_wire(adxl345_handle_t *handle, adxl345_spi_wire_t wire)
  */
 uint8_t adxl345_get_spi_wire(adxl345_handle_t *handle, adxl345_spi_wire_t *wire)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                       /* check handle */
     {
@@ -2103,8 +2129,8 @@ uint8_t adxl345_get_spi_wire(adxl345_handle_t *handle, adxl345_spi_wire_t *wire)
         return 3;                                                                             /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                                  /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                             /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                       /* read failed */
        
@@ -2129,7 +2155,7 @@ uint8_t adxl345_get_spi_wire(adxl345_handle_t *handle, adxl345_spi_wire_t *wire)
  */
 uint8_t adxl345_set_interrupt_active_level(adxl345_handle_t *handle, adxl345_interrupt_active_level_t active_level)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                         /* check handle */
     {
@@ -2140,8 +2166,8 @@ uint8_t adxl345_set_interrupt_active_level(adxl345_handle_t *handle, adxl345_int
         return 3;                                                                               /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                    /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                               /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                         /* read failed */
         
@@ -2150,7 +2176,7 @@ uint8_t adxl345_set_interrupt_active_level(adxl345_handle_t *handle, adxl345_int
     prev &= ~(1 << 5);                                                                          /* clear config */
     prev |= (active_level << 5);                                                                /* set active level */
     
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -2166,7 +2192,7 @@ uint8_t adxl345_set_interrupt_active_level(adxl345_handle_t *handle, adxl345_int
  */
 uint8_t adxl345_get_interrupt_active_level(adxl345_handle_t *handle, adxl345_interrupt_active_level_t *active_level)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                     /* check handle */
     {
@@ -2177,8 +2203,8 @@ uint8_t adxl345_get_interrupt_active_level(adxl345_handle_t *handle, adxl345_int
         return 3;                                                                           /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);      /* read config */
-    if (res)                                                                                /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);     /* read config */
+    if (res != 0)                                                                           /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                     /* read failed */
         
@@ -2203,7 +2229,7 @@ uint8_t adxl345_get_interrupt_active_level(adxl345_handle_t *handle, adxl345_int
  */
 uint8_t adxl345_set_full_resolution(adxl345_handle_t *handle, adxl345_bool_t enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                         /* check handle */
     {
@@ -2214,8 +2240,8 @@ uint8_t adxl345_set_full_resolution(adxl345_handle_t *handle, adxl345_bool_t ena
         return 3;                                                                               /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                    /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                               /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                         /* read failed */
         
@@ -2224,7 +2250,7 @@ uint8_t adxl345_set_full_resolution(adxl345_handle_t *handle, adxl345_bool_t ena
     prev &= ~(1 << 3);                                                                          /* clear resolution */
     prev |= (enable << 3);                                                                      /* set resolution */
     
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -2240,7 +2266,7 @@ uint8_t adxl345_set_full_resolution(adxl345_handle_t *handle, adxl345_bool_t ena
  */
 uint8_t adxl345_get_full_resolution(adxl345_handle_t *handle, adxl345_bool_t *enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                       /* check handle */
     {
@@ -2251,8 +2277,8 @@ uint8_t adxl345_get_full_resolution(adxl345_handle_t *handle, adxl345_bool_t *en
         return 3;                                                                             /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                                  /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                             /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                       /* read failed */
         
@@ -2277,7 +2303,7 @@ uint8_t adxl345_get_full_resolution(adxl345_handle_t *handle, adxl345_bool_t *en
  */
 uint8_t adxl345_set_justify(adxl345_handle_t *handle, adxl345_justify_t enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                         /* check handle */
     {
@@ -2288,8 +2314,8 @@ uint8_t adxl345_set_justify(adxl345_handle_t *handle, adxl345_justify_t enable)
         return 3;                                                                               /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                    /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                               /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                         /* read failed */
         
@@ -2298,7 +2324,7 @@ uint8_t adxl345_set_justify(adxl345_handle_t *handle, adxl345_justify_t enable)
     prev &= ~(1 << 2);                                                                          /* clear config */
     prev |= (enable << 2);                                                                      /* set justify */
     
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -2314,7 +2340,7 @@ uint8_t adxl345_set_justify(adxl345_handle_t *handle, adxl345_justify_t enable)
  */
 uint8_t adxl345_get_justify(adxl345_handle_t *handle, adxl345_justify_t *enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                       /* check handle */
     {
@@ -2325,8 +2351,8 @@ uint8_t adxl345_get_justify(adxl345_handle_t *handle, adxl345_justify_t *enable)
         return 3;                                                                             /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                                  /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                             /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                       /* read failed */
         
@@ -2351,7 +2377,7 @@ uint8_t adxl345_get_justify(adxl345_handle_t *handle, adxl345_justify_t *enable)
  */
 uint8_t adxl345_set_range(adxl345_handle_t *handle, adxl345_range_t range)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                         /* check handle */
     {
@@ -2362,8 +2388,8 @@ uint8_t adxl345_set_range(adxl345_handle_t *handle, adxl345_range_t range)
         return 3;                                                                               /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                    /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                               /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                         /* read failed */
        
@@ -2372,7 +2398,7 @@ uint8_t adxl345_set_range(adxl345_handle_t *handle, adxl345_range_t range)
     prev &= ~(3 << 0);                                                                          /* clear config */
     prev |= (range << 0);                                                                       /* set range */
 
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -2388,7 +2414,7 @@ uint8_t adxl345_set_range(adxl345_handle_t *handle, adxl345_range_t range)
  */
 uint8_t adxl345_get_range(adxl345_handle_t *handle, adxl345_range_t *range)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                       /* check handle */
     {
@@ -2399,8 +2425,8 @@ uint8_t adxl345_get_range(adxl345_handle_t *handle, adxl345_range_t *range)
         return 3;                                                                             /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                                  /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                             /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                       /* read failed */
         
@@ -2425,7 +2451,7 @@ uint8_t adxl345_get_range(adxl345_handle_t *handle, adxl345_range_t *range)
  */
 uint8_t adxl345_set_mode(adxl345_handle_t *handle, adxl345_mode_t mode)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                      /* check handle */
     {
@@ -2436,8 +2462,8 @@ uint8_t adxl345_set_mode(adxl345_handle_t *handle, adxl345_mode_t mode)
         return 3;                                                                            /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                 /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                            /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                      /* read failed */
        
@@ -2446,7 +2472,7 @@ uint8_t adxl345_set_mode(adxl345_handle_t *handle, adxl345_mode_t mode)
     prev &= ~(3 << 6);                                                                       /* clear config */
     prev |= (mode << 6);                                                                     /* set mode */
     
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -2462,7 +2488,7 @@ uint8_t adxl345_set_mode(adxl345_handle_t *handle, adxl345_mode_t mode)
  */
 uint8_t adxl345_get_mode(adxl345_handle_t *handle, adxl345_mode_t *mode)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                    /* check handle */
     {
@@ -2473,8 +2499,8 @@ uint8_t adxl345_get_mode(adxl345_handle_t *handle, adxl345_mode_t *mode)
         return 3;                                                                          /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                               /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                          /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                    /* read failed */
        
@@ -2499,7 +2525,7 @@ uint8_t adxl345_get_mode(adxl345_handle_t *handle, adxl345_mode_t *mode)
  */
 uint8_t adxl345_set_trigger_pin(adxl345_handle_t *handle, adxl345_interrupt_pin_t pin)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                      /* check handle */
     {
@@ -2510,8 +2536,8 @@ uint8_t adxl345_set_trigger_pin(adxl345_handle_t *handle, adxl345_interrupt_pin_
         return 3;                                                                            /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                 /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                            /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                      /* read failed */
        
@@ -2520,7 +2546,7 @@ uint8_t adxl345_set_trigger_pin(adxl345_handle_t *handle, adxl345_interrupt_pin_
     prev &= ~(1 << 5);                                                                       /* clear config */
     prev |= (pin << 5);                                                                      /* set pin */
 
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -2536,7 +2562,7 @@ uint8_t adxl345_set_trigger_pin(adxl345_handle_t *handle, adxl345_interrupt_pin_
  */
 uint8_t adxl345_get_trigger_pin(adxl345_handle_t *handle, adxl345_interrupt_pin_t *pin)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                    /* check handle */
     {
@@ -2547,8 +2573,8 @@ uint8_t adxl345_get_trigger_pin(adxl345_handle_t *handle, adxl345_interrupt_pin_
         return 3;                                                                          /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                               /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                          /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                    /* read failed */
        
@@ -2573,7 +2599,7 @@ uint8_t adxl345_get_trigger_pin(adxl345_handle_t *handle, adxl345_interrupt_pin_
  */
 uint8_t adxl345_set_watermark(adxl345_handle_t *handle, uint8_t level)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                      /* check handle */
     {
@@ -2584,8 +2610,8 @@ uint8_t adxl345_set_watermark(adxl345_handle_t *handle, uint8_t level)
         return 3;                                                                            /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                 /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                            /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                      /* read failed */
        
@@ -2594,7 +2620,7 @@ uint8_t adxl345_set_watermark(adxl345_handle_t *handle, uint8_t level)
     prev &= ~(0x1F);                                                                         /* clear config */
     prev |= (level & 0x1F);                                                                  /* set watermark */
 
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -2610,7 +2636,7 @@ uint8_t adxl345_set_watermark(adxl345_handle_t *handle, uint8_t level)
  */
 uint8_t adxl345_get_watermark(adxl345_handle_t *handle, uint8_t *level)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                    /* check handle */
     {
@@ -2621,8 +2647,8 @@ uint8_t adxl345_get_watermark(adxl345_handle_t *handle, uint8_t *level)
         return 3;                                                                          /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                               /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                          /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                    /* read failed */
        
@@ -2647,7 +2673,7 @@ uint8_t adxl345_get_watermark(adxl345_handle_t *handle, uint8_t *level)
  */
 uint8_t adxl345_get_watermark_level(adxl345_handle_t *handle, uint8_t *level)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                       /* check handle */
     {
@@ -2658,8 +2684,8 @@ uint8_t adxl345_get_watermark_level(adxl345_handle_t *handle, uint8_t *level)
         return 3;                                                                             /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_STATUS, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                                  /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_STATUS, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                             /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                       /* read failed */
         
@@ -2684,7 +2710,7 @@ uint8_t adxl345_get_watermark_level(adxl345_handle_t *handle, uint8_t *level)
  */
 uint8_t adxl345_get_trigger_status(adxl345_handle_t *handle, adxl345_trigger_status_t *status)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                       /* check handle */
     {
@@ -2695,15 +2721,15 @@ uint8_t adxl345_get_trigger_status(adxl345_handle_t *handle, adxl345_trigger_sta
         return 3;                                                                             /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_STATUS, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                                  /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_STATUS, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                             /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                       /* read failed */
        
         return 1;                                                                             /* return error */
     }
     prev &= (1 << 7);                                                                         /* get config */
-    *status = (adxl345_trigger_status_t)(prev >> 7);                                          /* get status */
+    *status = (adxl345_trigger_status_t)((prev >> 7) & 0x01);                                 /* get status */
 
     return 0;                                                                                 /* success return 0 */
 }
@@ -2721,7 +2747,7 @@ uint8_t adxl345_get_trigger_status(adxl345_handle_t *handle, adxl345_trigger_sta
  */
 uint8_t adxl345_set_link_activity_inactivity(adxl345_handle_t *handle, adxl345_bool_t enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                       /* check handle */
     {
@@ -2732,8 +2758,8 @@ uint8_t adxl345_set_link_activity_inactivity(adxl345_handle_t *handle, adxl345_b
         return 3;                                                                             /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                  /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                             /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                       /* read failed */
        
@@ -2742,7 +2768,7 @@ uint8_t adxl345_set_link_activity_inactivity(adxl345_handle_t *handle, adxl345_b
     prev &= ~(1 << 5);                                                                        /* clear config */
     prev |= enable << 5;                                                                      /* set enable */
 
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -2758,7 +2784,7 @@ uint8_t adxl345_set_link_activity_inactivity(adxl345_handle_t *handle, adxl345_b
  */
 uint8_t adxl345_get_link_activity_inactivity(adxl345_handle_t *handle, adxl345_bool_t *enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                     /* check handle */
     {
@@ -2769,8 +2795,8 @@ uint8_t adxl345_get_link_activity_inactivity(adxl345_handle_t *handle, adxl345_b
         return 3;                                                                           /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                                /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                           /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                     /* read failed */
        
@@ -2795,7 +2821,7 @@ uint8_t adxl345_get_link_activity_inactivity(adxl345_handle_t *handle, adxl345_b
  */
 uint8_t adxl345_set_auto_sleep(adxl345_handle_t *handle, adxl345_bool_t enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                       /* check handle */
     {
@@ -2806,8 +2832,8 @@ uint8_t adxl345_set_auto_sleep(adxl345_handle_t *handle, adxl345_bool_t enable)
         return 3;                                                                             /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                  /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                             /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                       /* read failed */
        
@@ -2816,7 +2842,7 @@ uint8_t adxl345_set_auto_sleep(adxl345_handle_t *handle, adxl345_bool_t enable)
     prev &= ~(1 << 4);                                                                        /* get config */
     prev |= enable << 4;                                                                      /* set enable */
 
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -2832,7 +2858,7 @@ uint8_t adxl345_set_auto_sleep(adxl345_handle_t *handle, adxl345_bool_t enable)
  */
 uint8_t adxl345_get_auto_sleep(adxl345_handle_t *handle, adxl345_bool_t *enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                     /* check handle */
     {
@@ -2843,8 +2869,8 @@ uint8_t adxl345_get_auto_sleep(adxl345_handle_t *handle, adxl345_bool_t *enable)
         return 3;                                                                           /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                                /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                           /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                     /* read failed */
         
@@ -2869,7 +2895,7 @@ uint8_t adxl345_get_auto_sleep(adxl345_handle_t *handle, adxl345_bool_t *enable)
  */
 uint8_t adxl345_set_measure(adxl345_handle_t *handle, adxl345_bool_t enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                       /* check handle */
     {
@@ -2880,8 +2906,8 @@ uint8_t adxl345_set_measure(adxl345_handle_t *handle, adxl345_bool_t enable)
         return 3;                                                                             /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                  /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                             /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                       /* read failed */
        
@@ -2890,7 +2916,7 @@ uint8_t adxl345_set_measure(adxl345_handle_t *handle, adxl345_bool_t enable)
     prev &= ~(1 << 3);                                                                        /* clear config */
     prev |= enable << 3;                                                                      /* set measure */
 
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -2906,7 +2932,7 @@ uint8_t adxl345_set_measure(adxl345_handle_t *handle, adxl345_bool_t enable)
  */
 uint8_t adxl345_get_measure(adxl345_handle_t *handle, adxl345_bool_t *enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                     /* check handle */
     {
@@ -2917,8 +2943,8 @@ uint8_t adxl345_get_measure(adxl345_handle_t *handle, adxl345_bool_t *enable)
         return 3;                                                                           /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                                /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                           /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                     /* read failed */
        
@@ -2943,7 +2969,7 @@ uint8_t adxl345_get_measure(adxl345_handle_t *handle, adxl345_bool_t *enable)
  */
 uint8_t adxl345_set_sleep(adxl345_handle_t *handle, adxl345_bool_t enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                       /* check handle */
     {
@@ -2954,8 +2980,8 @@ uint8_t adxl345_set_sleep(adxl345_handle_t *handle, adxl345_bool_t enable)
         return 3;                                                                             /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                  /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                             /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                       /* read failed */
        
@@ -2964,7 +2990,7 @@ uint8_t adxl345_set_sleep(adxl345_handle_t *handle, adxl345_bool_t enable)
     prev &= ~(1 << 2);                                                                        /* clear config */
     prev |= enable << 2;                                                                      /* set sleep */
 
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -2980,7 +3006,7 @@ uint8_t adxl345_set_sleep(adxl345_handle_t *handle, adxl345_bool_t enable)
  */
 uint8_t adxl345_get_sleep(adxl345_handle_t *handle, adxl345_bool_t *enable)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                     /* check handle */
     {
@@ -2991,8 +3017,8 @@ uint8_t adxl345_get_sleep(adxl345_handle_t *handle, adxl345_bool_t *enable)
         return 3;                                                                           /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                                /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                           /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                     /* read failed */
        
@@ -3017,7 +3043,7 @@ uint8_t adxl345_get_sleep(adxl345_handle_t *handle, adxl345_bool_t *enable)
  */
 uint8_t adxl345_set_sleep_frequency(adxl345_handle_t *handle, adxl345_sleep_frequency_t sleep_frequency)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                       /* check handle */
     {
@@ -3028,8 +3054,8 @@ uint8_t adxl345_set_sleep_frequency(adxl345_handle_t *handle, adxl345_sleep_freq
         return 3;                                                                             /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);          /* read config */
-    if (res)                                                                                  /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);         /* read config */
+    if (res != 0)                                                                             /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                       /* read failed */
        
@@ -3038,7 +3064,7 @@ uint8_t adxl345_set_sleep_frequency(adxl345_handle_t *handle, adxl345_sleep_freq
     prev &= ~0x03;                                                                            /* clear config */
     prev |= sleep_frequency;                                                                  /* set frequency */
 
-    return _adxl345_iic_spi_write(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);        /* write config */
+    return a_adxl345_iic_spi_write(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);       /* write config */
 }
 
 /**
@@ -3054,7 +3080,7 @@ uint8_t adxl345_set_sleep_frequency(adxl345_handle_t *handle, adxl345_sleep_freq
  */
 uint8_t adxl345_get_sleep_frequency(adxl345_handle_t *handle, adxl345_sleep_frequency_t *sleep_frequency)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                     /* check handle */
     {
@@ -3065,8 +3091,8 @@ uint8_t adxl345_get_sleep_frequency(adxl345_handle_t *handle, adxl345_sleep_freq
         return 3;                                                                           /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                                /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                           /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                     /* read failed */
        
@@ -3086,11 +3112,11 @@ uint8_t adxl345_get_sleep_frequency(adxl345_handle_t *handle, adxl345_sleep_freq
  *            - 1 close failed
  * @note      none
  */
-static uint8_t _adxl345_close(adxl345_handle_t *handle)
+static uint8_t a_adxl345_close(adxl345_handle_t *handle)
 {
     if (handle->iic_spi == ADXL345_INTERFACE_IIC)                        /* iic interface */
     {
-        if (handle->iic_deinit())                                        /* iic deinit */
+        if (handle->iic_deinit() != 0)                                   /* iic deinit */
         {
             handle->debug_print("adxl345: iic deinit failed.\n");        /* iic deinit failed */
        
@@ -3103,7 +3129,7 @@ static uint8_t _adxl345_close(adxl345_handle_t *handle)
     }
     else                                                                 /* spi interface */
     {
-        if (handle->spi_deinit())                                        /* spi deinit */
+        if (handle->spi_deinit() != 0)                                   /* spi deinit */
         {
             handle->debug_print("adxl345: spi deinit failed.\n");        /* spi deinit failed */
        
@@ -3129,7 +3155,7 @@ static uint8_t _adxl345_close(adxl345_handle_t *handle)
  */
 uint8_t adxl345_init(adxl345_handle_t *handle)
 {
-    volatile uint8_t id;
+    uint8_t id;
   
     if (handle == NULL)                                                             /* check handle */
     {
@@ -3202,7 +3228,7 @@ uint8_t adxl345_init(adxl345_handle_t *handle)
     
     if (handle->iic_spi == ADXL345_INTERFACE_IIC)                                   /* iic interface */
     {
-        if (handle->iic_init())                                                     /* initialize iic bus */
+        if (handle->iic_init() != 0)                                                /* initialize iic bus */
         {
             handle->debug_print("adxl345: iic init failed.\n");                     /* iic init failed */
             
@@ -3211,24 +3237,24 @@ uint8_t adxl345_init(adxl345_handle_t *handle)
     }
     else                                                                            /* spi interface */
     {
-        if (handle->spi_init())                                                     /* initialize spi bus */
+        if (handle->spi_init() != 0)                                                /* initialize spi bus */
         {
             handle->debug_print("adxl345: spi init failed.\n");                     /* spi init failed */
            
             return 1;                                                               /* return error */
         }
     }
-    if (_adxl345_iic_spi_read(handle, ADXL345_REG_DEVID, (uint8_t *)&id, 1))        /* read id */
+    if (a_adxl345_iic_spi_read(handle, ADXL345_REG_DEVID, (uint8_t *)&id, 1) != 0)  /* read id */
     {
         handle->debug_print("adxl345: read failed.\n");                             /* read failed */
-        _adxl345_close(handle);                                                     /* close */
+        (void)a_adxl345_close(handle);                                              /* close */
         
         return 4;                                                                   /* return error */
     }
     if (id != 0xE5)                                                                 /* check id */
     {
         handle->debug_print("adxl345: id is invalid.\n");                           /* id is invalid */
-        _adxl345_close(handle);                                                     /* close */
+        (void)a_adxl345_close(handle);                                              /* close */
        
         return 4;                                                                   /* return error */
     }
@@ -3250,7 +3276,7 @@ uint8_t adxl345_init(adxl345_handle_t *handle)
  */
 uint8_t adxl345_deinit(adxl345_handle_t *handle)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                      /* check handle */
     {
@@ -3261,8 +3287,8 @@ uint8_t adxl345_deinit(adxl345_handle_t *handle)
         return 3;                                                                            /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);         /* read config */
-    if (res)                                                                                 /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);        /* read config */
+    if (res != 0)                                                                            /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                      /* read failed */
        
@@ -3270,8 +3296,8 @@ uint8_t adxl345_deinit(adxl345_handle_t *handle)
     }
     prev &= ~(1 << 3);                                                                       /* stop measure */
     prev |= 1 << 2;                                                                          /* sleep */
-    res = _adxl345_iic_spi_write(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);        /* write config */
-    if (res)                                                                                 /* check result */
+    res = a_adxl345_iic_spi_write(handle, ADXL345_REG_POWER_CTL, (uint8_t *)&prev, 1);       /* write config */
+    if (res != 0)                                                                            /* check result */
     {
         handle->debug_print("adxl345: write failed.\n");                                     /* write failed */
        
@@ -3279,8 +3305,8 @@ uint8_t adxl345_deinit(adxl345_handle_t *handle)
     }
     else
     {
-        res = _adxl345_close(handle);                                                        /* close */
-        if (res)                                                                             /* check result */
+        res = a_adxl345_close(handle);                                                       /* close */
+        if (res != 0)                                                                        /* check result */
         {
             return 1;                                                                        /* return error */
         }
@@ -3308,10 +3334,10 @@ uint8_t adxl345_deinit(adxl345_handle_t *handle)
  */
 uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3], uint16_t *len) 
 {
-    volatile uint8_t res, prev;
-    volatile uint8_t mode, cnt, i;
-    volatile uint8_t justify, full_res, range;
-    volatile uint8_t buf[32 * 6];
+    uint8_t res, prev;
+    uint8_t mode, cnt, i;
+    uint8_t justify, full_res, range;
+    uint8_t buf[32 * 6];
     
     if (handle == NULL)                                                                           /* check handle */
     {
@@ -3328,16 +3354,16 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
        
         return 1;                                                                                 /* return error */
     }
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);               /* read config */
-    if (res)                                                                                      /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_CTL, (uint8_t *)&prev, 1);              /* read config */
+    if (res != 0)                                                                                 /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                           /* read failed */
        
         return 1;                                                                                 /* return error */
     }
     mode = prev >> 6;                                                                             /* get mode */
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);            /* read config */
-    if (res)                                                                                      /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_DATA_FORMAT, (uint8_t *)&prev, 1);           /* read config */
+    if (res != 0)                                                                                 /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                           /* read failed */
        
@@ -3349,8 +3375,8 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
     if (mode == ADXL345_MODE_BYPASS)                                                              /* bypass */
     {
         *len = 1;                                                                                 /* set length 1 */
-        res = _adxl345_iic_spi_read(handle, ADXL345_REG_DATAX0, (uint8_t *)buf, 6);               /* read data */
-        if (res)                                                                                  /* check result */
+        res = a_adxl345_iic_spi_read(handle, ADXL345_REG_DATAX0, (uint8_t *)buf, 6);              /* read data */
+        if (res != 0)                                                                             /* check result */
         {
             handle->debug_print("adxl345: read failed.\n");                                       /* read failed */
            
@@ -3363,9 +3389,9 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
         {
             if (justify == 1)                                                                     /* if justify */
             {
-                raw[0][0] = (raw[0][0]&0x80)|(raw[0][0]&(~0x80))>>(16-10-range);                  /* set raw x */
-                raw[0][1] = (raw[0][1]&0x80)|(raw[0][1]&(~0x80))>>(16-10-range);                  /* set raw y */
-                raw[0][2] = (raw[0][2]&0x80)|(raw[0][2]&(~0x80))>>(16-10-range);                  //set raw z
+                raw[0][0] = (raw[0][0] & 0x80) | (raw[0][0] & (~0x80)) >> (16 - 10 - range);      /* set raw x */
+                raw[0][1] = (raw[0][1] & 0x80) | (raw[0][1] & (~0x80)) >> (16 - 10 - range);      /* set raw y */
+                raw[0][2] = (raw[0][2] & 0x80) | (raw[0][2] & (~0x80)) >> (16 - 10 - range);      /* set raw z */
             }
             g[0][0] = (float)(raw[0][0]) * 0.004f;                                                /* convert x */
             g[0][1] = (float)(raw[0][1]) * 0.004f;                                                /* convert y */
@@ -3375,9 +3401,9 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
         {
             if (justify == 1)                                                                     /* if justify */
             {
-                raw[0][0] = (raw[0][0]&0x80)|(raw[0][0]&(~0x80))>>(16-10);                        /* set raw z */
-                raw[0][1] = (raw[0][1]&0x80)|(raw[0][1]&(~0x80))>>(16-10);                        /* set raw y */
-                raw[0][2] = (raw[0][2]&0x80)|(raw[0][2]&(~0x80))>>(16-10);                        /* set raw z */
+                raw[0][0] = (raw[0][0] & 0x80) | (raw[0][0] & (~0x80)) >> (16 - 10);              /* set raw z */
+                raw[0][1] = (raw[0][1] & 0x80) | (raw[0][1] & (~0x80)) >> (16 - 10);              /* set raw y */
+                raw[0][2] = (raw[0][2] & 0x80) | (raw[0][2] & (~0x80)) >> (16 - 10);              /* set raw z */
             }
             if (range == 0x00)                                                                    /* if 2g */
             {
@@ -3407,8 +3433,8 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
     }
     else                                                                                          /* fifo mode */
     {
-        res = _adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_STATUS, (uint8_t *)&prev, 1);        /* read fifo status */
-        if (res)                                                                                  /* check result */
+        res = a_adxl345_iic_spi_read(handle, ADXL345_REG_FIFO_STATUS, (uint8_t *)&prev, 1);       /* read fifo status */
+        if (res != 0)                                                                             /* check result */
         {
             handle->debug_print("adxl345: read failed.\n");                                       /* read failed */
             
@@ -3416,8 +3442,8 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
         }
         cnt = prev & 0x3F;                                                                        /* get cnt */
         *len = ((*len) < cnt) ? (*len) : cnt;                                                     /* get min cnt */
-        res = _adxl345_iic_spi_read(handle, ADXL345_REG_DATAX0, (uint8_t *)buf, 6*(*len));        /* read data */
-        if (res)                                                                                  /* check result */
+        res = a_adxl345_iic_spi_read(handle, ADXL345_REG_DATAX0, (uint8_t *)buf, 6*(*len));       /* read data */
+        if (res != 0)                                                                             /* check result */
         {
             handle->debug_print("adxl345: read failed.\n");                                       /* read failed */
            
@@ -3425,16 +3451,16 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
         }
         for (i = 0; i < (*len); i++)                                                              /* read length */
         {
-            raw[i][0] = (int16_t)(buf[1+i*6]<<8)|buf[0+i*6];                                      /* set raw x */
-            raw[i][1] = (int16_t)(buf[3+i*6]<<8)|buf[2+i*6];                                      /* set raw y */
-            raw[i][2] = (int16_t)(buf[5+i*6]<<8)|buf[4+i*6];                                      /* set raw z */
+            raw[i][0] = (int16_t)(buf[1 + i * 6] << 8) | buf[0 + i * 6];                          /* set raw x */
+            raw[i][1] = (int16_t)(buf[3 + i * 6] << 8) | buf[2 + i * 6];                          /* set raw y */
+            raw[i][2] = (int16_t)(buf[5 + i * 6] << 8) | buf[4 + i * 6];                          /* set raw z */
             if (full_res == 1)                                                                    /* if full resolution */
             {
                 if (justify == 1)                                                                 /* if justify */
                 {
-                    raw[i][0] = (raw[i][0]&0x80)|(raw[i][0]&(~0x80))>>(16-10-range);              /* get raw x */
-                    raw[i][1] = (raw[i][1]&0x80)|(raw[i][1]&(~0x80))>>(16-10-range);              /* get raw y */
-                    raw[i][2] = (raw[i][2]&0x80)|(raw[i][2]&(~0x80))>>(16-10-range);              /* get raw z */
+                    raw[i][0] = (raw[i][0] & 0x80) | (raw[i][0] & (~0x80)) >> (16 -10 - range);   /* get raw x */
+                    raw[i][1] = (raw[i][1] & 0x80) | (raw[i][1] & (~0x80)) >> (16 -10 - range);   /* get raw y */
+                    raw[i][2] = (raw[i][2] & 0x80) | (raw[i][2] & (~0x80)) >> (16 -10 - range);   /* get raw z */
                 }
                 g[i][0] = (float)(raw[i][0])*0.004f;                                              /* convert x */
                 g[i][1] = (float)(raw[i][1])*0.004f;                                              /* convert y */
@@ -3444,9 +3470,9 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
             {
                 if (justify == 1)                                                                 /* if justify */
                 {
-                    raw[i][0] = (raw[i][0]&0x80)|(raw[i][0]&(~0x80))>>(16-10);                    /* set raw x */
-                    raw[i][1] = (raw[i][1]&0x80)|(raw[i][1]&(~0x80))>>(16-10);                    /* set raw y */
-                    raw[i][2] = (raw[i][2]&0x80)|(raw[i][2]&(~0x80))>>(16-10);                    /* set raw z */
+                    raw[i][0] = (raw[i][0] & 0x80) | (raw[i][0] & (~0x80)) >> (16 - 10);          /* set raw x */
+                    raw[i][1] = (raw[i][1] & 0x80) | (raw[i][1] & (~0x80)) >> (16 - 10);          /* set raw y */
+                    raw[i][2] = (raw[i][2] & 0x80) | (raw[i][2] & (~0x80)) >> (16 - 10);          /* set raw z */
                 }
                 if (range == 0x00)                                                                /* if 2g */
                 {
@@ -3491,7 +3517,7 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
  */
 uint8_t adxl345_irq_handler(adxl345_handle_t *handle)
 {
-    volatile uint8_t res, prev;
+    uint8_t res, prev;
     
     if (handle == NULL)                                                                      /* check handle */
     {
@@ -3502,65 +3528,65 @@ uint8_t adxl345_irq_handler(adxl345_handle_t *handle)
         return 3;                                                                            /* return error */
     }
     
-    res = _adxl345_iic_spi_read(handle, ADXL345_REG_INT_SOURCE, (uint8_t *)&prev, 1);        /* read config */
-    if (res)                                                                                 /* check result */
+    res = a_adxl345_iic_spi_read(handle, ADXL345_REG_INT_SOURCE, (uint8_t *)&prev, 1);       /* read config */
+    if (res != 0)                                                                            /* check result */
     {
         handle->debug_print("adxl345: read failed.\n");                                      /* read failed */
         
         return 1;                                                                            /* return error */
     }
-    if (prev & (1 << ADXL345_INTERRUPT_DATA_READY))                                          /* if data ready */
+    if ((prev & (1 << ADXL345_INTERRUPT_DATA_READY)) != 0)                                   /* if data ready */
     {
-        if (handle->receive_callback)                                                        /* if receive callback */
+        if (handle->receive_callback != NULL)                                                /* if receive callback */
         {
             handle->receive_callback(ADXL345_INTERRUPT_DATA_READY);                          /* run callback */
         }
     }
-    if (prev & (1 << ADXL345_INTERRUPT_SINGLE_TAP))                                          /* if single tap */
+    if ((prev & (1 << ADXL345_INTERRUPT_SINGLE_TAP)) != 0)                                   /* if single tap */
     {
-        if (handle->receive_callback)                                                        /* if receive callback */
+        if (handle->receive_callback != NULL)                                                /* if receive callback */
         {
             handle->receive_callback(ADXL345_INTERRUPT_SINGLE_TAP);                          /* run callback */
         }
     }
-    if (prev & (1 << ADXL345_INTERRUPT_DOUBLE_TAP))                                          /* if double tap */
+    if ((prev & (1 << ADXL345_INTERRUPT_DOUBLE_TAP)) != 0)                                   /* if double tap */
     {
-        if (handle->receive_callback)                                                        /* if receive callback */
+        if (handle->receive_callback != NULL)                                                /* if receive callback */
         {
             handle->receive_callback(ADXL345_INTERRUPT_DOUBLE_TAP);                          /* run callback */
         }
     }
-    if (prev & (1 << ADXL345_INTERRUPT_ACTIVITY))                                            /* if activity */
+    if ((prev & (1 << ADXL345_INTERRUPT_ACTIVITY)) != 0)                                     /* if activity */
     {
-        if (handle->receive_callback)                                                        /*if receive callback */
+        if (handle->receive_callback != NULL)                                                /*if receive callback */
         {
             handle->receive_callback(ADXL345_INTERRUPT_ACTIVITY);                            /* run callback */
         }
     }
-    if (prev & (1 << ADXL345_INTERRUPT_INACTIVITY))                                          /* if inactivity */
+    if ((prev & (1 << ADXL345_INTERRUPT_INACTIVITY)) != 0)                                   /* if inactivity */
     {
-        if (handle->receive_callback)                                                        /*if receive callback */
+        if (handle->receive_callback != NULL)                                                /*if receive callback */
         {
             handle->receive_callback(ADXL345_INTERRUPT_INACTIVITY);                          /* run callback */
         }
     }
-    if (prev & (1 << ADXL345_INTERRUPT_FREE_FALL))                                           /* if free fall */
+    if ((prev & (1 << ADXL345_INTERRUPT_FREE_FALL)) != 0)                                    /* if free fall */
     {
-        if (handle->receive_callback)                                                        /* if receive callback */
+        if (handle->receive_callback != NULL)                                                /* if receive callback */
         {
             handle->receive_callback(ADXL345_INTERRUPT_FREE_FALL);                           /* run callback */
         }
     }
-    if (prev & (1 << ADXL345_INTERRUPT_WATERMARK))                                           /* if wartermark */
+    if ((prev & (1 << ADXL345_INTERRUPT_WATERMARK)) != 0)                                    /* if wartermark */
     {
-        if (handle->receive_callback)                                                        /* if receive callback */
+        if (handle->receive_callback != NULL)                                                /* if receive callback */
         {
             handle->receive_callback(ADXL345_INTERRUPT_WATERMARK);                           /* run callback */
         }
     }
-    if (prev & (1 << ADXL345_INTERRUPT_OVERRUN))                                             /* if overrun */
+    if ((prev & (1 << ADXL345_INTERRUPT_OVERRUN)) != 0)                                      /* if overrun */
     {
-        if (handle->receive_callback)                                                        /* if receive callback */
+        if (handle->receive_callback != NULL)                                                /* if receive callback */
         {
             handle->receive_callback(ADXL345_INTERRUPT_OVERRUN);                             /* run callback */
         }
@@ -3593,7 +3619,7 @@ uint8_t adxl345_set_reg(adxl345_handle_t *handle, uint8_t reg, uint8_t *buf, uin
         return 3;                                                /* return error */
     }
     
-    return _adxl345_iic_spi_write(handle, reg, buf, len);        /* write data */
+    return a_adxl345_iic_spi_write(handle, reg, buf, len);       /* write data */
 }
 
 /**
@@ -3620,7 +3646,7 @@ uint8_t adxl345_get_reg(adxl345_handle_t *handle, uint8_t reg, uint8_t *buf, uin
         return 3;                                               /* return error */
     }
     
-    return _adxl345_iic_spi_read(handle, reg, buf, len);        /* read data */
+    return a_adxl345_iic_spi_read(handle, reg, buf, len);       /* read data */
 }
 
 /**
