@@ -1,4 +1,4 @@
-[English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md)
+[English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md) | [日本語](/README_ja.md) | [Deutsch](/README_de.md) | [한국어](/README_ko.md)
 
 <div align=center>
 <img src="/doc/image/logo.png"/>
@@ -6,11 +6,11 @@
 
 ## LibDriver ADXL345
 
-[![API](https://img.shields.io/badge/api-reference-blue)](https://www.libdriver.com/docs/adxl345/index.html) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](/LICENSE)
+[![MISRA](https://img.shields.io/badge/misra-compliant-brightgreen.svg)](/misra/README.md) [![API](https://img.shields.io/badge/api-reference-blue.svg)](https://www.libdriver.com/docs/adxl345/index.html) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](/LICENSE)
 
 The ADXL345 is a small, thin, ultralow power, 3-axis accelerometer launched by Analog Devices. It has high resolution (13-bit) measurement at up to ±16 g. Digital output data is formatted as 16-bit twos complement and is accessible through either a SPI (3- or 4-wire) or I2C digital interface.The ADXL345 is well suited for mobile device applications. It measures the static acceleration of gravity in tilt-sensing applications, as well as dynamic acceleration resulting from motion or shock. Its high resolution (3.9 mg/LSB) enables measurement of inclination changes less than 1.0°.Several special sensing functions are provided. Activity and inactivity sensing detect the presence or lack of motion by comparing the acceleration on any axis with user-set thresholds.Tap sensing detects single and double taps in any direction. Freefall sensing detects if the device is falling. These functions can be mapped individually to either of two interrupt output pins.An integrated memory management system with a 32-level first in,first out (FIFO) buffer can be used to store data to minimize host processor activity and lower overall system power consumption.Low power modes enable intelligent motion-based power management with threshold sensing and active acceleration measurement at extremely low power dissipation.
 
-LibDriver ADXL345 is the full function driver of adxl345 launched by LibDriver. It provides acceleration reading, acceleration FIFO mode acquisition, free fall detection, activity /inactivity state detection, tap detection and other functions.
+LibDriver ADXL345 is the full function driver of adxl345 launched by LibDriver. It provides acceleration reading, acceleration FIFO mode acquisition, free fall detection, activity /inactivity state detection, tap detection and other functions. LibDriver is MISRA compliant.
 
 ### Table of Contents
 
@@ -57,7 +57,7 @@ uint8_t i;
 float g[3];
 
 res = adxl345_basic_init(ADXL345_INTERFACE_IIC, ADXL345_ADDRESS_ALT_0);                
-if (res)
+if (res != 0)
 {
     return 1;
 }
@@ -67,9 +67,9 @@ if (res)
 for (i = 0; i < 3; i++)
 {
     res = adxl345_basic_read((float *)g);
-    if (res)
+    if (res != 0)
     {
-        adxl345_basic_deinit();
+        (void)adxl345_basic_deinit();
         
         return 1;
     }
@@ -84,7 +84,7 @@ for (i = 0; i < 3; i++)
 
 ...
     
-adxl345_basic_deinit();
+(void)adxl345_basic_deinit();
 
 return 0;
 ```
@@ -95,7 +95,7 @@ return 0;
 uint8_t res;
 float g[3];
 
-uint8_t fifo_callback(float (*g)[3], uint16_t len)
+void fifo_callback(float (*g)[3], uint16_t len)
 {
     ...
     
@@ -103,14 +103,14 @@ uint8_t fifo_callback(float (*g)[3], uint16_t len)
 }
 
 res = gpio_interrupt_init(adxl345_fifo_irq_handler);
-if (res)
+if (res != 0)
 {
     return 1;
 }
 res = adxl345_fifo_init(ADXL345_INTERFACE_IIC, ADXL345_ADDRESS_ALT_0, fifo_callback);
-if (res)
+if (res != 0)
 {
-    gpio_interrupt_deinit();
+    (void)gpio_interrupt_deinit();
 
     return 1;
 }
@@ -123,8 +123,8 @@ while (1)
 }
 ...
     
-gpio_interrupt_deinit();
-adxl345_fifo_deinit();
+(void)gpio_interrupt_deinit();
+(void)adxl345_fifo_deinit();
 
 return 0;
 ```
@@ -134,7 +134,7 @@ return 0;
 ```C
 uint8_t res;
 
-uint8_t interrupt_callback(uint8_t type)
+void interrupt_callback(uint8_t type)
 {
     switch (type)
     {
@@ -197,12 +197,10 @@ uint8_t interrupt_callback(uint8_t type)
             break;
         }
     }
-
-    return 0;
 }
 
 res = gpio_interrupt_init(adxl345_interrupt_irq_handler);
-if (res)
+if (res != 0)
 {
     return 1;
 }
@@ -213,9 +211,9 @@ res = adxl345_interrupt_init(ADXL345_INTERFACE_SPI, ADXL345_ADDRESS_ALT_0,
                              ADXL345_BOOL_TRUE,
                              ADXL345_BOOL_TRUE
                             );
-if (res)
+if (res != 0)
 {
-    gpio_interrupt_deinit();
+    (void)gpio_interrupt_deinit();
 
     return 1;
 }
@@ -224,7 +222,10 @@ if (res)
     
 while (1)
 {
-    adxl345_interrupt_server();
+    if (adxl345_interrupt_server() != 0)
+    {
+        return 1;
+    }
     adxl345_interface_delay_ms(10);
     
     ...
@@ -232,8 +233,8 @@ while (1)
 
 ...
     
-gpio_interrupt_deinit();
-adxl345_interrupt_deinit();
+(void)gpio_interrupt_deinit();
+(void)adxl345_interrupt_deinit();
 
 return 0;
 ```

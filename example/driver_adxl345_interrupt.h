@@ -35,8 +35,8 @@
  * </table>
  */
 
-#ifndef _DRIVER_ADXL345_INTERRUPT_H_
-#define _DRIVER_ADXL345_INTERRUPT_H_
+#ifndef DRIVER_ADXL345_INTERRUPT_H
+#define DRIVER_ADXL345_INTERRUPT_H
 
 #include "driver_adxl345_interface.h"
 
@@ -114,7 +114,7 @@ uint8_t adxl345_interrupt_irq_handler(void);
  * @note      none
  */
 uint8_t adxl345_interrupt_init(adxl345_interface_t interface, adxl345_address_t addr_pin,
-                               uint8_t (*callback)(uint8_t type),
+                               void (*callback)(uint8_t type),
                                adxl345_bool_t tap_enable, adxl345_bool_t action_enable, 
                                adxl345_bool_t inaction_enable, adxl345_bool_t fall_enable);
 

@@ -53,8 +53,8 @@ static float gs_test[20][3];              /**< test buffer */
  */
 uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_pin, uint32_t times)
 {
-    volatile uint8_t res, i;
-    volatile int8_t reg;
+    uint8_t res, i;
+    int8_t reg;
     adxl345_info_t info;
     
     /* link interface function */
@@ -73,7 +73,7 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* get information */
     res = adxl345_info(&info);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: get info failed.\n");
        
@@ -95,7 +95,7 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* set the interface */
     res = adxl345_set_interface(&gs_handle, interface);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interface failed.\n");
        
@@ -104,7 +104,7 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* set the address pin */
     res = adxl345_set_addr_pin(&gs_handle, addr_pin);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set addr pin failed.\n");
        
@@ -113,7 +113,7 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* init adxl345 */
     res = adxl345_init(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: init failed.\n");
        
@@ -122,566 +122,566 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* set the spi 4 type */
     res = adxl345_set_spi_wire(&gs_handle, ADXL345_SPI_WIRE_4);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set spi wire failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set interrupt low */
     res = adxl345_set_interrupt_active_level(&gs_handle, ADXL345_INTERRUPT_ACTIVE_LEVEL_LOW);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt active level failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* disable auto sleep */
     res = adxl345_set_auto_sleep(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set auto sleep failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* disable sleep */
     res = adxl345_set_sleep(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set sleep failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set sleep 1Hz */
     res = adxl345_set_sleep_frequency(&gs_handle, ADXL345_SLEEP_FREQUENCY_1HZ);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set sleep frequency failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set bypass mode */
     res = adxl345_set_mode(&gs_handle, ADXL345_MODE_BYPASS);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set mode failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set trigger pin int 2 */
     res = adxl345_set_trigger_pin(&gs_handle, ADXL345_INTERRUPT_PIN2);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set trigger pin failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set watermark 16 leval */
     res = adxl345_set_watermark(&gs_handle, 16);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set watermark failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set offset */
     res = adxl345_offset_convert_to_register(&gs_handle, 0.0f, (int8_t *)&reg);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: offset convert to register failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set offset 0 */
     res = adxl345_set_offset(&gs_handle, reg, reg, reg);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set offset failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set threshold 3g */
     res = adxl345_tap_threshold_convert_to_register(&gs_handle, 3.0f, (uint8_t *)&reg);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: tap threshold convert to register failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set tap threshold */
     res = adxl345_set_tap_threshold(&gs_handle, reg);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set tap threshold failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set 10 ms */
     res = adxl345_duration_convert_to_register(&gs_handle, 10 * 1000, (uint8_t *)&reg);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: duration convert to register failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set duration */
     res = adxl345_set_duration(&gs_handle, reg);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set duration failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set 20 ms */
     res = adxl345_latent_convert_to_register(&gs_handle, 20.0f, (uint8_t *)&reg);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: latent convert to register failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set latent */
     res = adxl345_set_latent(&gs_handle, reg);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set latent failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set 80 ms */
     res = adxl345_window_convert_to_register(&gs_handle, 80.0f, (uint8_t *)&reg);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: window convert to register failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set windows time */
     res = adxl345_set_window(&gs_handle, reg);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set window failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set x axis */
     res = adxl345_set_tap_axis(&gs_handle, ADXL345_TAP_AXIS_X, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set tap axis failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set y axis */
     res = adxl345_set_tap_axis(&gs_handle, ADXL345_TAP_AXIS_Y, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set tap axis failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set z axis */
     res = adxl345_set_tap_axis(&gs_handle, ADXL345_TAP_AXIS_Z, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set tap axis failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* disable suppress */
     res = adxl345_set_tap_suppress(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set tap suppress failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* map int 1 */
     res = adxl345_set_interrupt_map(&gs_handle, ADXL345_INTERRUPT_SINGLE_TAP, ADXL345_INTERRUPT_PIN1);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt map failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set single tap */
     res = adxl345_set_interrupt(&gs_handle, ADXL345_INTERRUPT_SINGLE_TAP, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* map int 1 */
     res = adxl345_set_interrupt_map(&gs_handle, ADXL345_INTERRUPT_DOUBLE_TAP, ADXL345_INTERRUPT_PIN1);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt map failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set double tap */
     res = adxl345_set_interrupt(&gs_handle, ADXL345_INTERRUPT_DOUBLE_TAP, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* link activity and inactivity */
     res = adxl345_set_link_activity_inactivity(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set link activity inactivity failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     res = adxl345_action_threshold_convert_to_register(&gs_handle, 2.0f, (uint8_t *)&reg);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: action threshold convert to register failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set action */
     res = adxl345_set_action_threshold(&gs_handle, reg);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set action threshold failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     res = adxl345_inaction_threshold_convert_to_register(&gs_handle, 1.0f, (uint8_t *)&reg);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: inaction threshold convert to register failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set inaction threshold */
     res = adxl345_set_inaction_threshold(&gs_handle, reg);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set inaction threshold failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set 3 s */
     res = adxl345_inaction_time_convert_to_register(&gs_handle, 3, (uint8_t *)&reg);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: inaction time convert to register failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set inaction time */
     res = adxl345_set_inaction_time(&gs_handle, reg);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set inaction time failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set action x */
     res = adxl345_set_action_inaction(&gs_handle, ADXL345_ACTION_X, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set action inaction failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set action y */
     res = adxl345_set_action_inaction(&gs_handle, ADXL345_ACTION_Y, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set action inaction failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set action z */
     res = adxl345_set_action_inaction(&gs_handle, ADXL345_ACTION_Z, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set action inaction failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set inaction x */
     res = adxl345_set_action_inaction(&gs_handle, ADXL345_INACTION_X, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set action inaction failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set inaction y */
     res = adxl345_set_action_inaction(&gs_handle, ADXL345_INACTION_Y, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set action inaction failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set inaction z */
     res = adxl345_set_action_inaction(&gs_handle, ADXL345_INACTION_Z, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set action inaction failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set action ac coupled */
     res = adxl345_set_action_coupled(&gs_handle, ADXL345_COUPLED_AC);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set action coupled failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set inaction dc coupled */
     res = adxl345_set_inaction_coupled(&gs_handle, ADXL345_COUPLED_DC);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set inaction coupled failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* map int 1 */
     res = adxl345_set_interrupt_map(&gs_handle, ADXL345_INTERRUPT_ACTIVITY, ADXL345_INTERRUPT_PIN1);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt map failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set activity */
     res = adxl345_set_interrupt(&gs_handle, ADXL345_INTERRUPT_ACTIVITY, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* map int 1 */
     res = adxl345_set_interrupt_map(&gs_handle, ADXL345_INTERRUPT_INACTIVITY, ADXL345_INTERRUPT_PIN1);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt map failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set inactivity */
     res = adxl345_set_interrupt(&gs_handle, ADXL345_INTERRUPT_INACTIVITY, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set free fall */
     res = adxl345_free_fall_threshold_convert_to_register(&gs_handle, 0.8f, (uint8_t *)&reg);     
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: free fall threshold convert to register failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set free fall threshold */
     res = adxl345_set_free_fall_threshold(&gs_handle, reg);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set free fall threshold failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set 10 ms */
     res = adxl345_free_fall_time_convert_to_register(&gs_handle, 10, (uint8_t *)&reg);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: free fall time convert to register failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set free fall time */
     res = adxl345_set_free_fall_time(&gs_handle, reg);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set free fall time failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set interrupt 1 */
     res = adxl345_set_interrupt_map(&gs_handle, ADXL345_INTERRUPT_FREE_FALL, ADXL345_INTERRUPT_PIN1);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt map failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set fall */
     res = adxl345_set_interrupt(&gs_handle, ADXL345_INTERRUPT_FREE_FALL, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set interrupt 1 */
     res = adxl345_set_interrupt_map(&gs_handle, ADXL345_INTERRUPT_DATA_READY, ADXL345_INTERRUPT_PIN1);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt map failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set data ready */
     res = adxl345_set_interrupt(&gs_handle, ADXL345_INTERRUPT_DATA_READY, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set interrupt 1 */
     res = adxl345_set_interrupt_map(&gs_handle, ADXL345_INTERRUPT_WATERMARK, ADXL345_INTERRUPT_PIN1);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt map failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set data ready */
     res = adxl345_set_interrupt(&gs_handle, ADXL345_INTERRUPT_WATERMARK, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set interrupt 1 */
     res = adxl345_set_interrupt_map(&gs_handle, ADXL345_INTERRUPT_OVERRUN, ADXL345_INTERRUPT_PIN1);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt map failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set data ready */
     res = adxl345_set_interrupt(&gs_handle, ADXL345_INTERRUPT_OVERRUN, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -692,30 +692,30 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set justify right */
     adxl345_interface_debug_print("adxl345: set align right.\n");
     res = adxl345_set_justify(&gs_handle, ADXL345_JUSTIFY_RIGHT);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set justify failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set 100 rate */
     res = adxl345_set_rate(&gs_handle, ADXL345_RATE_100);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set full resolution */
     res = adxl345_set_full_resolution(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set full resolution failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -723,35 +723,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* 2g */
     adxl345_interface_debug_print("adxl345: set 2g range.\n");
     res = adxl345_set_range(&gs_handle, ADXL345_RANGE_2G);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set range failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -763,10 +763,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -775,35 +775,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* 4g */
     adxl345_interface_debug_print("adxl345: set 4g range.\n");
     res = adxl345_set_range(&gs_handle, ADXL345_RANGE_4G);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set range failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);                                           
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -815,10 +815,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -827,35 +827,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* 8g */
     adxl345_interface_debug_print("adxl345: set 8g range.\n");
     res = adxl345_set_range(&gs_handle, ADXL345_RANGE_8G);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set range failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -867,10 +867,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -879,35 +879,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* 16g */
     adxl345_interface_debug_print("adxl345: set 16g range.\n");
     res = adxl345_set_range(&gs_handle, ADXL345_RANGE_16G);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set range failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -919,10 +919,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -931,35 +931,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* full resolution */
     adxl345_interface_debug_print("adxl345: set full resolution.\n");
     res = adxl345_set_full_resolution(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set full resolution failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -971,10 +971,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -983,20 +983,20 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set align left */
     adxl345_interface_debug_print("adxl345: set align left.\n");
     res = adxl345_set_justify(&gs_handle, ADXL345_JUSTIFY_LEFT);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set justify failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set full resolution */
     res = adxl345_set_full_resolution(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set full resolution failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1004,35 +1004,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* 2g */
     adxl345_interface_debug_print("adxl345: set 2g range.\n");
     res = adxl345_set_range(&gs_handle, ADXL345_RANGE_2G);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set range failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -1044,10 +1044,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1056,35 +1056,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* 4g */
     adxl345_interface_debug_print("adxl345: set 4g range.\n");
     res = adxl345_set_range(&gs_handle, ADXL345_RANGE_4G);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set range failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -1096,10 +1096,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1108,35 +1108,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* 8g */
     adxl345_interface_debug_print("adxl345: set 8g range.\n");
     res = adxl345_set_range(&gs_handle, ADXL345_RANGE_8G);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set range failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -1148,10 +1148,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1160,35 +1160,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* 16g */
     adxl345_interface_debug_print("adxl345: set 16g range.\n");
     res = adxl345_set_range(&gs_handle, ADXL345_RANGE_16G);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set range failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -1200,10 +1200,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1212,35 +1212,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* full resolution */
     adxl345_interface_debug_print("adxl345: set full resolution.\n");
     res = adxl345_set_full_resolution(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set full resolution failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -1252,10 +1252,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1263,10 +1263,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* set justify right */
     res = adxl345_set_justify(&gs_handle, ADXL345_JUSTIFY_RIGHT);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set justify failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1274,35 +1274,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate 0.1Hz */
     adxl345_interface_debug_print("adxl345: set rate 0.1Hz.\n"); 
     res = adxl345_set_rate(&gs_handle, ADXL345_RATE_0P1);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -1314,10 +1314,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1326,35 +1326,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate 0.2Hz */
     adxl345_interface_debug_print("adxl345: set rate 0.2Hz.\n"); 
     res = adxl345_set_rate(&gs_handle, ADXL345_RATE_0P2);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -1366,10 +1366,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1378,35 +1378,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate 0.39Hz */
     adxl345_interface_debug_print("adxl345: set rate 0.39Hz.\n");
     res = adxl345_set_rate(&gs_handle, ADXL345_RATE_0P39);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -1418,10 +1418,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1430,35 +1430,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate 0.78Hz */
     adxl345_interface_debug_print("adxl345: set rate 0.78Hz.\n");
     res = adxl345_set_rate(&gs_handle, ADXL345_RATE_0P78);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -1470,10 +1470,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1482,35 +1482,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate 1.56Hz */
     adxl345_interface_debug_print("adxl345: set rate 1.56Hz.\n");
     res = adxl345_set_rate(&gs_handle, ADXL345_RATE_1P56);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -1522,10 +1522,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1534,35 +1534,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate 3.13Hz */
     adxl345_interface_debug_print("adxl345: set rate 3.13Hz.\n");
     res = adxl345_set_rate(&gs_handle, ADXL345_RATE_3P13);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -1574,10 +1574,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1586,35 +1586,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate 6.25Hz */
     adxl345_interface_debug_print("adxl345: set rate 6.25Hz.\n");
     res = adxl345_set_rate(&gs_handle, ADXL345_RATE_6P25);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -1626,10 +1626,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1638,35 +1638,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate 12.5Hz */
     adxl345_interface_debug_print("adxl345: set rate 12.5Hz.\n");
     res = adxl345_set_rate(&gs_handle, ADXL345_RATE_12P5);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -1678,10 +1678,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1690,35 +1690,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate 25Hz */
     adxl345_interface_debug_print("adxl345: set rate 25Hz.\n");
     res = adxl345_set_rate(&gs_handle, ADXL345_RATE_25);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -1730,10 +1730,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1742,35 +1742,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate 50Hz */
     adxl345_interface_debug_print("adxl345: set rate 50Hz.\n"); 
     res = adxl345_set_rate(&gs_handle, ADXL345_RATE_50);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -1782,10 +1782,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1794,35 +1794,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate 100Hz */
     adxl345_interface_debug_print("adxl345: set rate 100Hz.\n"); 
     res = adxl345_set_rate(&gs_handle, ADXL345_RATE_100);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -1834,10 +1834,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1846,35 +1846,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate 200Hz */
     adxl345_interface_debug_print("adxl345: set rate 200Hz.\n");
     res = adxl345_set_rate(&gs_handle, ADXL345_RATE_200);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -1886,10 +1886,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1898,35 +1898,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate 400Hz */
     adxl345_interface_debug_print("adxl345: set rate 400Hz.\n");
     res = adxl345_set_rate(&gs_handle, ADXL345_RATE_400);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -1938,10 +1938,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -1950,35 +1950,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate 800Hz */
     adxl345_interface_debug_print("adxl345: set rate 800Hz.\n");
     res = adxl345_set_rate(&gs_handle, ADXL345_RATE_800);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -1990,10 +1990,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -2002,35 +2002,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate 1600Hz */
     adxl345_interface_debug_print("adxl345: set rate 1600Hz.\n");
     res = adxl345_set_rate(&gs_handle, ADXL345_RATE_1600);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -2042,10 +2042,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -2054,35 +2054,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate 3200Hz */
     adxl345_interface_debug_print("adxl345: set rate 3200Hz.\n");
     res = adxl345_set_rate(&gs_handle, ADXL345_RATE_3200);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -2094,10 +2094,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -2106,35 +2106,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate low power 12.5Hz */
     adxl345_interface_debug_print("adxl345: set rate low power 12.5Hz.\n");
     res = adxl345_set_rate(&gs_handle, ADXL345_LOW_POWER_RATE_12P5);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -2146,10 +2146,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -2158,35 +2158,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate low power 25Hz */
     adxl345_interface_debug_print("adxl345: set rate low power 25Hz.\n");
     res = adxl345_set_rate(&gs_handle, ADXL345_LOW_POWER_RATE_25);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -2198,10 +2198,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -2210,33 +2210,33 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate low power 50Hz */
     adxl345_interface_debug_print("adxl345: set rate low power 50Hz.\n");
     res = adxl345_set_rate(&gs_handle, ADXL345_LOW_POWER_RATE_50);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -2248,10 +2248,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -2260,35 +2260,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate low power 100Hz */
     adxl345_interface_debug_print("adxl345: set rate low power 100Hz.\n");
     res = adxl345_set_rate(&gs_handle, ADXL345_LOW_POWER_RATE_100);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -2300,10 +2300,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -2312,35 +2312,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate low power 200Hz */
     adxl345_interface_debug_print("adxl345: set rate low power 200Hz.\n"); 
     res = adxl345_set_rate(&gs_handle, ADXL345_LOW_POWER_RATE_200);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -2352,10 +2352,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -2364,35 +2364,35 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     /* set rate low power 400Hz */
     adxl345_interface_debug_print("adxl345: set rate low power 400Hz.\n");
     res = adxl345_set_rate(&gs_handle, ADXL345_LOW_POWER_RATE_400);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set rate failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
     adxl345_interface_delay_ms(10);
     for (i = 0; i < times; i++)
     {
-        volatile uint16_t len;
+        uint16_t len;
         
         len = 1;
         
         /* read data */
-        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len))
+        if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw_test, (float (*)[3])gs_test, (uint16_t *)&len) != 0)
         {
             adxl345_interface_debug_print("adxl345: read failed.\n");
-            adxl345_deinit(&gs_handle);
+            (void)adxl345_deinit(&gs_handle);
             
             return 1;
         }
@@ -2404,10 +2404,10 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* stop measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_FALSE);
-    if (res)
+    if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set measure failed.\n");
-        adxl345_deinit(&gs_handle);
+        (void)adxl345_deinit(&gs_handle);
         
         return 1;
     }
@@ -2415,7 +2415,7 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
     
     /* finish read test */
     adxl345_interface_debug_print("adxl345: finish read test.\n");
-    adxl345_deinit(&gs_handle);
+    (void)adxl345_deinit(&gs_handle);
     
     return 0;
 }

@@ -85,27 +85,19 @@ void HAL_GPIO_EXTI_Callback(uint16_t pin)
  * @brief     fifo callback
  * @param[in] **g points to a converted data buffer
  * @param[in] len is the data buffer
- * @return    status code
- *            - 0 success
- *            - 1 run failed
  * @note      none
  */
-static uint8_t _fifo_callback(float (*g)[3], uint16_t len)
+static void a_fifo_callback(float (*g)[3], uint16_t len)
 {
     g_flag = 1;
-    
-    return 0;
 }
 
 /**
  * @brief     interrupt callback
  * @param[in] type is the irq type
- * @return    status code
- *            - 0 success
- *            - 1 run failed
  * @note      none
  */
-static uint8_t _interrupt_callback(uint8_t type)
+static void a_interrupt_callback(uint8_t type)
 {
     switch (type)
     {
@@ -152,8 +144,6 @@ static uint8_t _interrupt_callback(uint8_t type)
             break;
         }
     }
-
-    return 0;
 }
 
 /**
@@ -241,11 +231,11 @@ uint8_t adxl345(uint8_t argc, char **argv)
             {
                 if (strcmp("-spi", argv[3]) == 0)
                 {
-                    volatile uint8_t res;
+                    uint8_t res;
                     
                     /* run register test */
                     res = adxl345_register_test(ADXL345_INTERFACE_SPI, ADXL345_ADDRESS_ALT_0);
-                    if (res)
+                    if (res != 0)
                     {
                         return 1;
                     }
@@ -261,10 +251,10 @@ uint8_t adxl345(uint8_t argc, char **argv)
             {
                 if (strcmp("-spi", argv[3]) == 0)
                 {
-                    volatile uint8_t res;
+                    uint8_t res;
                     
                     res = gpio_interrupt_init();
-                    if (res)
+                    if (res != 0)
                     {
                         return 1;
                     }
@@ -272,14 +262,14 @@ uint8_t adxl345(uint8_t argc, char **argv)
                     
                     /* run fifo test */
                     res = adxl345_fifo_test(ADXL345_INTERFACE_SPI, ADXL345_ADDRESS_ALT_0);
-                    if (res)
+                    if (res != 0)
                     {
-                        gpio_interrupt_deinit();
+                        (void)gpio_interrupt_deinit();
                         g_gpio_irq = NULL;
                         
                         return 1;
                     }
-                    gpio_interrupt_deinit();
+                    (void)gpio_interrupt_deinit();
                     g_gpio_irq = NULL;
                     
                     return 0;
@@ -293,10 +283,10 @@ uint8_t adxl345(uint8_t argc, char **argv)
             {
                 if (strcmp("-spi", argv[3]) == 0)
                 {
-                    volatile uint8_t res;
+                    uint8_t res;
                     
                     res = gpio_interrupt_init();
-                    if (res)
+                    if (res != 0)
                     {
                         return 1;
                     }
@@ -304,14 +294,14 @@ uint8_t adxl345(uint8_t argc, char **argv)
                     
                     /* run interrupt test */
                     res = adxl345_tap_action_fall_test(ADXL345_INTERFACE_SPI, ADXL345_ADDRESS_ALT_0);
-                    if (res)
+                    if (res != 0)
                     {
-                        gpio_interrupt_deinit();
+                        (void)gpio_interrupt_deinit();
                         g_gpio_irq = NULL;
                         
                         return 1;
                     }
-                    gpio_interrupt_deinit();
+                    (void)gpio_interrupt_deinit();
                     g_gpio_irq = NULL;
                     
                     return 0;
@@ -339,7 +329,7 @@ uint8_t adxl345(uint8_t argc, char **argv)
             {
                 if (strcmp("-iic", argv[3]) == 0)
                 {
-                    volatile uint8_t res;
+                    uint8_t res;
                     adxl345_address_t addr_pin;
                     
                     if (strcmp("0", argv[4]) == 0)
@@ -357,7 +347,7 @@ uint8_t adxl345(uint8_t argc, char **argv)
                     
                     /* run register test */
                     res = adxl345_register_test(ADXL345_INTERFACE_IIC, addr_pin);
-                    if (res)
+                    if (res != 0)
                     {
                         return 1;
                     }
@@ -373,7 +363,7 @@ uint8_t adxl345(uint8_t argc, char **argv)
             {
                 if (strcmp("-iic", argv[3]) == 0)
                 {
-                    volatile uint8_t res;
+                    uint8_t res;
                     adxl345_address_t addr_pin;
                     
                     if (strcmp("0", argv[4]) == 0)
@@ -390,7 +380,7 @@ uint8_t adxl345(uint8_t argc, char **argv)
                     }
                     
                     res = gpio_interrupt_init();
-                    if (res)
+                    if (res != 0)
                     {
                         return 1;
                     }
@@ -398,14 +388,14 @@ uint8_t adxl345(uint8_t argc, char **argv)
                     
                     /* fifo test */
                     res = adxl345_fifo_test(ADXL345_INTERFACE_IIC, addr_pin);
-                    if (res)
+                    if (res != 0)
                     {
-                        gpio_interrupt_deinit();
+                        (void)gpio_interrupt_deinit();
                         g_gpio_irq = NULL;
                         
                         return 1;
                     }
-                    gpio_interrupt_deinit();
+                    (void)gpio_interrupt_deinit();
                     g_gpio_irq = NULL;
                     
                     return 0;
@@ -419,7 +409,7 @@ uint8_t adxl345(uint8_t argc, char **argv)
             {
                 if (strcmp("-iic", argv[3]) == 0)
                 {
-                    volatile uint8_t res;
+                    uint8_t res;
                     adxl345_address_t addr_pin;
                     
                     if (strcmp("0", argv[4]) == 0)
@@ -436,7 +426,7 @@ uint8_t adxl345(uint8_t argc, char **argv)
                     }
                     
                     res = gpio_interrupt_init();
-                    if (res)
+                    if (res != 0)
                     {
                         return 1;
                     }
@@ -444,14 +434,14 @@ uint8_t adxl345(uint8_t argc, char **argv)
                     
                     /* interrupt test */
                     res = adxl345_tap_action_fall_test(ADXL345_INTERFACE_IIC, addr_pin);
-                    if (res)
+                    if (res != 0)
                     {
-                        gpio_interrupt_deinit();
+                        (void)gpio_interrupt_deinit();
                         g_gpio_irq = NULL;
                         
                         return 1;
                     }
-                    gpio_interrupt_deinit();
+                    (void)gpio_interrupt_deinit();
                     g_gpio_irq = NULL;
                     
                     return 0;
@@ -463,8 +453,8 @@ uint8_t adxl345(uint8_t argc, char **argv)
             }
             else if (strcmp("read", argv[2]) == 0)
             {
-                volatile uint8_t res;
-                volatile uint32_t times;
+                uint8_t res;
+                uint32_t times;
                 
                 times = atoi(argv[3]);
                 
@@ -473,7 +463,7 @@ uint8_t adxl345(uint8_t argc, char **argv)
                     
                     /* read test */
                     res = adxl345_read_test(ADXL345_INTERFACE_SPI, ADXL345_ADDRESS_ALT_0, times);
-                    if (res)
+                    if (res != 0)
                     {
                         return 1;
                     }
@@ -494,27 +484,28 @@ uint8_t adxl345(uint8_t argc, char **argv)
         {
             if (strcmp("basic", argv[2]) == 0)
             {
-                volatile uint8_t res;
-                volatile uint32_t i, times;
+                uint8_t res;
+                uint32_t i, times;
                 
                 times = atoi(argv[3]);
                 
                 if (strcmp("-spi", argv[4]) == 0)
                 {
-                    volatile float g[3];
+                    float g[3];
                     
                     /* basic read */
                     res = adxl345_basic_init(ADXL345_INTERFACE_SPI, ADXL345_ADDRESS_ALT_0);
-                    if (res)
+                    if (res != 0)
                     {
                         return 1;
                     }
                     for (i = 0; i < times; i++)
                     {
                         res = adxl345_basic_read((float *)g);
-                        if (res)
+                        if (res != 0)
                         {
-                            adxl345_basic_deinit();
+                            (void)adxl345_basic_deinit();
+                            
                             return 1;
                         }
                         adxl345_interface_debug_print("adxl345: x is %0.3f.\n", g[0]);
@@ -524,7 +515,7 @@ uint8_t adxl345(uint8_t argc, char **argv)
                         adxl345_interface_delay_ms(1000);
                     }
                     
-                    adxl345_basic_deinit();
+                    (void)adxl345_basic_deinit();
                     
                     return 0;
                 }
@@ -535,34 +526,33 @@ uint8_t adxl345(uint8_t argc, char **argv)
             }
             else if (strcmp("fifo", argv[2]) == 0)
             {
-                volatile uint32_t i, times, timeout;
+                uint32_t times, timeout;
                 
                 times = atoi(argv[3]);
                 
                 if (strcmp("-spi", argv[4]) == 0)
                 {
-                    volatile uint8_t res;
-                    volatile float g[3];
+                    uint8_t res;
                     
                     res = gpio_interrupt_init();
-                    if (res)
+                    if (res != 0)
                     {
                         return 1;
                     }
                     g_gpio_irq = adxl345_fifo_irq_handler;
                     g_flag = 0;
-                    res = adxl345_fifo_init(ADXL345_INTERFACE_SPI, ADXL345_ADDRESS_ALT_0, _fifo_callback);
-                    if (res)
+                    res = adxl345_fifo_init(ADXL345_INTERFACE_SPI, ADXL345_ADDRESS_ALT_0, a_fifo_callback);
+                    if (res != 0)
                     {
-                        gpio_interrupt_deinit();
+                        (void)gpio_interrupt_deinit();
                         g_gpio_irq = NULL;
                         
                         return 1;
                     }
                     timeout = 500;
-                    while (times)
+                    while (times != 0)
                     {
-                        if (g_flag)
+                        if (g_flag != 0)
                         {
                             adxl345_interface_debug_print("adxl345: fifo read %d.\n", times);
                             g_flag = 0;
@@ -572,8 +562,8 @@ uint8_t adxl345(uint8_t argc, char **argv)
                         timeout--;
                         if (timeout == 0)
                         {
-                            gpio_interrupt_deinit();
-                            adxl345_fifo_deinit();
+                            (void)gpio_interrupt_deinit();
+                            (void)adxl345_fifo_deinit();
                             g_gpio_irq = NULL;
                             adxl345_interface_debug_print("adxl345: fifo read timeout.\n");
                             
@@ -582,8 +572,8 @@ uint8_t adxl345(uint8_t argc, char **argv)
                         adxl345_interface_delay_ms(10);
                     }
                     
-                    gpio_interrupt_deinit();
-                    adxl345_fifo_deinit();
+                    (void)gpio_interrupt_deinit();
+                    (void)adxl345_fifo_deinit();
                     g_gpio_irq = NULL;
                     
                     return 0;
@@ -595,46 +585,45 @@ uint8_t adxl345(uint8_t argc, char **argv)
             }
             else if (strcmp("int", argv[2]) == 0)
             {
-                volatile uint32_t flag;
+                uint32_t flag;
                 
                 flag = atoi(argv[4]);
                 
                 if (strcmp("-spi", argv[3]) == 0)
                 {
-                    volatile uint8_t res;
-                    volatile uint32_t times;
-                    volatile float g[3];
+                    uint8_t res;
+                    uint32_t times;
                     
                     res = gpio_interrupt_init();
-                    if (res)
+                    if (res != 0)
                     {
                         return 1;
                     }
                     g_gpio_irq = adxl345_interrupt_irq_handler;
-                    res = adxl345_interrupt_init(ADXL345_INTERFACE_SPI, ADXL345_ADDRESS_ALT_0, _interrupt_callback,
+                    res = adxl345_interrupt_init(ADXL345_INTERFACE_SPI, ADXL345_ADDRESS_ALT_0, a_interrupt_callback,
                                                 (adxl345_bool_t)((flag >> 0) & 0x01), 
                                                 (adxl345_bool_t)((flag >> 1) & 0x01),
                                                 (adxl345_bool_t)((flag >> 2) & 0x01),
                                                 (adxl345_bool_t)((flag >> 3) & 0x01)
                                                  );
-                    if (res)
+                    if (res != 0)
                     {
-                        gpio_interrupt_deinit();
+                        (void)gpio_interrupt_deinit();
                         g_gpio_irq = NULL;
                         
                         return 1;
                     }
                      
                     times = 500;
-                    while (times)
+                    while (times != 0)
                     {
-                        adxl345_interrupt_server();
+                        (void)adxl345_interrupt_server();
                         times--;
                         adxl345_interface_delay_ms(10);
                     }
                     adxl345_interface_debug_print("adxl345: finish interrupt.\n");
-                    gpio_interrupt_deinit();
-                    adxl345_interrupt_deinit();
+                    (void)gpio_interrupt_deinit();
+                    (void)adxl345_interrupt_deinit();
                     g_gpio_irq = NULL;
                     
                     return 0;
@@ -660,13 +649,13 @@ uint8_t adxl345(uint8_t argc, char **argv)
         {
             if (strcmp("read", argv[2]) == 0)
             {
-                volatile uint32_t times;
+                uint32_t times;
                 
                 times = atoi(argv[3]);
                 
                 if (strcmp("-iic", argv[4]) == 0)
                 {
-                    volatile uint8_t res;
+                    uint8_t res;
                     adxl345_address_t addr_pin;
                     
                     if (strcmp("0", argv[5]) == 0)
@@ -684,7 +673,7 @@ uint8_t adxl345(uint8_t argc, char **argv)
                     
                     /* read test */
                     res = adxl345_read_test(ADXL345_INTERFACE_IIC, addr_pin, times);
-                    if (res)
+                    if (res != 0)
                     {
                         return 1;
                     }
@@ -705,14 +694,14 @@ uint8_t adxl345(uint8_t argc, char **argv)
         {
             if (strcmp("basic", argv[2]) == 0)
             {
-                volatile uint32_t i, times;
+                uint32_t i, times;
                 
                 times = atoi(argv[3]);
                 
                 if (strcmp("-iic", argv[4]) == 0)
                 {
-                    volatile uint8_t res;
-                    volatile float g[3];
+                    uint8_t res;
+                    float g[3];
                     adxl345_address_t addr_pin;
                     
                     if (strcmp("0", argv[5]) == 0)
@@ -729,16 +718,17 @@ uint8_t adxl345(uint8_t argc, char **argv)
                     }
                     
                     res = adxl345_basic_init(ADXL345_INTERFACE_IIC, addr_pin);
-                    if (res)
+                    if (res != 0)
                     {
                         return 1;
                     }
                     for (i = 0; i < times; i++)
                     {
                         res = adxl345_basic_read((float *)g);
-                        if (res)
+                        if (res != 0)
                         {
-                            adxl345_basic_deinit();
+                            (void)adxl345_basic_deinit();
+                            
                             return 1;
                         }
                         adxl345_interface_debug_print("adxl345: x is %0.3f.\n", g[0]);
@@ -748,7 +738,7 @@ uint8_t adxl345(uint8_t argc, char **argv)
                         adxl345_interface_delay_ms(1000);
                     }
                     
-                    adxl345_basic_deinit();
+                    (void)adxl345_basic_deinit();
                     
                     return 0;
                 }
@@ -759,14 +749,13 @@ uint8_t adxl345(uint8_t argc, char **argv)
             }
             else if (strcmp("fifo", argv[2]) == 0)
             {
-                volatile uint32_t i, times, timeout;
+                uint32_t times, timeout;
                 
                 times = atoi(argv[3]);
                 
                 if (strcmp("-iic", argv[4]) == 0)
                 {
-                    volatile uint8_t res;
-                    volatile float g[3];
+                    uint8_t res;
                     adxl345_address_t addr_pin;
                     
                     if (strcmp("0", argv[5]) == 0)
@@ -783,24 +772,24 @@ uint8_t adxl345(uint8_t argc, char **argv)
                     }
                     
                     res = gpio_interrupt_init();
-                    if (res)
+                    if (res != 0)
                     {
                         return 1;
                     }
                     g_gpio_irq = adxl345_fifo_irq_handler;
                     g_flag = 0;
-                    res = adxl345_fifo_init(ADXL345_INTERFACE_IIC, addr_pin, _fifo_callback);
-                    if (res)
+                    res = adxl345_fifo_init(ADXL345_INTERFACE_IIC, addr_pin, a_fifo_callback);
+                    if (res != 0)
                     {
-                        gpio_interrupt_deinit();
+                        (void)gpio_interrupt_deinit();
                         g_gpio_irq = NULL;
                         
                         return 1;
                     }
                     timeout = 500;
-                    while (times)
+                    while (times != 0)
                     {
-                        if (g_flag)
+                        if (g_flag != 0)
                         {
                             adxl345_interface_debug_print("adxl345: fifo read %d.\n", times);
                             g_flag = 0;
@@ -810,8 +799,8 @@ uint8_t adxl345(uint8_t argc, char **argv)
                         timeout--;
                         if (timeout == 0)
                         {
-                            gpio_interrupt_deinit();
-                            adxl345_fifo_deinit();
+                            (void)gpio_interrupt_deinit();
+                            (void)adxl345_fifo_deinit();
                             g_gpio_irq = NULL;
                             adxl345_interface_debug_print("adxl345: fifo read timeout.\n");
                             
@@ -820,8 +809,8 @@ uint8_t adxl345(uint8_t argc, char **argv)
                         adxl345_interface_delay_ms(10);
                     }
                     
-                    gpio_interrupt_deinit();
-                    adxl345_fifo_deinit();
+                    (void)gpio_interrupt_deinit();
+                    (void)adxl345_fifo_deinit();
                     g_gpio_irq = NULL;
                     
                     return 0;
@@ -833,15 +822,14 @@ uint8_t adxl345(uint8_t argc, char **argv)
             }
             else if (strcmp("int", argv[2]) == 0)
             {
-                volatile uint32_t flag;
-                volatile uint32_t times;
+                uint32_t flag;
+                uint32_t times;
                 
                 flag = atoi(argv[5]);
                 
                 if (strcmp("-iic", argv[3]) == 0)
                 {
-                    volatile uint8_t res;
-                    volatile float g[3];
+                    uint8_t res;
                     adxl345_address_t addr_pin;
                     
                     if (strcmp("0", argv[4]) == 0)
@@ -858,35 +846,35 @@ uint8_t adxl345(uint8_t argc, char **argv)
                     }
                     
                     res = gpio_interrupt_init();
-                    if (res)
+                    if (res != 0)
                     {
                         return 1;
                     }
                     g_gpio_irq = adxl345_interrupt_irq_handler;
-                    res = adxl345_interrupt_init(ADXL345_INTERFACE_IIC, addr_pin, _interrupt_callback,
+                    res = adxl345_interrupt_init(ADXL345_INTERFACE_IIC, addr_pin, a_interrupt_callback,
                                                 (adxl345_bool_t)((flag >> 0) & 0x01), 
                                                 (adxl345_bool_t)((flag >> 1) & 0x01),
                                                 (adxl345_bool_t)((flag >> 2) & 0x01),
                                                 (adxl345_bool_t)((flag >> 3) & 0x01)
                                                  );
-                    if (res)
+                    if (res != 0)
                     {
-                        gpio_interrupt_deinit();
+                        (void)gpio_interrupt_deinit();
                         g_gpio_irq = NULL;
                         
                         return 1;
                     }
                     
                     times = 500;
-                    while (times)
+                    while (times != 0)
                     {
-                        adxl345_interrupt_server();
+                        (void)adxl345_interrupt_server();
                         times--;
                         adxl345_interface_delay_ms(10);
                     }
                     adxl345_interface_debug_print("adxl345: finish interrupt.\n");
-                    gpio_interrupt_deinit();
-                    adxl345_interrupt_deinit();
+                    (void)gpio_interrupt_deinit();
+                    (void)adxl345_interrupt_deinit();
                     g_gpio_irq = NULL;
                     
                     return 0;
@@ -919,7 +907,7 @@ uint8_t adxl345(uint8_t argc, char **argv)
  */
 int main(void)
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     /* stm32f407 clock init and hal init */
     clock_init();
