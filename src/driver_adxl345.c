@@ -3329,7 +3329,7 @@ uint8_t adxl345_deinit(adxl345_handle_t *handle)
  *                - 0 success
  *                - 1 read failed
  *                - 2 handle is NULL
- *                - 3 linked functions is NULL
+ *                - 3 handle is not initialized
  * @note          none
  */
 uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3], uint16_t *len) 
