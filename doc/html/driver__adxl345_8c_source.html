@@ -2358,9 +2358,9 @@ $(document).ready(function(){initNavTree('driver__adxl345_8c_source.html',''); i
 <div class="line"><a name="l03393"></a><span class="lineno"> 3393</span>&#160;                raw[0][1] = (raw[0][1] &amp; 0x80) | (raw[0][1] &amp; (~0x80)) &gt;&gt; (16 - 10 - range);      <span class="comment">/* set raw y */</span></div>
 <div class="line"><a name="l03394"></a><span class="lineno"> 3394</span>&#160;                raw[0][2] = (raw[0][2] &amp; 0x80) | (raw[0][2] &amp; (~0x80)) &gt;&gt; (16 - 10 - range);      <span class="comment">/* set raw z */</span></div>
 <div class="line"><a name="l03395"></a><span class="lineno"> 3395</span>&#160;            }</div>
-<div class="line"><a name="l03396"></a><span class="lineno"> 3396</span>&#160;            g[0][0] = (float)(raw[0][0]) * 0.004f;                                                <span class="comment">/* convert x */</span></div>
-<div class="line"><a name="l03397"></a><span class="lineno"> 3397</span>&#160;            g[0][1] = (float)(raw[0][1]) * 0.004f;                                                <span class="comment">/* convert y */</span></div>
-<div class="line"><a name="l03398"></a><span class="lineno"> 3398</span>&#160;            g[0][2] = (float)(raw[0][2]) * 0.004f;                                                <span class="comment">/* convert z */</span></div>
+<div class="line"><a name="l03396"></a><span class="lineno"> 3396</span>&#160;            g[0][0] = (float)(raw[0][0]) * 0.0039f;                                               <span class="comment">/* convert x */</span></div>
+<div class="line"><a name="l03397"></a><span class="lineno"> 3397</span>&#160;            g[0][1] = (float)(raw[0][1]) * 0.0039f;                                               <span class="comment">/* convert y */</span></div>
+<div class="line"><a name="l03398"></a><span class="lineno"> 3398</span>&#160;            g[0][2] = (float)(raw[0][2]) * 0.0039f;                                               <span class="comment">/* convert z */</span></div>
 <div class="line"><a name="l03399"></a><span class="lineno"> 3399</span>&#160;        }</div>
 <div class="line"><a name="l03400"></a><span class="lineno"> 3400</span>&#160;        <span class="keywordflow">else</span></div>
 <div class="line"><a name="l03401"></a><span class="lineno"> 3401</span>&#160;        {</div>
@@ -2427,9 +2427,9 @@ $(document).ready(function(){initNavTree('driver__adxl345_8c_source.html',''); i
 <div class="line"><a name="l03462"></a><span class="lineno"> 3462</span>&#160;                    raw[i][1] = (raw[i][1] &amp; 0x80) | (raw[i][1] &amp; (~0x80)) &gt;&gt; (16 -10 - range);   <span class="comment">/* get raw y */</span></div>
 <div class="line"><a name="l03463"></a><span class="lineno"> 3463</span>&#160;                    raw[i][2] = (raw[i][2] &amp; 0x80) | (raw[i][2] &amp; (~0x80)) &gt;&gt; (16 -10 - range);   <span class="comment">/* get raw z */</span></div>
 <div class="line"><a name="l03464"></a><span class="lineno"> 3464</span>&#160;                }</div>
-<div class="line"><a name="l03465"></a><span class="lineno"> 3465</span>&#160;                g[i][0] = (float)(raw[i][0])*0.004f;                                              <span class="comment">/* convert x */</span></div>
-<div class="line"><a name="l03466"></a><span class="lineno"> 3466</span>&#160;                g[i][1] = (float)(raw[i][1])*0.004f;                                              <span class="comment">/* convert y */</span></div>
-<div class="line"><a name="l03467"></a><span class="lineno"> 3467</span>&#160;                g[i][2] = (float)(raw[i][2])*0.004f;                                              <span class="comment">/* convert z */</span></div>
+<div class="line"><a name="l03465"></a><span class="lineno"> 3465</span>&#160;                g[i][0] = (float)(raw[i][0])*0.0039f;                                             <span class="comment">/* convert x */</span></div>
+<div class="line"><a name="l03466"></a><span class="lineno"> 3466</span>&#160;                g[i][1] = (float)(raw[i][1])*0.0039f;                                             <span class="comment">/* convert y */</span></div>
+<div class="line"><a name="l03467"></a><span class="lineno"> 3467</span>&#160;                g[i][2] = (float)(raw[i][2])*0.0039f;                                             <span class="comment">/* convert z */</span></div>
 <div class="line"><a name="l03468"></a><span class="lineno"> 3468</span>&#160;            }</div>
 <div class="line"><a name="l03469"></a><span class="lineno"> 3469</span>&#160;            <span class="keywordflow">else</span></div>
 <div class="line"><a name="l03470"></a><span class="lineno"> 3470</span>&#160;            {</div>
