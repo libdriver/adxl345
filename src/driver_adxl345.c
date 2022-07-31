@@ -3393,9 +3393,9 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
                 raw[0][1] = (raw[0][1] & 0x80) | (raw[0][1] & (~0x80)) >> (16 - 10 - range);      /* set raw y */
                 raw[0][2] = (raw[0][2] & 0x80) | (raw[0][2] & (~0x80)) >> (16 - 10 - range);      /* set raw z */
             }
-            g[0][0] = (float)(raw[0][0]) * 0.004f;                                                /* convert x */
-            g[0][1] = (float)(raw[0][1]) * 0.004f;                                                /* convert y */
-            g[0][2] = (float)(raw[0][2]) * 0.004f;                                                /* convert z */
+            g[0][0] = (float)(raw[0][0]) * 0.0039f;                                               /* convert x */
+            g[0][1] = (float)(raw[0][1]) * 0.0039f;                                               /* convert y */
+            g[0][2] = (float)(raw[0][2]) * 0.0039f;                                               /* convert z */
         }
         else
         {
@@ -3462,9 +3462,9 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
                     raw[i][1] = (raw[i][1] & 0x80) | (raw[i][1] & (~0x80)) >> (16 -10 - range);   /* get raw y */
                     raw[i][2] = (raw[i][2] & 0x80) | (raw[i][2] & (~0x80)) >> (16 -10 - range);   /* get raw z */
                 }
-                g[i][0] = (float)(raw[i][0])*0.004f;                                              /* convert x */
-                g[i][1] = (float)(raw[i][1])*0.004f;                                              /* convert y */
-                g[i][2] = (float)(raw[i][2])*0.004f;                                              /* convert z */
+                g[i][0] = (float)(raw[i][0])*0.0039f;                                             /* convert x */
+                g[i][1] = (float)(raw[i][1])*0.0039f;                                             /* convert y */
+                g[i][2] = (float)(raw[i][2])*0.0039f;                                             /* convert z */
             }
             else
             {
