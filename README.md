@@ -29,15 +29,15 @@ LibDriver ADXL345 is the full function driver of adxl345 launched by LibDriver. 
 
 /src includes LibDriver ADXL345 source files.
 
-/interface includes LibDriver ADXL345 IIC and SPI platform independent template。
+/interface includes LibDriver ADXL345 IIC and SPI platform independent template.
 
-/test includes LibDriver ADXL345 driver test code and this code can test the chip necessary function simply。
+/test includes LibDriver ADXL345 driver test code and this code can test the chip necessary function simply.
 
 /example includes LibDriver ADXL345 sample code.
 
 /doc includes LibDriver ADXL345 offline document.
 
-/datasheet includes ADXL345 datasheet。
+/datasheet includes ADXL345 datasheet.
 
 /project includes the common Linux and MCU development board sample code. All projects use the shell script to debug the driver and the detail instruction can be found in each project's README.md.
 
@@ -52,6 +52,8 @@ Add /src, /interface and /example to your project.
 #### example basic
 
 ```C
+#include "driver_adxl345_basic.h"
+
 uint8_t res;
 uint8_t i;
 float g[3];
@@ -92,6 +94,8 @@ return 0;
 #### example fifo
 
 ```C
+#include "driver_adxl345_fifo.h"
+
 uint8_t res;
 float g[3];
 
@@ -132,6 +136,8 @@ return 0;
 #### example interrupt
 
 ```C
+#include "driver_adxl345_interrupt.h"
+
 uint8_t res;
 
 void interrupt_callback(uint8_t type)
