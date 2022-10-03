@@ -1,28 +1,82 @@
-### 1. chip
+### 1. Chip
 
-#### 1.1 chip info
+#### 1.1 Chip Info
 
-chip name : Raspberry Pi 4B
+chip name : Raspberry Pi 4B.
 
-iic pin: SCL/SDA GPIO3/GPIO2
+iic pin: SCL/SDA GPIO3/GPIO2.
 
-spi pin: SCLK/MOSI/MISO/CS GPIO11/GPIO10/GPIO9/GPIO8
+spi pin: SCLK/MOSI/MISO/CS GPIO11/GPIO10/GPIO9/GPIO8.
 
-gpio pin: INT GPIO17
+gpio pin: INT GPIO17.
 
-### 2. install
+### 2. Install
 
-#### 2.1 install info
+#### 2.1 Dependencies
+
+Install the necessary dependencies.
 
 ```shell
-sudo apt-get install libgpiod-dev
+sudo apt-get install libgpiod-dev pkg-config cmake -y
+```
 
+#### 2.2 Makefile
+
+Build the project.
+
+```shell
 make
 ```
 
-### 3. adxl345
+Install the project and this is optional.
 
-#### 3.1 command Instruction
+```shell
+sudo make install
+```
+
+Uninstall the project and this is optional.
+
+```shell
+sudo make uninstall
+```
+
+#### 2.3 CMake
+
+Build the project.
+
+```shell
+mkdir build && cd build 
+cmake .. 
+make
+```
+
+Install the project and this is optional.
+
+```shell
+sudo make install
+```
+
+Uninstall the project and this is optional.
+
+```shell
+sudo make uninstall
+```
+
+Test the project and this is optional.
+
+```shell
+make test
+```
+
+Find the compiled library in CMake. 
+
+```cmake
+find_package(adxl345 REQUIRED)
+```
+
+### 3. ADXL345
+
+#### 3.1 Command Instruction
 
 ​          adxl345 is a basic command which can test all adxl345 driver function:
 
@@ -50,7 +104,7 @@ make
 
 ​           -c int (-iic (0 | 1) | -spi)  <mask>        run adxl345 interrupt function. mask is the interrupt mask.bit 0 is the tap enable mask.bit 1 is the action enable mask.bit 2 is the inaction enable mask.bit 3 is the free fall enable mask.
 
-#### 3.2 command example
+#### 3.2 Command Example
 
 ```shell
 ./adxl345 -i

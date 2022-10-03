@@ -1,6 +1,6 @@
-### 1. chip
+### 1. Chip
 
-#### 1.1 chip info
+#### 1.1 Chip Info
 
 chip name : STM32F407ZGT6.
 
@@ -14,23 +14,23 @@ spi pin: SCK/MISO/MOSI/CS  PA5/PA6/PA7/PA4.
 
 gpio pin: INT PB0.
 
-### 2. shell
+### 2. Shell
 
-#### 2.1 shell parameter
+#### 2.1 Shell Parameter
 
-baud rate: 115200
+baud rate: 115200.
 
-data bits : 8
+data bits : 8.
 
-stop bits: 1
+stop bits: 1.
 
-parity: none
+parity: none.
 
-flow control: none
+flow control: none.
 
-### 3. adxl345
+### 3. ADXL345
 
-#### 3.1 command Instruction
+#### 3.1 Command Instruction
 
 ​          adxl345 is a basic command which can test all adxl345 driver function:
 
@@ -58,7 +58,7 @@ flow control: none
 
 ​           -c int (-iic (0 | 1) | -spi)  <mask>        run adxl345 interrupt function. mask is the interrupt mask.bit 0 is the tap enable mask.bit 1 is the action enable mask.bit 2 is the inaction enable mask.bit 3 is the free fall enable mask.
 
-#### 3.2 command example
+#### 3.2 Command Example
 
 ```shell
 adxl345 -i

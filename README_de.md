@@ -52,6 +52,8 @@ Fügen Sie /src, /interface und /example zu Ihrem Projekt hinzu.
 #### example basic
 
 ```C
+#include "driver_adxl345_basic.h"
+
 uint8_t res;
 uint8_t i;
 float g[3];
@@ -92,6 +94,8 @@ return 0;
 #### example fifo
 
 ```c
+#include "driver_adxl345_fifo.h"
+
 uint8_t res;
 float g[3];
 
@@ -132,6 +136,8 @@ return 0;
 #### example interrupt
 
 ```C
+#include "driver_adxl345_interrupt.h"
+
 uint8_t res;
 
 void interrupt_callback(uint8_t type)
