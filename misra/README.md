@@ -1,5 +1,5 @@
 <div align=center>
-<img src="/doc/image/misra.svg" width="150" height="150"/>
+<img src="/doc/image/misra.svg" width="180" height="180"/>
 </div>
 
 
