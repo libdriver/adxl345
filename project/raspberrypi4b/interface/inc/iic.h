@@ -25,7 +25,7 @@
  * @brief     iic header file
  * @version   1.0.0
  * @author    Shifeng Li
- * @date      2021-2-12
+ * @date      2021-02-12
  *
  * <h3>history</h3>
  * <table>
