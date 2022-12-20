@@ -37,8 +37,8 @@
 
 #include "driver_adxl345_tap_action_fall_test.h"
 
-static adxl345_handle_t gs_handle;             /**< adxl345 handle */
-static uint8_t gs_tap_action_fall_flag;        /**< tap action fall flag */
+static adxl345_handle_t gs_handle;                      /**< adxl345 handle */
+static volatile uint8_t gs_tap_action_fall_flag;        /**< tap action fall flag */
 
 /**
  * @brief  action test irq
@@ -187,7 +187,7 @@ uint8_t adxl345_tap_action_fall_test(adxl345_interface_t interface, adxl345_addr
         adxl345_interface_debug_print("adxl345: chip is %s.\n", info.chip_name);
         adxl345_interface_debug_print("adxl345: manufacturer is %s.\n", info.manufacturer_name);
         adxl345_interface_debug_print("adxl345: interface is %s.\n", info.interface);
-        adxl345_interface_debug_print("adxl345: driver version is %d.%d.\n", info.driver_version/1000, (info.driver_version%1000)/100);
+        adxl345_interface_debug_print("adxl345: driver version is %d.%d.\n", info.driver_version / 1000, (info.driver_version % 1000) / 100);
         adxl345_interface_debug_print("adxl345: min supply voltage is %0.1fV.\n", info.supply_voltage_min_v);
         adxl345_interface_debug_print("adxl345: max supply voltage is %0.1fV.\n", info.supply_voltage_max_v);
         adxl345_interface_debug_print("adxl345: max current is %0.2fmA.\n", info.max_current_ma);

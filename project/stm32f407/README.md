@@ -2,61 +2,107 @@
 
 #### 1.1 Chip Info
 
-chip name : STM32F407ZGT6.
+Chip Name: STM32F407ZGT6.
 
-extern oscillator : 8MHz.
+Extern Oscillator: 8MHz.
 
-uart pin: TX/RX PA9/PA10.
+UART Pin: TX/RX PA9/PA10.
 
-iic pin: SCL/SDA PB8/PB9.
+IIC Pin: SCL/SDA PB8/PB9.
 
-spi pin: SCK/MISO/MOSI/CS  PA5/PA6/PA7/PA4.
+SPI Pin: SCK/MISO/MOSI/CS  PA5/PA6/PA7/PA4.
 
-gpio pin: INT PB0.
+GPIO Pin: INT PB0.
 
-### 2. Shell
+### 2. Development and Debugging
 
-#### 2.1 Shell Parameter
+#### 2.1 Integrated Development Environment
 
-baud rate: 115200.
+LidDriver provides both Keil and IAR integrated development environment projects.
 
-data bits : 8.
+MDK is the Keil ARM project and your Keil version must be 5 or higher.Keil ARM project needs STMicroelectronics STM32F4 Series Device Family Pack and you can download from https://www.keil.com/dd2/stmicroelectronics/stm32f407zgtx.
 
-stop bits: 1.
+EW is the IAR ARM project and your IAR version must be 9 or higher.
 
-parity: none.
+#### 2.2 Serial Port Parameter
 
-flow control: none.
+Baud Rate: 115200.
+
+Data Bits : 8.
+
+Stop Bits: 1.
+
+Parity: None.
+
+Flow Control: None.
+
+#### 2.3 Serial Port Assistant
+
+We use '\n' to wrap lines.If your serial port assistant displays exceptions (e.g. the displayed content does not divide lines), please modify the configuration of your serial port assistant or replace one that supports '\n' parsing.
 
 ### 3. ADXL345
 
 #### 3.1 Command Instruction
 
-​          adxl345 is a basic command which can test all adxl345 driver function:
+1. Show adxl345 chip and driver information.
 
-​           -i        show adxl345 chip and driver information.
+   ```shell
+   adxl345 (-i | --information)
+   ```
 
-​           -h       show adxl345 help.
+2. Show adxl345 help.
 
-​           -p       show adxl345 pin connections of the current board.
+   ```shell
+   adxl345 (-h | --help)
+   ```
 
-​           -t (reg (-iic (0 | 1) | -spi) | read <times> (-iic (0 | 1) | -spi) | fifo (-iic (0 | 1) | -spi) | int (-iic (0 | 1) | -spi)) 
+3. Show adxl345 pin connections of the current board.
 
-​           -t reg (-iic (0 | 1) | -spi)       run adxl345 register test.
+   ```shell
+   adxl345 (-p | --port)
+   ```
 
-​           -t read <times> (-iic (0 | 1) | -spi)        run adxl345 read test. times means the test times.
+4. Run adxl345 register test.
 
-​           -t fifo (-iic (0 | 1) | -spi)        run adxl345 fifo test.
+   ```shell
+   adxl345 (-t reg | --test=reg) [--addr=<0 | 1>] [--interface=<iic | spi>]
+   ```
 
-​           -t int (-iic (0 | 1) | -spi)        run adxl345 interrupt test.
+5. Run adxl345 read test, times means the test times.
 
-​           -c (basic <times> (-iic (0 | 1) | -spi) | fifo <times> (-iic (0 | 1) | -spi) | int (-iic (0 | 1) | -spi) <mask>)
+   ```shell
+   adxl345 (-t read | --test=read) [--addr=<0 | 1>] [--interface=<iic | spi>] [--times=<num>]
+   ```
 
-​           -c basic <times> (-iic (0 | 1) | -spi)        run adxl345 basic function. times is the read times.
+6. Run adxl345 fifo test.
 
-​           -c fifo <times> (-iic (0 | 1) | -spi)        run adxl345 fifo function. times is the read times.
+   ```shell
+   adxl345 (-t fifo | --test=fifo) [--addr=<0 | 1>] [--interface=<iic | spi>]
+   ```
 
-​           -c int (-iic (0 | 1) | -spi)  <mask>        run adxl345 interrupt function. mask is the interrupt mask.bit 0 is the tap enable mask.bit 1 is the action enable mask.bit 2 is the inaction enable mask.bit 3 is the free fall enable mask.
+7. Run adxl345 interrupt test.
+
+   ```shell
+   adxl345 (-t int | --test=int) [--addr=<0 | 1>] [--interface=<iic | spi>]
+   ```
+
+8. Run adxl345 basic function, times is the read times.
+
+   ```shell
+   adxl345 (-e basic | --example=basic) [--addr=<0 | 1>] [--interface=<iic | spi>] [--times=<num>]
+   ```
+
+9. Run adxl345 fifo function, times is the read times.
+
+   ```shell
+   adxl345 (-e fifo | --example=fifo) [--addr=<0 | 1>] [--interface=<iic | spi>] [--times=<num>]
+   ```
+
+10. Run adxl345 interrupt function, mask is the interrupt mask, bit 0 is the tap enable mask, bit 1 is the action enable mask, bit 2 is the inaction enable mask and bit 3 is the free fall enable mask.
+
+    ```shell
+    adxl345 (-e int | --example=int) [--addr=<0 | 1>] [--interface=<iic | spi>] [--mask=<msk>]
+    ```
 
 #### 3.2 Command Example
 
@@ -87,7 +133,7 @@ adxl345: INT connected to GPIOB PIN0.
 ```
 
 ```shell
-adxl345 -t reg -spi
+adxl345 -t reg --addr=0 --interface=iic
 
 adxl345: chip is Analog Devices ADXL345.
 adxl345: manufacturer is Analog Devices.
@@ -439,7 +485,7 @@ adxl345: finish register test.
 ```
 
 ```shell
-adxl345 -t read 3 -spi
+adxl345 -t read --addr=0 --interface=iic --times=3
 
 adxl345: chip is Analog Devices ADXL345.
 adxl345: manufacturer is Analog Devices.
@@ -453,331 +499,331 @@ adxl345: min temperature is -40.0C.
 adxl345: start read test.
 adxl345: set align right.
 adxl345: set 2g range.
-x is 0.91 g.
-y is -0.19 g.
-z is 0.32 g.
-x is 0.96 g.
-y is -0.20 g.
-z is 0.32 g.
-x is 0.96 g.
-y is -0.21 g.
-z is 0.32 g.
+x is 1.06 g.
+y is 0.07 g.
+z is -0.02 g.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.00 g.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.01 g.
 adxl345: set 4g range.
-x is 0.91 g.
-y is -0.19 g.
-z is 0.32 g.
-x is 0.95 g.
-y is -0.20 g.
-z is 0.33 g.
-x is 0.96 g.
-y is -0.21 g.
-z is 0.32 g.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.01 g.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.01 g.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.01 g.
 adxl345: set 8g range.
-x is 0.90 g.
-y is -0.20 g.
-z is 0.31 g.
-x is 0.95 g.
-y is -0.20 g.
-z is 0.31 g.
-x is 0.95 g.
-y is -0.22 g.
-z is 0.31 g.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.00 g.
+x is 1.00 g.
+y is 0.19 g.
+z is 0.00 g.
+x is 1.00 g.
+y is 0.19 g.
+z is 0.00 g.
 adxl345: set 16g range.
-x is 0.90 g.
-y is -0.22 g.
-z is 0.31 g.
-x is 0.94 g.
-y is -0.22 g.
-z is 0.31 g.
-x is 0.94 g.
-y is -0.22 g.
-z is 0.31 g.
+x is 1.00 g.
+y is 0.19 g.
+z is 0.00 g.
+x is 1.00 g.
+y is 0.19 g.
+z is 0.00 g.
+x is 1.00 g.
+y is 0.19 g.
+z is 0.00 g.
 adxl345: set full resolution.
-x is 0.94 g.
-y is -0.21 g.
-z is 0.32 g.
-x is 0.98 g.
-y is -0.21 g.
-z is 0.33 g.
-x is 0.98 g.
-y is -0.21 g.
-z is 0.33 g.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.01 g.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.01 g.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.01 g.
 adxl345: set align left.
 adxl345: set 2g range.
-x is 0.91 g.
-y is -0.20 g.
-z is 0.82 g.
-x is 0.95 g.
-y is -0.20 g.
-z is 0.33 g.
-x is 0.96 g.
-y is -0.21 g.
-z is 0.33 g.
-adxl345: set 4g range.
-x is 0.90 g.
-y is -0.22 g.
-z is 1.29 g.
-x is 1.93 g.
-y is -0.22 g.
-z is 1.31 g.
-x is 1.93 g.
-y is -0.21 g.
-z is 0.31 g.
-adxl345: set 8g range.
-x is 0.97 g.
-y is -0.23 g.
-z is 0.33 g.
-x is 0.95 g.
-y is -0.25 g.
-z is 0.31 g.
-x is 0.95 g.
-y is -0.25 g.
-z is 0.31 g.
-adxl345: set 16g range.
-x is 0.90 g.
-y is -0.22 g.
-z is 0.28 g.
-x is 4.87 g.
-y is -0.22 g.
-z is 4.24 g.
-x is 4.87 g.
-y is -0.22 g.
-z is 4.24 g.
-adxl345: set full resolution.
-x is 0.94 g.
-y is -0.20 g.
-z is 0.78 g.
-x is 0.92 g.
-y is -0.21 g.
-z is 0.78 g.
-x is 0.92 g.
-y is -0.21 g.
-z is 0.78 g.
-adxl345: set rate 0.1Hz.
-x is 0.98 g.
-y is -0.21 g.
-z is 0.33 g.
-x is 0.98 g.
-y is -0.21 g.
-z is 0.33 g.
-x is 0.98 g.
-y is -0.21 g.
-z is 0.33 g.
-adxl345: set rate 0.2Hz.
-x is 0.98 g.
-y is -0.21 g.
-z is 0.33 g.
-x is 0.98 g.
-y is -0.21 g.
-z is 0.33 g.
-x is 0.98 g.
-y is -0.21 g.
-z is 0.33 g.
-adxl345: set rate 0.39Hz.
-x is 0.98 g.
-y is -0.21 g.
-z is 0.33 g.
-x is 0.98 g.
-y is -0.21 g.
-z is 0.33 g.
-x is 0.98 g.
-y is -0.21 g.
-z is 0.33 g.
-adxl345: set rate 0.78Hz.
-x is 0.92 g.
-y is -0.24 g.
-z is 0.29 g.
-x is 0.92 g.
-y is -0.24 g.
-z is 0.29 g.
-x is 0.92 g.
-y is -0.24 g.
-z is 0.28 g.
-adxl345: set rate 1.56Hz.
-x is 0.97 g.
-y is -0.25 g.
-z is 0.30 g.
-x is 0.92 g.
-y is -0.24 g.
-z is 0.28 g.
-x is 0.97 g.
-y is -0.26 g.
-z is 0.30 g.
-adxl345: set rate 3.13Hz.
-x is 0.97 g.
-y is -0.25 g.
-z is 0.30 g.
-x is 0.97 g.
-y is -0.26 g.
-z is 0.30 g.
-x is 0.96 g.
-y is -0.25 g.
-z is 0.30 g.
-adxl345: set rate 6.25Hz.
-x is 0.97 g.
-y is -0.25 g.
-z is 0.30 g.
-x is 0.97 g.
-y is -0.26 g.
-z is 0.30 g.
-x is 0.97 g.
-y is -0.25 g.
-z is 0.29 g.
-adxl345: set rate 12.5Hz.
-x is 0.97 g.
-y is -0.25 g.
-z is 0.30 g.
-x is 0.98 g.
-y is -0.26 g.
-z is 0.29 g.
-x is 0.96 g.
-y is -0.25 g.
-z is 0.30 g.
-adxl345: set rate 25Hz.
-x is 0.97 g.
-y is -0.26 g.
-z is 0.30 g.
-x is 0.97 g.
-y is -0.26 g.
-z is 0.29 g.
-x is 0.97 g.
-y is -0.25 g.
-z is 0.30 g.
-adxl345: set rate 50Hz.
-x is 0.96 g.
-y is -0.26 g.
-z is 0.30 g.
-x is 0.96 g.
-y is -0.25 g.
-z is 0.29 g.
-x is 0.96 g.
-y is -0.25 g.
-z is 0.29 g.
-adxl345: set rate 100Hz.
-x is 0.93 g.
-y is -0.22 g.
-z is 0.31 g.
-x is 0.98 g.
-y is -0.21 g.
-z is 0.33 g.
-x is 0.98 g.
-y is -0.21 g.
-z is 0.33 g.
-adxl345: set rate 200Hz.
-x is 0.98 g.
-y is -0.21 g.
-z is 0.36 g.
-x is 0.98 g.
-y is -0.22 g.
-z is 0.34 g.
-x is 0.98 g.
-y is -0.21 g.
-z is 0.33 g.
-adxl345: set rate 400Hz.
-x is 0.98 g.
-y is -0.21 g.
-z is 0.40 g.
-x is 0.98 g.
-y is -0.21 g.
-z is 0.34 g.
-x is 0.98 g.
-y is -0.22 g.
-z is 0.32 g.
-adxl345: set rate 800Hz.
-x is 0.99 g.
-y is -0.22 g.
-z is 0.44 g.
-x is 0.98 g.
-y is -0.21 g.
-z is 0.34 g.
-x is 0.98 g.
-y is -0.21 g.
-z is 0.33 g.
-adxl345: set rate 1600Hz.
-x is 0.94 g.
-y is -0.57 g.
-z is 0.18 g.
 x is 1.01 g.
-y is -0.22 g.
-z is 1.55 g.
-x is 0.98 g.
-y is -0.26 g.
-z is 0.29 g.
-adxl345: set rate 3200Hz.
-x is 1.05 g.
-y is -0.21 g.
-z is 0.34 g.
-x is 0.90 g.
-y is -0.14 g.
-z is -0.44 g.
+y is 0.69 g.
+z is 0.00 g.
+x is 1.50 g.
+y is 0.69 g.
+z is 0.50 g.
+x is 1.50 g.
+y is 0.19 g.
+z is 0.02 g.
+adxl345: set 4g range.
+x is 1.00 g.
+y is 0.19 g.
+z is 0.01 g.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.00 g.
+x is 1.00 g.
+y is 0.19 g.
+z is 0.01 g.
+adxl345: set 8g range.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.00 g.
+x is 1.00 g.
+y is 0.19 g.
+z is 0.00 g.
+x is 1.00 g.
+y is 0.19 g.
+z is 0.00 g.
+adxl345: set 16g range.
+x is 1.00 g.
+y is 4.12 g.
+z is 0.00 g.
+x is 1.00 g.
+y is 4.12 g.
+z is 0.00 g.
+x is 1.00 g.
+y is 4.12 g.
+z is 0.00 g.
+adxl345: set full resolution.
+x is 1.01 g.
+y is 0.63 g.
+z is 0.00 g.
+x is 1.01 g.
+y is 0.63 g.
+z is 0.00 g.
+x is 1.01 g.
+y is 0.63 g.
+z is 0.01 g.
+adxl345: set rate 0.1Hz.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.01 g.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.01 g.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.01 g.
+adxl345: set rate 0.2Hz.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.01 g.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.01 g.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.01 g.
+adxl345: set rate 0.39Hz.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.01 g.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.01 g.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.01 g.
+adxl345: set rate 0.78Hz.
 x is 0.96 g.
-y is -0.22 g.
-z is 0.16 g.
-adxl345: set rate low power 12.5Hz.
+y is 0.17 g.
+z is 0.00 g.
+x is 0.96 g.
+y is 0.17 g.
+z is 0.00 g.
+x is 0.96 g.
+y is 0.17 g.
+z is 0.00 g.
+adxl345: set rate 1.56Hz.
+x is 1.00 g.
+y is 0.18 g.
+z is 0.01 g.
+x is 0.96 g.
+y is 0.17 g.
+z is 0.00 g.
+x is 1.01 g.
+y is 0.18 g.
+z is 0.01 g.
+adxl345: set rate 3.13Hz.
+x is 1.01 g.
+y is 0.18 g.
+z is 0.01 g.
+x is 1.00 g.
+y is 0.18 g.
+z is 0.00 g.
+x is 1.00 g.
+y is 0.18 g.
+z is 0.00 g.
+adxl345: set rate 6.25Hz.
+x is 1.01 g.
+y is 0.18 g.
+z is 0.00 g.
+x is 1.00 g.
+y is 0.17 g.
+z is 0.00 g.
+x is 1.00 g.
+y is 0.17 g.
+z is 0.00 g.
+adxl345: set rate 12.5Hz.
+x is 1.01 g.
+y is 0.17 g.
+z is 0.00 g.
+x is 1.01 g.
+y is 0.17 g.
+z is 0.00 g.
+x is 1.00 g.
+y is 0.18 g.
+z is 0.00 g.
+adxl345: set rate 25Hz.
+x is 1.00 g.
+y is 0.17 g.
+z is 0.01 g.
+x is 1.01 g.
+y is 0.18 g.
+z is 0.00 g.
+x is 1.00 g.
+y is 0.17 g.
+z is 0.00 g.
+adxl345: set rate 50Hz.
+x is 1.00 g.
+y is 0.18 g.
+z is 0.00 g.
+x is 1.00 g.
+y is 0.18 g.
+z is 0.00 g.
+x is 1.00 g.
+y is 0.17 g.
+z is 0.00 g.
+adxl345: set rate 100Hz.
+x is 1.00 g.
+y is 0.18 g.
+z is 0.00 g.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.01 g.
+x is 1.01 g.
+y is 0.20 g.
+z is 0.01 g.
+adxl345: set rate 200Hz.
+x is 0.96 g.
+y is 0.18 g.
+z is 0.02 g.
+x is 1.01 g.
+y is 0.20 g.
+z is 0.01 g.
+x is 1.02 g.
+y is 0.19 g.
+z is 0.00 g.
+adxl345: set rate 400Hz.
+x is 1.01 g.
+y is 0.20 g.
+z is 0.01 g.
+x is 1.01 g.
+y is 0.20 g.
+z is 0.01 g.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.01 g.
+adxl345: set rate 800Hz.
+x is 1.01 g.
+y is 0.21 g.
+z is 0.01 g.
+x is 1.01 g.
+y is 0.19 g.
+z is 0.01 g.
+x is 1.02 g.
+y is 0.20 g.
+z is 0.00 g.
+adxl345: set rate 1600Hz.
+x is 1.01 g.
+y is 0.17 g.
+z is 0.00 g.
+x is 1.00 g.
+y is 0.19 g.
+z is 0.02 g.
 x is 0.99 g.
-y is -0.22 g.
-z is 2.26 g.
-x is 0.96 g.
+y is 0.19 g.
+z is 0.41 g.
+adxl345: set rate 3200Hz.
+x is 1.06 g.
 y is -0.25 g.
-z is 0.30 g.
-x is 0.96 g.
-y is -0.25 g.
-z is 0.30 g.
+z is -0.85 g.
+x is 1.00 g.
+y is 0.20 g.
+z is 0.50 g.
+x is 1.37 g.
+y is 0.14 g.
+z is 0.00 g.
+adxl345: set rate low power 12.5Hz.
+x is 1.00 g.
+y is 0.22 g.
+z is 1.39 g.
+x is 1.01 g.
+y is 0.18 g.
+z is 0.03 g.
+x is 1.00 g.
+y is 0.18 g.
+z is 0.00 g.
 adxl345: set rate low power 25Hz.
-x is 0.98 g.
-y is -0.26 g.
-z is 0.29 g.
-x is 0.97 g.
-y is -0.25 g.
-z is 0.29 g.
-x is 0.96 g.
-y is -0.26 g.
-z is 0.29 g.
+x is 1.01 g.
+y is 0.18 g.
+z is 0.01 g.
+x is 1.00 g.
+y is 0.17 g.
+z is 0.00 g.
+x is 1.01 g.
+y is 0.18 g.
+z is 0.02 g.
 adxl345: set rate low power 50Hz.
-x is 0.84 g.
-y is -0.22 g.
-z is 0.25 g.
-x is 0.97 g.
-y is -0.26 g.
-z is 0.30 g.
-x is 0.97 g.
-y is -0.25 g.
-z is 0.29 g.
+x is 0.88 g.
+y is 0.15 g.
+z is 0.32 g.
+x is 1.01 g.
+y is 0.18 g.
+z is 0.00 g.
+x is 1.01 g.
+y is 0.17 g.
+z is 0.00 g.
 adxl345: set rate low power 100Hz.
-x is 0.86 g.
-y is -0.22 g.
-z is 0.25 g.
-x is 0.96 g.
-y is -0.25 g.
-z is 0.29 g.
-x is 0.96 g.
-y is -0.25 g.
-z is 0.30 g.
+x is 0.89 g.
+y is 0.16 g.
+z is 0.00 g.
+x is 1.01 g.
+y is 0.16 g.
+z is 0.00 g.
+x is 1.00 g.
+y is 0.17 g.
+z is 0.01 g.
 adxl345: set rate low power 200Hz.
-x is 0.96 g.
-y is -0.24 g.
-z is 0.30 g.
-x is 0.98 g.
-y is -0.25 g.
-z is 0.30 g.
-x is 0.97 g.
-y is -0.25 g.
-z is 0.30 g.
+x is 1.01 g.
+y is 0.17 g.
+z is 0.01 g.
+x is 1.00 g.
+y is 0.18 g.
+z is 0.00 g.
+x is 1.00 g.
+y is 0.18 g.
+z is -0.00 g.
 adxl345: set rate low power 400Hz.
-x is 0.96 g.
-y is -0.24 g.
-z is 0.30 g.
-x is 0.97 g.
-y is -0.25 g.
-z is 0.29 g.
-x is 0.96 g.
-y is -0.25 g.
-z is 0.29 g.
+x is 1.01 g.
+y is 0.17 g.
+z is 0.01 g.
+x is 0.90 g.
+y is 0.27 g.
+z is 0.01 g.
+x is 1.00 g.
+y is 0.18 g.
+z is -0.01 g.
 adxl345: finish read test.
 ```
 
 ```shell
-adxl345 -t fifo -spi
+adxl345 -t fifo --addr=0 --interface=iic
 
 adxl345: chip is Analog Devices ADXL345.
 adxl345: manufacturer is Analog Devices.
@@ -796,7 +842,7 @@ adxl345: finish fifo test.
 ```
 
 ```shell
-adxl345 -t int -spi
+adxl345 -t int --addr=0 --interface=iic
 
 adxl345: chip is Analog Devices ADXL345.
 adxl345: manufacturer is Analog Devices.
@@ -810,38 +856,78 @@ adxl345: min temperature is -40.0C.
 adxl345: start tap action fall test.
 adxl345: please single tap.
 adxl345: irq single tap.
+adxl345: irq free fall.
+adxl345: irq single tap.
 adxl345: detect single tap.
 adxl345: please double tap.
+adxl345: irq free fall.
+adxl345: irq single tap.
+adxl345: irq free fall.
+adxl345: irq single tap.
 adxl345: irq double tap.
+adxl345: irq free fall.
 adxl345: detect double tap.
 adxl345: please action.
+adxl345: irq single tap.
+adxl345: irq free fall.
+adxl345: irq single tap.
+adxl345: irq single tap.
+adxl345: irq free fall.
+adxl345: irq single tap.
+adxl345: irq free fall.
+adxl345: irq single tap.
+adxl345: irq single tap.
+adxl345: irq free fall.
+adxl345: irq single tap.
+adxl345: irq free fall.
+adxl345: irq single tap.
+adxl345: irq free fall.
+adxl345: irq single tap.
+adxl345: irq double tap.
+adxl345: irq free fall.
+adxl345: irq single tap.
+adxl345: irq double tap.
+adxl345: irq free fall.
+adxl345: irq single tap.
+adxl345: irq free fall.
+adxl345: irq single tap.
+adxl345: irq free fall.
+adxl345: irq single tap.
+adxl345: irq free fall.
+adxl345: irq single tap.
+adxl345: irq inactivity.
+adxl345: irq free fall.
 adxl345: irq activity.
 adxl345: detect action.
 adxl345: please stop action.
+adxl345: irq free fall.
+adxl345: irq single tap.
+adxl345: irq single tap.
 adxl345: irq inactivity.
 adxl345: detect stop.
 adxl345: please free fall.
 adxl345: irq free fall.
+adxl345: irq activity.
 adxl345: detect free fall.
 adxl345: finish tap action fall test.
 ```
 
 ```shell
-adxl345 -c basic 3 -spi
+adxl345 -e basic --addr=0 --interface=iic --times=3
 
-adxl345: x is 0.780.
-adxl345: y is 0.076.
-adxl345: z is 0.680.
-adxl345: x is 0.784.
-adxl345: y is 0.076.
-adxl345: z is 0.684.
-adxl345: x is 0.784.
-adxl345: y is 0.076.
-adxl345: z is 0.680.
+adxl345: x is 0.901.
+adxl345: y is 0.410.
+adxl345: z is 0.195.
+adxl345: x is 0.897.
+adxl345: y is 0.410.
+adxl345: z is 0.195.
+adxl345: x is 0.905.
+adxl345: y is 0.410.
+adxl345: z is 0.203.
 ```
 
 ```shell
-adxl345 -c fifo 3 -spi
+adxl345 -e fifo --addr=0 --interface=iic --times=3
 
 adxl345: fifo read 3.
 adxl345: fifo read 2.
@@ -849,58 +935,46 @@ adxl345: fifo read 1.
 ```
 
 ```shell
-adxl345 -c int -spi 15
+adxl345 -e int --addr=0 --interface=iic --mask=15
 
 adxl345: irq free fall.
-adxl345: irq activity.
 adxl345: irq single tap.
-adxl345: irq double tap.
-adxl345: irq free fall.
-adxl345: irq free fall.
 adxl345: irq single tap.
 adxl345: irq free fall.
-adxl345: irq free fall.
-adxl345: irq free fall.
-adxl345: irq free fall.
 adxl345: irq single tap.
-adxl345: irq double tap.
-adxl345: irq free fall.
-adxl345: irq free fall.
-adxl345: irq free fall.
 adxl345: irq single tap.
 adxl345: irq free fall.
-adxl345: irq free fall.
-adxl345: irq free fall.
-adxl345: irq single tap.
-adxl345: irq free fall.
-adxl345: irq free fall.
-adxl345: irq free fall.
-adxl345: irq single tap.
 adxl345: finish interrupt.
 ```
 
 ```shell
 adxl345 -h
 
-adxl345 -i
-	show adxl345 chip and driver information.
-adxl345 -h
-	show adxl345 help.
-adxl345 -p
-	show adxl345 pin connections of the current board.
-adxl345 -t reg (-iic (0 | 1) | -spi)
-	run adxl345 register test.
-adxl345 -t read <times> (-iic (0 | 1) | -spi)
-	run adxl345 read test.times means the test times.
-adxl345 -t fifo (-iic (0 | 1) | -spi)
-	run adxl345 fifo test.
-adxl345 -t int (-iic (0 | 1) | -spi)
-	run adxl345 interrupt test.
-adxl345 -c basic <times> (-iic (0 | 1) | -spi)
-	run adxl345 basic function.times is the read times.
-adxl345 -c fifo <times> (-iic (0 | 1) | -spi)
-	run adxl345 fifo function.times is the read times.
-adxl345 -c int (-iic (0 | 1) | -spi) <mask>
-	run adxl345 interrupt function.mask is the interrupt mask.bit 0 is the tap enable mask.bit 1 is the action enable mask.bit 2 is the inaction enable mask.bit 3 is the free fall enable mask.
+Usage:
+  adxl345 (-i | --information)
+  adxl345 (-h | --help)
+  adxl345 (-p | --port)
+  adxl345 (-t reg | --test=reg) [--addr=<0 | 1>] [--interface=<iic | spi>]
+  adxl345 (-t read | --test=read) [--addr=<0 | 1>] [--interface=<iic | spi>] [--times=<num>]
+  adxl345 (-t fifo | --test=fifo) [--addr=<0 | 1>] [--interface=<iic | spi>]
+  adxl345 (-t int | --test=int) [--addr=<0 | 1>] [--interface=<iic | spi>]
+  adxl345 (-e basic | --example=basic) [--addr=<0 | 1>] [--interface=<iic | spi>] [--times=<num>]
+  adxl345 (-e fifo | --example=fifo) [--addr=<0 | 1>] [--interface=<iic | spi>] [--times=<num>]
+  adxl345 (-e int | --example=int) [--addr=<0 | 1>] [--interface=<iic | spi>] [--mask=<msk>]
+
+Options:
+      --addr=<0 | 1>                 Set the chip address.([default: 0])
+  -e <basic | fifo | int>, --example=<basic | fifo | int>
+                                     Run the driver example.
+  -h, --help                         Show the help.
+  -i, --information                  Show the chip information.
+      --interface=<iic | spi>        Set the chip interface.([default: iic])
+      --mask=<msk>                   Set the interrupt mask, bit 0 is the tap enable mask,
+                                     bit 1 is the action enable mask, bit 2 is the inaction enable mask,
+                                     bit 3 is the free fall enable mask.([default: 15])
+  -p, --port                         Display the pin connections of the current board.
+  -t <reg | read | fifo | int>, --test=<reg | read | fifo | int>
+                                     Run the driver test.
+      --times=<num>                  Set the running times.([default: 3])
 ```
 
