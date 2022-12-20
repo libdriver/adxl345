@@ -191,7 +191,7 @@ void adxl345_interface_debug_print(const char *const fmt, ...)
     uint8_t len;
     va_list args;
     
-    memset((char *)str, 0, sizeof(char)*256); 
+    memset((char *)str, 0, sizeof(char) * 256); 
     va_start(args, fmt);
     vsnprintf((char *)str, 256, (char const *)fmt, args);
     va_end(args);
@@ -199,7 +199,6 @@ void adxl345_interface_debug_print(const char *const fmt, ...)
     len = strlen((char *)str);
     (void)printf((uint8_t *)str, len);
 }
-
 
 /**
  * @brief     interface receive callback
