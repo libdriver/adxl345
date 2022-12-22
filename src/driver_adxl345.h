@@ -320,7 +320,7 @@ typedef struct adxl345_info_s
 
 /**
  * @brief     initialize adxl345_handle_t structure
- * @param[in] HANDLE points to a adxl345 handle structure
+ * @param[in] HANDLE points to an adxl345 handle structure
  * @param[in] STRUCTURE is adxl345_handle_t
  * @note      none
  */
@@ -328,7 +328,7 @@ typedef struct adxl345_info_s
 
 /**
  * @brief     link iic_init function
- * @param[in] HANDLE points to a adxl345 handle structure
+ * @param[in] HANDLE points to an adxl345 handle structure
  * @param[in] FUC points to an iic_init function address
  * @note      none
  */
@@ -336,7 +336,7 @@ typedef struct adxl345_info_s
 
 /**
  * @brief     link iic_deinit function
- * @param[in] HANDLE points to a adxl345 handle structure
+ * @param[in] HANDLE points to an adxl345 handle structure
  * @param[in] FUC points to an iic_deinit function address
  * @note      none
  */
@@ -344,7 +344,7 @@ typedef struct adxl345_info_s
 
 /**
  * @brief     link iic_read function
- * @param[in] HANDLE points to a adxl345 handle structure
+ * @param[in] HANDLE points to an adxl345 handle structure
  * @param[in] FUC points to an iic_read function address
  * @note      none
  */
@@ -352,7 +352,7 @@ typedef struct adxl345_info_s
 
 /**
  * @brief     link iic_write function
- * @param[in] HANDLE points to a adxl345 handle structure
+ * @param[in] HANDLE points to an adxl345 handle structure
  * @param[in] FUC points to an iic_write function address
  * @note      none
  */
@@ -360,7 +360,7 @@ typedef struct adxl345_info_s
 
 /**
  * @brief     link spi_init function
- * @param[in] HANDLE points to a adxl345 handle structure
+ * @param[in] HANDLE points to an adxl345 handle structure
  * @param[in] FUC points to a spi_init function address
  * @note      none
  */
@@ -368,7 +368,7 @@ typedef struct adxl345_info_s
 
 /**
  * @brief     link spi_deinit function
- * @param[in] HANDLE points to a adxl345 handle structure
+ * @param[in] HANDLE points to an adxl345 handle structure
  * @param[in] FUC points to a spi_deinit function address
  * @note      none
  */
@@ -376,7 +376,7 @@ typedef struct adxl345_info_s
 
 /**
  * @brief     link spi_read function
- * @param[in] HANDLE points to a adxl345 handle structure
+ * @param[in] HANDLE points to an adxl345 handle structure
  * @param[in] FUC points to a spi_read function address
  * @note      none
  */
@@ -384,7 +384,7 @@ typedef struct adxl345_info_s
 
 /**
  * @brief     link spi_write function
- * @param[in] HANDLE points to a adxl345 handle structure
+ * @param[in] HANDLE points to an adxl345 handle structure
  * @param[in] FUC points to a spi_write function address
  * @note      none
  */
@@ -392,7 +392,7 @@ typedef struct adxl345_info_s
 
 /**
  * @brief     link delay_ms function
- * @param[in] HANDLE points to a adxl345 handle structure
+ * @param[in] HANDLE points to an adxl345 handle structure
  * @param[in] FUC points to a delay_ms function address
  * @note      none
  */
@@ -400,7 +400,7 @@ typedef struct adxl345_info_s
 
 /**
  * @brief     link debug_print function
- * @param[in] HANDLE points to a adxl345 handle structure
+ * @param[in] HANDLE points to an adxl345 handle structure
  * @param[in] FUC points to a debug_print function address
  * @note      none
  */
@@ -408,7 +408,7 @@ typedef struct adxl345_info_s
 
 /**
  * @brief     link receive_callback function
- * @param[in] HANDLE points to a adxl345 handle structure
+ * @param[in] HANDLE points to an adxl345 handle structure
  * @param[in] FUC points to a receive_callback function address
  * @note      none
  */
