@@ -102,7 +102,7 @@ find_package(adxl345 REQUIRED)
    adxl345 (-t reg | --test=reg) [--addr=<0 | 1>] [--interface=<iic | spi>]
    ```
 
-5. Run adxl345 read test, times means the test times.
+5. Run adxl345 read test, num means the test times.
 
    ```shell
    adxl345 (-t read | --test=read) [--addr=<0 | 1>] [--interface=<iic | spi>] [--times=<num>]
@@ -120,13 +120,13 @@ find_package(adxl345 REQUIRED)
    adxl345 (-t int | --test=int) [--addr=<0 | 1>] [--interface=<iic | spi>]
    ```
 
-8. Run adxl345 basic function, times is the read times.
+8. Run adxl345 basic function, num is the read times.
 
    ```shell
    adxl345 (-e basic | --example=basic) [--addr=<0 | 1>] [--interface=<iic | spi>] [--times=<num>]
    ```
 
-9. Run adxl345 fifo function, times is the read times.
+9. Run adxl345 fifo function, num is the read times.
 
    ```shell
    adxl345 (-e fifo | --example=fifo) [--addr=<0 | 1>] [--interface=<iic | spi>] [--times=<num>]
