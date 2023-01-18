@@ -38,7 +38,7 @@
 #include "driver_adxl345_fifo_test.h"
 
 static adxl345_handle_t gs_handle;             /**< adxl345 handle */
-static volatile uint8_t gs_watermark_flag;     /**< watermark flag */
+static uint8_t gs_watermark_flag;              /**< watermark flag */
 static int16_t gs_raw_test[20][3];             /**< raw test buffer */
 static float gs_test[20][3];                   /**< test buffer */
 
@@ -157,7 +157,7 @@ uint8_t adxl345_fifo_test(adxl345_interface_t interface, adxl345_address_t addr_
         adxl345_interface_debug_print("adxl345: chip is %s.\n", info.chip_name);
         adxl345_interface_debug_print("adxl345: manufacturer is %s.\n", info.manufacturer_name);
         adxl345_interface_debug_print("adxl345: interface is %s.\n", info.interface);
-        adxl345_interface_debug_print("adxl345: driver version is %d.%d.\n", info.driver_version / 1000, (info.driver_version % 1000) / 100);
+        adxl345_interface_debug_print("adxl345: driver version is %d.%d.\n", info.driver_version/1000, (info.driver_version%1000)/100);
         adxl345_interface_debug_print("adxl345: min supply voltage is %0.1fV.\n", info.supply_voltage_min_v);
         adxl345_interface_debug_print("adxl345: max supply voltage is %0.1fV.\n", info.supply_voltage_max_v);
         adxl345_interface_debug_print("adxl345: max current is %0.2fmA.\n", info.max_current_ma);
