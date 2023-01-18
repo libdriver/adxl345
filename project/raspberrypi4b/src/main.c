@@ -42,6 +42,7 @@
 #include "driver_adxl345_fifo.h"
 #include "driver_adxl345_basic.h"
 #include "gpio.h"
+#include "mutex.h"
 #include <getopt.h>
 #include <stdlib.h>
 
@@ -518,9 +519,15 @@ uint8_t adxl345(uint8_t argc, char **argv)
         times = 500;
         while (times != 0)
         {
+            /* mutex lock */
+            mutex_lock();
+            
             /* run the server */
             (void)adxl345_interrupt_server();
             times--;
+            
+            /* mutex unlock */
+            mutex_unlock();
             
             /* delay 10ms */
             adxl345_interface_delay_ms(10);

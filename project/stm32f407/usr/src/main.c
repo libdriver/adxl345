@@ -46,6 +46,7 @@
 #include "delay.h"
 #include "gpio.h"
 #include "uart.h"
+#include "mutex.h"
 #include "getopt.h"
 #include <stdlib.h>
 
@@ -75,10 +76,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t pin)
 {
     if (pin == GPIO_PIN_0)
     {
-        if (g_gpio_irq != NULL)
-        {
-            g_gpio_irq();
-        }
+        /* run the callback in the mutex mode */
+        mutex_irq(g_gpio_irq);
     }
 }
 
@@ -552,12 +551,18 @@ uint8_t adxl345(uint8_t argc, char **argv)
         times = 500;
         while (times != 0)
         {
+            /* mutex lock */
+            mutex_lock();
+            
             /* run the server */
             (void)adxl345_interrupt_server();
             times--;
             
-            /* delay 10ms */
-            adxl345_interface_delay_ms(10);
+            /* mutex unlock */
+            mutex_unlock();
+            
+            /* delay 500ms */
+            adxl345_interface_delay_ms(500);
         }
         adxl345_interface_debug_print("adxl345: finish interrupt.\n");
         
