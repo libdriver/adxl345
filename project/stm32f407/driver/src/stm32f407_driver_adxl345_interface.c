@@ -81,9 +81,9 @@ uint8_t adxl345_interface_iic_read(uint8_t addr, uint8_t reg, uint8_t *buf, uint
 {
     uint8_t res;
     
-    __disable_irq();
+    __set_BASEPRI(1);
     res = iic_read(addr, reg, buf, len);
-    __enable_irq();
+    __set_BASEPRI(0);
     
     return res;
 }
@@ -103,9 +103,9 @@ uint8_t adxl345_interface_iic_write(uint8_t addr, uint8_t reg, uint8_t *buf, uin
 {
     uint8_t res;
     
-    __disable_irq();
+    __set_BASEPRI(1);
     res = iic_write(addr, reg, buf, len);
-    __enable_irq();
+    __set_BASEPRI(0);
     
     return res;
 }
@@ -146,7 +146,13 @@ uint8_t adxl345_interface_spi_deinit(void)
  */
 uint8_t adxl345_interface_spi_read(uint8_t reg, uint8_t *buf, uint16_t len)
 {
-    return spi_read(reg, buf, len);
+    uint8_t res;
+    
+    __set_BASEPRI(1);
+    res = spi_read(reg, buf, len);
+    __set_BASEPRI(0);
+    
+    return res;
 }
 
 /**
@@ -161,7 +167,13 @@ uint8_t adxl345_interface_spi_read(uint8_t reg, uint8_t *buf, uint16_t len)
  */
 uint8_t adxl345_interface_spi_write(uint8_t reg, uint8_t *buf, uint16_t len)
 {
-    return spi_write(reg, buf, len);
+    uint8_t res;
+    
+    __set_BASEPRI(1);
+    res = spi_write(reg, buf, len);
+    __set_BASEPRI(0);
+    
+    return 0;
 }
 
 /**
