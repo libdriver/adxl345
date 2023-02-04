@@ -1839,7 +1839,7 @@ uint8_t adxl345_register_test(adxl345_interface_t interface, adxl345_address_t a
     }
     adxl345_interface_debug_print("adxl345: check interrupt map %s.\n", pin==ADXL345_INTERRUPT_PIN2?"ok":"error");
     
-    /* acivity pin1 */
+    /* activity pin1 */
     res = adxl345_set_interrupt_map(&gs_handle, ADXL345_INTERRUPT_ACTIVITY, ADXL345_INTERRUPT_PIN1);
     if (res != 0)
     {
@@ -1848,7 +1848,7 @@ uint8_t adxl345_register_test(adxl345_interface_t interface, adxl345_address_t a
         
         return 1;
     }
-    adxl345_interface_debug_print("adxl345: set interrupt map acivity pin1.\n");
+    adxl345_interface_debug_print("adxl345: set interrupt map activity pin1.\n");
     res = adxl345_get_interrupt_map(&gs_handle, ADXL345_INTERRUPT_ACTIVITY, &pin);
     if (res != 0)
     {
@@ -1859,7 +1859,7 @@ uint8_t adxl345_register_test(adxl345_interface_t interface, adxl345_address_t a
     }
     adxl345_interface_debug_print("adxl345: check interrupt map %s.\n", pin==ADXL345_INTERRUPT_PIN1?"ok":"error");
     
-    /* acivity pin2 */
+    /* activity pin2 */
     res = adxl345_set_interrupt_map(&gs_handle, ADXL345_INTERRUPT_ACTIVITY, ADXL345_INTERRUPT_PIN2);
     if (res != 0)
     {
@@ -1868,7 +1868,7 @@ uint8_t adxl345_register_test(adxl345_interface_t interface, adxl345_address_t a
         
         return 1;
     }
-    adxl345_interface_debug_print("adxl345: set interrupt acivity pin2.\n");
+    adxl345_interface_debug_print("adxl345: set interrupt activity pin2.\n");
     res = adxl345_get_interrupt_map(&gs_handle, ADXL345_INTERRUPT_ACTIVITY, &pin);
     if (res != 0)
     {
@@ -1879,7 +1879,7 @@ uint8_t adxl345_register_test(adxl345_interface_t interface, adxl345_address_t a
     }
     adxl345_interface_debug_print("adxl345: check interrupt map %s.\n", pin==ADXL345_INTERRUPT_PIN2?"ok":"error");
     
-    /* inacivity pin1 */
+    /* inactivity pin1 */
     res = adxl345_set_interrupt_map(&gs_handle, ADXL345_INTERRUPT_INACTIVITY, ADXL345_INTERRUPT_PIN1);
     if (res != 0)
     {
@@ -1888,7 +1888,7 @@ uint8_t adxl345_register_test(adxl345_interface_t interface, adxl345_address_t a
         
         return 1;
     }
-    adxl345_interface_debug_print("adxl345: set interrupt map inacivity pin1.\n");
+    adxl345_interface_debug_print("adxl345: set interrupt map inactivity pin1.\n");
     res = adxl345_get_interrupt_map(&gs_handle, ADXL345_INTERRUPT_INACTIVITY, &pin);
     if (res != 0)
     {
@@ -1899,7 +1899,7 @@ uint8_t adxl345_register_test(adxl345_interface_t interface, adxl345_address_t a
     }
     adxl345_interface_debug_print("adxl345: check interrupt map %s.\n", pin==ADXL345_INTERRUPT_PIN1?"ok":"error");
     
-    /* inacivity pin2 */
+    /* inactivity pin2 */
     res = adxl345_set_interrupt_map(&gs_handle, ADXL345_INTERRUPT_INACTIVITY, ADXL345_INTERRUPT_PIN2);
     if (res != 0)
     {
@@ -1908,7 +1908,7 @@ uint8_t adxl345_register_test(adxl345_interface_t interface, adxl345_address_t a
         
         return 1;
     }
-    adxl345_interface_debug_print("adxl345: set interrupt inacivity pin2.\n");
+    adxl345_interface_debug_print("adxl345: set interrupt inactivity pin2.\n");
     res = adxl345_get_interrupt_map(&gs_handle, ADXL345_INTERRUPT_INACTIVITY, &pin);
     if (res != 0)
     {

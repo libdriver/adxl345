@@ -142,7 +142,7 @@ uint8_t adxl345(uint8_t argc, char **argv)
         {"times", required_argument, NULL, 4},
         {NULL, 0, NULL, 0},
     };
-    char type[33] = "unknow";
+    char type[33] = "unknown";
     uint32_t times = 3;
     uint32_t mask = 15;
     adxl345_address_t addr = ADXL345_ADDRESS_ALT_0;
@@ -639,7 +639,7 @@ int main(uint8_t argc, char **argv)
     }
     else
     {
-        adxl345_interface_debug_print("adxl345: unknow status code.\n");
+        adxl345_interface_debug_print("adxl345: unknown status code.\n");
     }
 
     return 0;

@@ -329,7 +329,7 @@ $(document).ready(function(){initNavTree('driver__adxl345__interrupt_8c_source.h
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        <span class="keywordflow">return</span> 1;</div>
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    }</div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    </div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="comment">/* set set watermark level */</span></div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="comment">/* set watermark level */</span></div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    res = <a class="code" href="group__adxl345__fifo__driver.html#gadb751a0438496cb126f842ace9f6f396">adxl345_set_watermark</a>(&amp;gs_handle, <a class="code" href="group__adxl345__example__driver.html#gaacf6d2eb569ffc1d7489730645ccf737">ADXL345_INTERRUPT_DEFAULT_WATERMARK</a>);</div>
 <div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keywordflow">if</span> (res != 0)</div>
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    {</div>
@@ -550,7 +550,7 @@ $(document).ready(function(){initNavTree('driver__adxl345__interrupt_8c_source.h
 <div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;        <span class="keywordflow">return</span> 1;</div>
 <div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;    }</div>
 <div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;    </div>
-<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;    <span class="comment">/* set default inaciton time */</span></div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;    <span class="comment">/* set default inaction time */</span></div>
 <div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;    res = <a class="code" href="group__adxl345__basic__driver.html#ga087318177a67ec67684bf75745c848ca">adxl345_inaction_time_convert_to_register</a>(&amp;gs_handle, <a class="code" href="group__adxl345__example__driver.html#ga3b8de7e6954f22725f2e1d177b447c54">ADXL345_INTERRUPT_DEFAULT_INACTION_TIME</a>, (uint8_t *)&amp;reg);</div>
 <div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;    <span class="keywordflow">if</span> (res != 0)</div>
 <div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;    {</div>
