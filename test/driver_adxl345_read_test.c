@@ -190,7 +190,7 @@ uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_
         return 1;
     }
     
-    /* set watermark 16 leval */
+    /* set watermark 16 level */
     res = adxl345_set_watermark(&gs_handle, 16);
     if (res != 0)
     {

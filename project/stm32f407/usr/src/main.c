@@ -174,7 +174,7 @@ uint8_t adxl345(uint8_t argc, char **argv)
         {"times", required_argument, NULL, 4},
         {NULL, 0, NULL, 0},
     };
-    char type[33] = "unknow";
+    char type[33] = "unknown";
     uint32_t times = 3;
     uint32_t mask = 15;
     adxl345_address_t addr = ADXL345_ADDRESS_ALT_0;
@@ -661,7 +661,7 @@ int main(void)
     /* uart init */
     uart_init(115200);
     
-    /* shell init && register adxl345 fuction */
+    /* shell init && register adxl345 function */
     shell_init();
     shell_register("adxl345", adxl345);
     uart_print("adxl345: welcome to libdriver adxl345.\n");
@@ -684,7 +684,7 @@ int main(void)
             }
             else if (res == 2)
             {
-                uart_print("adxl345: unknow command.\n");
+                uart_print("adxl345: unknown command.\n");
             }
             else if (res == 3)
             {
@@ -700,7 +700,7 @@ int main(void)
             }
             else
             {
-                uart_print("adxl345: unknow status code.\n");
+                uart_print("adxl345: unknown status code.\n");
             }
             uart_flush();
         }

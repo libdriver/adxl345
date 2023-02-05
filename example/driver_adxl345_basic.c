@@ -204,7 +204,7 @@ uint8_t adxl345_basic_init(adxl345_interface_t interface, adxl345_address_t addr
         return 1;
     }
     
-    /* set set watermark level */
+    /* set watermark level */
     res = adxl345_set_watermark(&gs_handle, ADXL345_BASIC_DEFAULT_WATERMARK);
     if (res != 0)
     {
@@ -426,7 +426,7 @@ uint8_t adxl345_basic_init(adxl345_interface_t interface, adxl345_address_t addr
         return 1;
     }
     
-    /* set default inaciton time */
+    /* set default inaction time */
     res = adxl345_inaction_time_convert_to_register(&gs_handle, ADXL345_BASIC_DEFAULT_INACTION_TIME, (uint8_t *)&reg);
     if (res != 0)
     {

@@ -72,7 +72,7 @@
 #define ADXL345_REG_POWER_CTL             0x2D        /**< power control register */
 #define ADXL345_REG_INT_ENABLE            0x2E        /**< interrupt enable register */
 #define ADXL345_REG_INT_MAP               0x2F        /**< interrupt map register */
-#define ADXL345_REG_INT_SOURCE            0x30        /**< interrrupt source register */
+#define ADXL345_REG_INT_SOURCE            0x30        /**< interrupt source register */
 #define ADXL345_REG_DATA_FORMAT           0x31        /**< data format register */
 #define ADXL345_REG_DATAX0                0x32        /**< data X0 register */
 #define ADXL345_REG_DATAX1                0x33        /**< data X1 register */
@@ -157,7 +157,7 @@ static uint8_t a_adxl345_iic_spi_write(adxl345_handle_t *handle, uint8_t reg, ui
             reg |= 1 << 6;                                                /* flag length > 1 */
         }
         
-        if (handle->spi_write(reg, buf, len) != 0)                        /* wrtie data */
+        if (handle->spi_write(reg, buf, len) != 0)                        /* write data */
         {
             return 1;                                                     /* return error */
         }
@@ -3369,7 +3369,7 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
        
         return 1;                                                                                 /* return error */
     }
-    full_res = (prev >> 3) & 0x01;                                                                /* get full reselution */
+    full_res = (prev >> 3) & 0x01;                                                                /* get full resolution */
     justify = (prev >> 2) & 0x01;                                                                 /* get justify */
     range = prev & 0x03;                                                                          /* get range */
     if (mode == ADXL345_MODE_BYPASS)                                                              /* bypass */
@@ -3385,7 +3385,7 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
         raw[0][0] = (int16_t)(buf[1] << 8) | buf[0];                                              /* set raw z */
         raw[0][1] = (int16_t)(buf[3] << 8) | buf[2];                                              /* set raw y */
         raw[0][2] = (int16_t)(buf[5] << 8) | buf[4];                                              /* set raw z */
-        if (full_res == 1)                                                                        /* if full reselution */
+        if (full_res == 1)                                                                        /* if full resolution */
         {
             if (justify == 1)                                                                     /* if justify */
             {
@@ -3577,7 +3577,7 @@ uint8_t adxl345_irq_handler(adxl345_handle_t *handle)
             handle->receive_callback(ADXL345_INTERRUPT_FREE_FALL);                           /* run callback */
         }
     }
-    if ((prev & (1 << ADXL345_INTERRUPT_WATERMARK)) != 0)                                    /* if wartermark */
+    if ((prev & (1 << ADXL345_INTERRUPT_WATERMARK)) != 0)                                    /* if watermark */
     {
         if (handle->receive_callback != NULL)                                                /* if receive callback */
         {
@@ -3673,7 +3673,7 @@ uint8_t adxl345_info(adxl345_info_t *info)
     info->max_current_ma = MAX_CURRENT;                             /* set maximum current */
     info->temperature_max = TEMPERATURE_MAX;                        /* set minimal temperature */
     info->temperature_min = TEMPERATURE_MIN;                        /* set maximum temperature */
-    info->driver_version = DRIVER_VERSION;                          /* set driver verison */
+    info->driver_version = DRIVER_VERSION;                          /* set driver version */
     
     return 0;                                                       /* success return 0 */
 }
