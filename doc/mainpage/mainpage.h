@@ -1,6 +1,6 @@
 /**
  * @mainpage  LibDriver ADXL345
- * @brief     libdriver adxl345 is a full function driver of adxl345 and it can run in both MCU and Linux platform.
+ * @brief     LibDriver ADXL345 is a full function driver of ADXL345 and it can run in both MCU and Linux platform.
  * @version   2.0.0
  * @author    Shifeng Li
  *
