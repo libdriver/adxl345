@@ -51,7 +51,7 @@ uint8_t (*g_gpio_irq)(void) = NULL;        /**< gpio irq function address */
 
 /**
  * @brief     fifo callback
- * @param[in] **g points to a converted data buffer
+ * @param[in] **g pointer to a converted data buffer
  * @param[in] len is the data buffer
  * @note      none
  */
@@ -62,7 +62,7 @@ static void a_fifo_callback(float (*g)[3], uint16_t len)
 
 /**
  * @brief     interrupt callback
- * @param[in] type is the irq type
+ * @param[in] type irq type
  * @note      none
  */
 static void a_interrupt_callback(uint8_t type)
@@ -116,8 +116,8 @@ static void a_interrupt_callback(uint8_t type)
 
 /**
  * @brief     adxl345 full function
- * @param[in] argc is arg numbers
- * @param[in] **argv is the arg address
+ * @param[in] argc arg numbers
+ * @param[in] **argv arg address
  * @return    status code
  *            - 0 success
  *            - 1 run failed
@@ -614,8 +614,8 @@ uint8_t adxl345(uint8_t argc, char **argv)
 
 /**
  * @brief     main function
- * @param[in] argc is arg numbers
- * @param[in] **argv is the arg address
+ * @param[in] argc arg numbers
+ * @param[in] **argv arg address
  * @return    status code
  *             - 0 success
  * @note      none

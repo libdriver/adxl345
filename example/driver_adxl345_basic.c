@@ -41,8 +41,8 @@ static adxl345_handle_t gs_handle;        /**< adxl345 handle */
 
 /**
  * @brief     basic example init
- * @param[in] interface is the chip interface
- * @param[in] addr_pin is the iic device address
+ * @param[in] interface chip interface
+ * @param[in] addr_pin iic device address
  * @return    status code
  *            - 0 success
  *            - 1 init failed
@@ -679,7 +679,7 @@ uint8_t adxl345_basic_init(adxl345_interface_t interface, adxl345_address_t addr
 
 /**
  * @brief      basic example read
- * @param[out] *g points to a converted data buffer
+ * @param[out] *g pointer to a converted data buffer
  * @return     status code
  *             - 0 success
  *             - 1 read failed

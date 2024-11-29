@@ -94,8 +94,8 @@ extern "C"{
 
 /**
  * @brief     basic example init
- * @param[in] interface is the chip interface
- * @param[in] addr_pin is the iic device address
+ * @param[in] interface chip interface
+ * @param[in] addr_pin iic device address
  * @return    status code
  *            - 0 success
  *            - 1 init failed
@@ -114,7 +114,7 @@ uint8_t adxl345_basic_deinit(void);
 
 /**
  * @brief      basic example read
- * @param[out] *g points to a converted data buffer
+ * @param[out] *g pointer to a converted data buffer
  * @return     status code
  *             - 0 success
  *             - 1 read failed
