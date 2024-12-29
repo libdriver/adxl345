@@ -320,96 +320,96 @@ typedef struct adxl345_info_s
 
 /**
  * @brief     initialize adxl345_handle_t structure
- * @param[in] HANDLE points to an adxl345 handle structure
- * @param[in] STRUCTURE is adxl345_handle_t
+ * @param[in] HANDLE pointer to an adxl345 handle structure
+ * @param[in] STRUCTURE adxl345_handle_t
  * @note      none
  */
 #define DRIVER_ADXL345_LINK_INIT(HANDLE, STRUCTURE)         memset(HANDLE, 0, sizeof(STRUCTURE))
 
 /**
  * @brief     link iic_init function
- * @param[in] HANDLE points to an adxl345 handle structure
- * @param[in] FUC points to an iic_init function address
+ * @param[in] HANDLE pointer to an adxl345 handle structure
+ * @param[in] FUC pointer to an iic_init function address
  * @note      none
  */
 #define DRIVER_ADXL345_LINK_IIC_INIT(HANDLE, FUC)          (HANDLE)->iic_init = FUC
 
 /**
  * @brief     link iic_deinit function
- * @param[in] HANDLE points to an adxl345 handle structure
- * @param[in] FUC points to an iic_deinit function address
+ * @param[in] HANDLE pointer to an adxl345 handle structure
+ * @param[in] FUC pointer to an iic_deinit function address
  * @note      none
  */
 #define DRIVER_ADXL345_LINK_IIC_DEINIT(HANDLE, FUC)        (HANDLE)->iic_deinit = FUC
 
 /**
  * @brief     link iic_read function
- * @param[in] HANDLE points to an adxl345 handle structure
- * @param[in] FUC points to an iic_read function address
+ * @param[in] HANDLE pointer to an adxl345 handle structure
+ * @param[in] FUC pointer to an iic_read function address
  * @note      none
  */
 #define DRIVER_ADXL345_LINK_IIC_READ(HANDLE, FUC)          (HANDLE)->iic_read = FUC
 
 /**
  * @brief     link iic_write function
- * @param[in] HANDLE points to an adxl345 handle structure
- * @param[in] FUC points to an iic_write function address
+ * @param[in] HANDLE pointer to an adxl345 handle structure
+ * @param[in] FUC pointer to an iic_write function address
  * @note      none
  */
 #define DRIVER_ADXL345_LINK_IIC_WRITE(HANDLE, FUC)         (HANDLE)->iic_write = FUC
 
 /**
  * @brief     link spi_init function
- * @param[in] HANDLE points to an adxl345 handle structure
- * @param[in] FUC points to a spi_init function address
+ * @param[in] HANDLE pointer to an adxl345 handle structure
+ * @param[in] FUC pointer to a spi_init function address
  * @note      none
  */
 #define DRIVER_ADXL345_LINK_SPI_INIT(HANDLE, FUC)          (HANDLE)->spi_init = FUC
 
 /**
  * @brief     link spi_deinit function
- * @param[in] HANDLE points to an adxl345 handle structure
- * @param[in] FUC points to a spi_deinit function address
+ * @param[in] HANDLE pointer to an adxl345 handle structure
+ * @param[in] FUC pointer to a spi_deinit function address
  * @note      none
  */
 #define DRIVER_ADXL345_LINK_SPI_DEINIT(HANDLE, FUC)        (HANDLE)->spi_deinit = FUC
 
 /**
  * @brief     link spi_read function
- * @param[in] HANDLE points to an adxl345 handle structure
- * @param[in] FUC points to a spi_read function address
+ * @param[in] HANDLE pointer to an adxl345 handle structure
+ * @param[in] FUC pointer to a spi_read function address
  * @note      none
  */
 #define DRIVER_ADXL345_LINK_SPI_READ(HANDLE, FUC)          (HANDLE)->spi_read = FUC
 
 /**
  * @brief     link spi_write function
- * @param[in] HANDLE points to an adxl345 handle structure
- * @param[in] FUC points to a spi_write function address
+ * @param[in] HANDLE pointer to an adxl345 handle structure
+ * @param[in] FUC pointer to a spi_write function address
  * @note      none
  */
 #define DRIVER_ADXL345_LINK_SPI_WRITE(HANDLE, FUC)         (HANDLE)->spi_write = FUC
 
 /**
  * @brief     link delay_ms function
- * @param[in] HANDLE points to an adxl345 handle structure
- * @param[in] FUC points to a delay_ms function address
+ * @param[in] HANDLE pointer to an adxl345 handle structure
+ * @param[in] FUC pointer to a delay_ms function address
  * @note      none
  */
 #define DRIVER_ADXL345_LINK_DELAY_MS(HANDLE, FUC)          (HANDLE)->delay_ms = FUC
 
 /**
  * @brief     link debug_print function
- * @param[in] HANDLE points to an adxl345 handle structure
- * @param[in] FUC points to a debug_print function address
+ * @param[in] HANDLE pointer to an adxl345 handle structure
+ * @param[in] FUC pointer to a debug_print function address
  * @note      none
  */
 #define DRIVER_ADXL345_LINK_DEBUG_PRINT(HANDLE, FUC)       (HANDLE)->debug_print = FUC
 
 /**
  * @brief     link receive_callback function
- * @param[in] HANDLE points to an adxl345 handle structure
- * @param[in] FUC points to a receive_callback function address
+ * @param[in] HANDLE pointer to an adxl345 handle structure
+ * @param[in] FUC pointer to a receive_callback function address
  * @note      none
  */
 #define DRIVER_ADXL345_LINK_RECEIVE_CALLBACK(HANDLE, FUC)  (HANDLE)->receive_callback = FUC
@@ -427,7 +427,7 @@ typedef struct adxl345_info_s
 
 /**
  * @brief      get chip's information
- * @param[out] *info points to an adxl345 info structure
+ * @param[out] *info pointer to an adxl345 info structure
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -437,7 +437,7 @@ uint8_t adxl345_info(adxl345_info_t *info);
 
 /**
  * @brief     initialize the chip
- * @param[in] *handle points to an adxl345 handle structure
+ * @param[in] *handle pointer to an adxl345 handle structure
  * @return    status code
  *            - 0 success
  *            - 1 spi or iic initialization failed
@@ -450,7 +450,7 @@ uint8_t adxl345_init(adxl345_handle_t *handle);
 
 /**
  * @brief     close the chip
- * @param[in] *handle points to an adxl345 handle structure
+ * @param[in] *handle pointer to an adxl345 handle structure
  * @return    status code
  *            - 0 success
  *            - 1 iic or spi deinit failed
@@ -463,8 +463,8 @@ uint8_t adxl345_deinit(adxl345_handle_t *handle);
 
 /**
  * @brief     set the chip interface
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] interface is the chip interface
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] interface chip interface
  * @return    status code
  *            - 0 success
  *            - 2 handle is NULL
@@ -474,8 +474,8 @@ uint8_t adxl345_set_interface(adxl345_handle_t *handle, adxl345_interface_t inte
 
 /**
  * @brief      get the chip interface
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *interface points to a chip interface buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *interface pointer to a chip interface buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -485,8 +485,8 @@ uint8_t adxl345_get_interface(adxl345_handle_t *handle, adxl345_interface_t *int
 
 /**
  * @brief     set the iic address pin
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] addr_pin is the address pin
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] addr_pin address pin
  * @return    status code
  *            - 0 success
  *            - 2 handle is NULL
@@ -496,8 +496,8 @@ uint8_t adxl345_set_addr_pin(adxl345_handle_t *handle, adxl345_address_t addr_pi
 
 /**
  * @brief      get the iic address pin
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *addr_pin points to an address pin buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *addr_pin pointer to an address pin buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -507,10 +507,10 @@ uint8_t adxl345_get_addr_pin(adxl345_handle_t *handle, adxl345_address_t *addr_p
 
 /**
  * @brief         read the data
- * @param[in]     *handle points to an adxl345 handle structure
- * @param[out]    **raw points to a raw data buffer
- * @param[out]    **g points to a converted data buffer
- * @param[in,out] *len points to a length buffer
+ * @param[in]     *handle pointer to an adxl345 handle structure
+ * @param[out]    **raw pointer to a raw data buffer
+ * @param[out]    **g pointer to a converted data buffer
+ * @param[in,out] *len pointer to a length buffer
  * @return        status code
  *                - 0 success
  *                - 1 read failed
@@ -522,7 +522,7 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
 
 /**
  * @brief     irq handler
- * @param[in] *handle points to an adxl345 handle structure
+ * @param[in] *handle pointer to an adxl345 handle structure
  * @return    status code
  *            - 0 success
  *            - 1 run failed
@@ -534,8 +534,8 @@ uint8_t adxl345_irq_handler(adxl345_handle_t *handle);
 
 /**
  * @brief     set the tap threshold
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] threshold is the tap threshold
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] threshold tap threshold
  * @return    status code
  *            - 0 success
  *            - 1 set tap threshold failed
@@ -547,8 +547,8 @@ uint8_t adxl345_set_tap_threshold(adxl345_handle_t *handle, uint8_t threshold);
 
 /**
  * @brief      get the tap threshold
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *threshold points to a tap threshold buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *threshold pointer to a tap threshold buffer
  * @return     status code
  *             - 0 success
  *             - 1 get tap threshold failed
@@ -560,9 +560,9 @@ uint8_t adxl345_get_tap_threshold(adxl345_handle_t *handle, uint8_t *threshold);
 
 /**
  * @brief      convert the tap threshold to the register raw data
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  g is the tap threshold
- * @param[out] *reg points to a register raw buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  g tap threshold
+ * @param[out] *reg pointer to a register raw buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -573,9 +573,9 @@ uint8_t adxl345_tap_threshold_convert_to_register(adxl345_handle_t *handle, floa
 
 /**
  * @brief      convert the register raw data to the tap threshold
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  reg is the register raw data
- * @param[out] *g points to a tap threshold buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  reg register raw data
+ * @param[out] *g pointer to a tap threshold buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -586,10 +586,10 @@ uint8_t adxl345_tap_threshold_convert_to_data(adxl345_handle_t *handle, uint8_t 
 
 /**
  * @brief     set the axis offset
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] x is the x axis offset
- * @param[in] y is the y axis offset
- * @param[in] z is the z axis offset
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] x x axis offset
+ * @param[in] y y axis offset
+ * @param[in] z z axis offset
  * @return    status code
  *            - 0 success
  *            - 1 set offset failed
@@ -601,10 +601,10 @@ uint8_t adxl345_set_offset(adxl345_handle_t *handle, int8_t x, int8_t y, int8_t 
 
 /**
  * @brief      get the axis offset
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *x points to an x axis offset
- * @param[out] *y points to a y axis offset
- * @param[out] *z points to a z axis offset
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *x pointer to an x axis offset
+ * @param[out] *y pointer to a y axis offset
+ * @param[out] *z pointer to a z axis offset
  * @return     status code
  *             - 0 success
  *             - 1 get offset failed
@@ -616,9 +616,9 @@ uint8_t adxl345_get_offset(adxl345_handle_t *handle, int8_t *x, int8_t *y, int8_
 
 /**
  * @brief      convert the offset to the register raw data
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  g is the offset
- * @param[out] *reg points to a register raw buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  g offset
+ * @param[out] *reg pointer to a register raw buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -629,9 +629,9 @@ uint8_t adxl345_offset_convert_to_register(adxl345_handle_t *handle, float g, in
 
 /**
  * @brief      convert the register raw data to the offset
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  reg is the register raw data
- * @param[out] *g points to an offset buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  reg register raw data
+ * @param[out] *g pointer to an offset buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -642,8 +642,8 @@ uint8_t adxl345_offset_convert_to_data(adxl345_handle_t *handle, int8_t reg, flo
 
 /**
  * @brief     set the duration
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] t is the duration
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] t duration
  * @return    status code
  *            - 0 success
  *            - 1 set duration failed
@@ -655,8 +655,8 @@ uint8_t adxl345_set_duration(adxl345_handle_t *handle, uint8_t t);
 
 /**
  * @brief      get the duration
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *t points to a duration buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *t pointer to a duration buffer
  * @return     status code
  *             - 0 success
  *             - 1 get duration failed
@@ -668,9 +668,9 @@ uint8_t adxl345_get_duration(adxl345_handle_t *handle, uint8_t *t);
 
 /**
  * @brief      convert the duration to the register raw data
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  us is the duration
- * @param[out] *reg points to a register raw buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  us duration
+ * @param[out] *reg pointer to a register raw buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -681,9 +681,9 @@ uint8_t adxl345_duration_convert_to_register(adxl345_handle_t *handle, uint32_t 
 
 /**
  * @brief      convert the register raw data to the duration
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  reg is the register raw data
- * @param[out] *us points to a duration buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  reg register raw data
+ * @param[out] *us pointer to a duration buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -694,8 +694,8 @@ uint8_t adxl345_duration_convert_to_data(adxl345_handle_t *handle, uint8_t reg, 
 
 /**
  * @brief     set the latent
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] t is the latent time
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] t latent time
  * @return    status code
  *            - 0 success
  *            - 1 set latent failed
@@ -707,8 +707,8 @@ uint8_t adxl345_set_latent(adxl345_handle_t *handle, uint8_t t);
 
 /**
  * @brief      get the latent
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *t points to a latent time buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *t pointer to a latent time buffer
  * @return     status code
  *             - 0 success
  *             - 1 get latent failed
@@ -720,9 +720,9 @@ uint8_t adxl345_get_latent(adxl345_handle_t *handle, uint8_t *t);
 
 /**
  * @brief      convert the latent to the register raw data
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  ms is the time
- * @param[out] *reg points to a register raw buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  ms time
+ * @param[out] *reg pointer to a register raw buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -733,9 +733,9 @@ uint8_t adxl345_latent_convert_to_register(adxl345_handle_t *handle, float ms, u
 
 /**
  * @brief      convert the register raw data to the latent
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  reg is the register raw data
- * @param[out] *ms points to a latent buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  reg register raw data
+ * @param[out] *ms pointer to a latent buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -746,8 +746,8 @@ uint8_t adxl345_latent_convert_to_data(adxl345_handle_t *handle, uint8_t reg, fl
 
 /**
  * @brief     set the window
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] t is the window time
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] t window time
  * @return    status code
  *            - 0 success
  *            - 1 set window failed
@@ -759,8 +759,8 @@ uint8_t adxl345_set_window(adxl345_handle_t *handle, uint8_t t);
 
 /**
  * @brief      get the window
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *t points to a window time buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *t pointer to a window time buffer
  * @return     status code
  *             - 0 success
  *             - 1 get window failed
@@ -772,9 +772,9 @@ uint8_t adxl345_get_window(adxl345_handle_t *handle, uint8_t *t);
 
 /**
  * @brief      convert the window time to the register raw data
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  ms is the window time
- * @param[out] *reg points to a register raw buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  ms window time
+ * @param[out] *reg pointer to a register raw buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -785,9 +785,9 @@ uint8_t adxl345_window_convert_to_register(adxl345_handle_t *handle, float ms, u
 
 /**
  * @brief      convert the register raw data to the window time
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  reg is the register raw data
- * @param[out] *ms points to a window time buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  reg register raw data
+ * @param[out] *ms pointer to a window time buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -798,8 +798,8 @@ uint8_t adxl345_window_convert_to_data(adxl345_handle_t *handle, uint8_t reg, fl
 
 /**
  * @brief     set the action threshold
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] threshold is the action threshold
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] threshold action threshold
  * @return    status code
  *            - 0 success
  *            - 1 set action threshold failed
@@ -811,8 +811,8 @@ uint8_t adxl345_set_action_threshold(adxl345_handle_t *handle, uint8_t threshold
 
 /**
  * @brief      get the action threshold
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *threshold points to an action threshold buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *threshold pointer to an action threshold buffer
  * @return     status code
  *             - 0 success
  *             - 1 get action threshold failed
@@ -824,9 +824,9 @@ uint8_t adxl345_get_action_threshold(adxl345_handle_t *handle, uint8_t *threshol
 
 /**
  * @brief      convert the action threshold to the register raw data
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  g is the action threshold
- * @param[out] *reg points to a register raw buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  g action threshold
+ * @param[out] *reg pointer to a register raw buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -837,9 +837,9 @@ uint8_t adxl345_action_threshold_convert_to_register(adxl345_handle_t *handle, f
 
 /**
  * @brief      convert the register raw data to the action threshold
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  reg is the register raw data
- * @param[out] *g points to an action threshold buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  reg register raw data
+ * @param[out] *g pointer to an action threshold buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -850,8 +850,8 @@ uint8_t adxl345_action_threshold_convert_to_data(adxl345_handle_t *handle, uint8
 
 /**
  * @brief     set the inaction threshold
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] threshold is the inaction threshold
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] threshold inaction threshold
  * @return    status code
  *            - 0 success
  *            - 1 set inaction threshold failed
@@ -863,8 +863,8 @@ uint8_t adxl345_set_inaction_threshold(adxl345_handle_t *handle, uint8_t thresho
 
 /**
  * @brief      get the inaction threshold
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *threshold points to an inaction threshold buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *threshold pointer to an inaction threshold buffer
  * @return     status code
  *             - 0 success
  *             - 1 get inaction threshold failed
@@ -876,9 +876,9 @@ uint8_t adxl345_get_inaction_threshold(adxl345_handle_t *handle, uint8_t *thresh
 
 /**
  * @brief      convert the inaction threshold to the register raw data
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  g is the inaction threshold
- * @param[out] *reg points to a register raw buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  g inaction threshold
+ * @param[out] *reg pointer to a register raw buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -889,9 +889,9 @@ uint8_t adxl345_inaction_threshold_convert_to_register(adxl345_handle_t *handle,
 
 /**
  * @brief      convert the register raw data to the inaction threshold
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  reg is the register raw data
- * @param[out] *g points to an inaction threshold buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  reg register raw data
+ * @param[out] *g pointer to an inaction threshold buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -902,8 +902,8 @@ uint8_t adxl345_inaction_threshold_convert_to_data(adxl345_handle_t *handle, uin
 
 /**
  * @brief     set the inaction time
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] t is the inaction time
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] t inaction time
  * @return    status code
  *            - 0 success
  *            - 1 set inaction time failed
@@ -915,8 +915,8 @@ uint8_t adxl345_set_inaction_time(adxl345_handle_t *handle, uint8_t t);
 
 /**
  * @brief      get the inaction time
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *t points to an inaction time buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *t pointer to an inaction time buffer
  * @return     status code
  *             - 0 success
  *             - 1 get inaction time failed
@@ -928,9 +928,9 @@ uint8_t adxl345_get_inaction_time(adxl345_handle_t *handle, uint8_t *t);
 
 /**
  * @brief      convert the inaction time to the register raw data
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  s is the inaction time
- * @param[out] *reg points to a register raw buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  s inaction time
+ * @param[out] *reg pointer to a register raw buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -941,9 +941,9 @@ uint8_t adxl345_inaction_time_convert_to_register(adxl345_handle_t *handle, uint
 
 /**
  * @brief      convert the register raw data to the inaction time
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  reg is the register raw data
- * @param[out] *s points to an inaction time buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  reg register raw data
+ * @param[out] *s pointer to an inaction time buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -954,9 +954,9 @@ uint8_t adxl345_inaction_time_convert_to_data(adxl345_handle_t *handle, uint8_t 
 
 /**
  * @brief     enable or disable the action or inaction
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] type is the action or inaction type
- * @param[in] enable is a bool value
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] type action or inaction type
+ * @param[in] enable bool value
  * @return    status code
  *            - 0 success
  *            - 1 set action inaction failed
@@ -968,9 +968,9 @@ uint8_t adxl345_set_action_inaction(adxl345_handle_t *handle, adxl345_action_ina
 
 /**
  * @brief      get the action or inaction status
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  type is the action or inaction type
- * @param[out] *enable points to a bool value buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  type action or inaction type
+ * @param[out] *enable pointer to a bool value buffer
  * @return     status code
  *             - 0 success
  *             - 1 get action inaction failed
@@ -982,8 +982,8 @@ uint8_t adxl345_get_action_inaction(adxl345_handle_t *handle, adxl345_action_ina
 
 /**
  * @brief     set the action coupled
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] coupled is the action coupled
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] coupled action coupled
  * @return    status code
  *            - 0 success
  *            - 1 set action coupled failed
@@ -995,8 +995,8 @@ uint8_t adxl345_set_action_coupled(adxl345_handle_t *handle, adxl345_coupled_t c
 
 /**
  * @brief      get the action coupled
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *coupled points to an action coupled buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *coupled pointer to an action coupled buffer
  * @return     status code
  *             - 0 success
  *             - 1 get action coupled failed
@@ -1008,8 +1008,8 @@ uint8_t adxl345_get_action_coupled(adxl345_handle_t *handle, adxl345_coupled_t *
 
 /**
  * @brief     set the inaction coupled
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] coupled is the inaction coupled
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] coupled inaction coupled
  * @return    status code
  *            - 0 success
  *            - 1 set inaction coupled failed
@@ -1021,8 +1021,8 @@ uint8_t adxl345_set_inaction_coupled(adxl345_handle_t *handle, adxl345_coupled_t
 
 /**
  * @brief      get the inaction coupled
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *coupled points to an inaction coupled buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *coupled pointer to an inaction coupled buffer
  * @return     status code
  *             - 0 success
  *             - 1 get inaction coupled failed
@@ -1034,8 +1034,8 @@ uint8_t adxl345_get_inaction_coupled(adxl345_handle_t *handle, adxl345_coupled_t
 
 /**
  * @brief     set the free fall threshold
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] threshold is the free fall threshold
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] threshold free fall threshold
  * @return    status code
  *            - 0 success
  *            - 1 set free fall threshold failed
@@ -1047,8 +1047,8 @@ uint8_t adxl345_set_free_fall_threshold(adxl345_handle_t *handle, uint8_t thresh
 
 /**
  * @brief      get the free fall threshold
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *threshold points to a free fall threshold buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *threshold pointer to a free fall threshold buffer
  * @return     status code
  *             - 0 success
  *             - 1 get free fall threshold failed
@@ -1060,9 +1060,9 @@ uint8_t adxl345_get_free_fall_threshold(adxl345_handle_t *handle, uint8_t *thres
 
 /**
  * @brief      convert the free fall threshold to the register raw data
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  g is the free fall threshold
- * @param[out] *reg points to a register raw buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  g free fall threshold
+ * @param[out] *reg pointer to a register raw buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -1073,9 +1073,9 @@ uint8_t adxl345_free_fall_threshold_convert_to_register(adxl345_handle_t *handle
 
 /**
  * @brief      convert the register raw data to the free fall threshold
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  reg is the register raw data
- * @param[out] *g points to a free fall threshold buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  reg register raw data
+ * @param[out] *g pointer to a free fall threshold buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -1086,8 +1086,8 @@ uint8_t adxl345_free_fall_threshold_convert_to_data(adxl345_handle_t *handle, ui
 
 /**
  * @brief     set the free fall time
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] t is the free fall time
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] t free fall time
  * @return    status code
  *            - 0 success
  *            - 1 set free fall time failed
@@ -1099,8 +1099,8 @@ uint8_t adxl345_set_free_fall_time(adxl345_handle_t *handle, uint8_t t);
 
 /**
  * @brief      get the free fall time
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *t points to a free fall time buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *t pointer to a free fall time buffer
  * @return     status code
  *             - 0 success
  *             - 1 get free fall time failed
@@ -1112,9 +1112,9 @@ uint8_t adxl345_get_free_fall_time(adxl345_handle_t *handle, uint8_t *t);
 
 /**
  * @brief      convert the free fall time to the register raw data
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  ms is the free fall time
- * @param[out] *reg points to a register raw buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  ms free fall time
+ * @param[out] *reg pointer to a register raw buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -1125,9 +1125,9 @@ uint8_t adxl345_free_fall_time_convert_to_register(adxl345_handle_t *handle, uin
 
 /**
  * @brief      convert the register raw data to the free fall time
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  reg is the register raw data
- * @param[out] *ms points to a free fall time buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  reg register raw data
+ * @param[out] *ms pointer to a free fall time buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -1138,9 +1138,9 @@ uint8_t adxl345_free_fall_time_convert_to_data(adxl345_handle_t *handle, uint8_t
 
 /**
  * @brief     enable or disable the tap axis
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] axis is the tap axis
- * @param[in] enable is a bool value
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] axis tap axis
+ * @param[in] enable bool value
  * @return    status code
  *            - 0 success
  *            - 1 set tap axis failed
@@ -1152,9 +1152,9 @@ uint8_t adxl345_set_tap_axis(adxl345_handle_t *handle, adxl345_tap_axis_t axis, 
 
 /**
  * @brief      get the tap axis status
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  axis is the tap axis
- * @param[out] *enable points to a bool value buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  axis tap axis
+ * @param[out] *enable pointer to a bool value buffer
  * @return     status code
  *             - 0 success
  *             - 1 get tap axis failed
@@ -1166,8 +1166,8 @@ uint8_t adxl345_get_tap_axis(adxl345_handle_t *handle, adxl345_tap_axis_t axis, 
 
 /**
  * @brief     enable or disable the tap suppress
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] enable is a bool value
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] enable bool value
  * @return    status code
  *            - 0 success
  *            - 1 set tap suppress failed
@@ -1179,8 +1179,8 @@ uint8_t adxl345_set_tap_suppress(adxl345_handle_t *handle, adxl345_bool_t enable
 
 /**
  * @brief      get the tap suppress status
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *enable points to a bool value buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *enable pointer to a bool value buffer
  * @return     status code
  *             - 0 success
  *             - 1 get tap suppress failed
@@ -1192,8 +1192,8 @@ uint8_t adxl345_get_tap_suppress(adxl345_handle_t *handle, adxl345_bool_t *enabl
 
 /**
  * @brief      get the tap status
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *status points to a tap status buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *status pointer to a tap status buffer
  * @return     status code
  *             - 0 success
  *             - 1 get tap status failed
@@ -1205,8 +1205,8 @@ uint8_t adxl345_get_tap_status(adxl345_handle_t *handle, uint8_t *status);
 
 /**
  * @brief     set the sampling rate
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] rate is the sampling rate
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] rate sampling rate
  * @return    status code
  *            - 0 success
  *            - 1 set rate failed
@@ -1218,8 +1218,8 @@ uint8_t adxl345_set_rate(adxl345_handle_t *handle, adxl345_rate_t rate);
 
 /**
  * @brief      get the sampling rate
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *rate points to a sampling rate buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *rate pointer to a sampling rate buffer
  * @return     status code
  *             - 0 success
  *             - 1 get rate failed
@@ -1231,8 +1231,8 @@ uint8_t adxl345_get_rate(adxl345_handle_t *handle, adxl345_rate_t *rate);
 
 /**
  * @brief     enable or disable the self test
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] enable is a bool value
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] enable bool value
  * @return    status code
  *            - 0 success
  *            - 1 set self test failed
@@ -1244,8 +1244,8 @@ uint8_t adxl345_set_self_test(adxl345_handle_t *handle, adxl345_bool_t enable);
 
 /**
  * @brief      get the self test status
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *enable points to a bool value buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *enable pointer to a bool value buffer
  * @return     status code
  *             - 0 success
  *             - 1 get self test failed
@@ -1257,8 +1257,8 @@ uint8_t adxl345_get_self_test(adxl345_handle_t *handle, adxl345_bool_t *enable);
 
 /**
  * @brief     set the chip spi wire
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] wire is the spi wire
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] wire spi wire
  * @return    status code
  *            - 0 success
  *            - 1 set spi wire failed
@@ -1270,8 +1270,8 @@ uint8_t adxl345_set_spi_wire(adxl345_handle_t *handle, adxl345_spi_wire_t wire);
 
 /**
  * @brief      get the chip spi wire
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *wire points to a spi wire buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *wire pointer to a spi wire buffer
  * @return     status code
  *             - 0 success
  *             - 1 get spi wire failed
@@ -1283,8 +1283,8 @@ uint8_t adxl345_get_spi_wire(adxl345_handle_t *handle, adxl345_spi_wire_t *wire)
 
 /**
  * @brief     enable or disable the full resolution
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] enable is a bool value
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] enable bool value
  * @return    status code
  *            - 0 success
  *            - 1 set full resolution failed
@@ -1296,8 +1296,8 @@ uint8_t adxl345_set_full_resolution(adxl345_handle_t *handle, adxl345_bool_t ena
 
 /**
  * @brief      get the full resolution status
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *enable points to a bool value buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *enable pointer to a bool value buffer
  * @return     status code
  *             - 0 success
  *             - 1 get full resolution failed
@@ -1309,8 +1309,8 @@ uint8_t adxl345_get_full_resolution(adxl345_handle_t *handle, adxl345_bool_t *en
 
 /**
  * @brief     enable or disable the justify
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] enable is a bool value
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] enable bool value
  * @return    status code
  *            - 0 success
  *            - 1 set justify failed
@@ -1322,8 +1322,8 @@ uint8_t adxl345_set_justify(adxl345_handle_t *handle, adxl345_justify_t enable);
 
 /**
  * @brief      get the justify status
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *enable points to a bool value buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *enable pointer to a bool value buffer
  * @return     status code
  *             - 0 success
  *             - 1 get justify failed
@@ -1335,8 +1335,8 @@ uint8_t adxl345_get_justify(adxl345_handle_t *handle, adxl345_justify_t *enable)
 
 /**
  * @brief     set the chip range
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] range is the measurement range
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] range measurement range
  * @return    status code
  *            - 0 success
  *            - 1 set range failed
@@ -1348,8 +1348,8 @@ uint8_t adxl345_set_range(adxl345_handle_t *handle, adxl345_range_t range);
 
 /**
  * @brief      get the chip range
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *range points to a measurement range buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *range pointer to a measurement range buffer
  * @return     status code
  *             - 0 success
  *             - 1 get range failed
@@ -1361,8 +1361,8 @@ uint8_t adxl345_get_range(adxl345_handle_t *handle, adxl345_range_t *range);
 
 /**
  * @brief     set the chip mode
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] mode is the chip mode
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] mode chip mode
  * @return    status code
  *            - 0 success
  *            - 1 set mode failed
@@ -1374,8 +1374,8 @@ uint8_t adxl345_set_mode(adxl345_handle_t *handle, adxl345_mode_t mode);
 
 /**
  * @brief      get the chip mode
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *mode points to a chip mode buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *mode pointer to a chip mode buffer
  * @return     status code
  *             - 0 success
  *             - 1 get mode failed
@@ -1387,8 +1387,8 @@ uint8_t adxl345_get_mode(adxl345_handle_t *handle, adxl345_mode_t *mode);
 
 /**
  * @brief     set the trigger pin
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] pin is the trigger pin
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] pin trigger pin
  * @return    status code
  *            - 0 success
  *            - 1 set trigger pin failed
@@ -1400,8 +1400,8 @@ uint8_t adxl345_set_trigger_pin(adxl345_handle_t *handle, adxl345_interrupt_pin_
 
 /**
  * @brief      get the trigger pin
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *pin points to a trigger pin buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *pin pointer to a trigger pin buffer
  * @return     status code
  *             - 0 success
  *             - 1 get trigger pin failed
@@ -1413,8 +1413,8 @@ uint8_t adxl345_get_trigger_pin(adxl345_handle_t *handle, adxl345_interrupt_pin_
 
 /**
  * @brief      get the trigger status
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *status points to a trigger status buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *status pointer to a trigger status buffer
  * @return     status code
  *             - 0 success
  *             - 1 get trigger status failed
@@ -1426,8 +1426,8 @@ uint8_t adxl345_get_trigger_status(adxl345_handle_t *handle, adxl345_trigger_sta
 
 /**
  * @brief     enable or disable the activity and inactivity linking
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] enable is a bool value
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] enable bool value
  * @return    status code
  *            - 0 success
  *            - 1 set link activity inactivity failed
@@ -1439,8 +1439,8 @@ uint8_t adxl345_set_link_activity_inactivity(adxl345_handle_t *handle, adxl345_b
 
 /**
  * @brief      get the activity and inactivity linking status
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *enable points to a bool value buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *enable pointer to a bool value buffer
  * @return     status code
  *             - 0 success
  *             - 1 get link activity inactivity failed
@@ -1452,8 +1452,8 @@ uint8_t adxl345_get_link_activity_inactivity(adxl345_handle_t *handle, adxl345_b
 
 /**
  * @brief     enable or disable the auto sleep
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] enable is a bool value
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] enable bool value
  * @return    status code
  *            - 0 success
  *            - 1 set auto sleep failed
@@ -1465,8 +1465,8 @@ uint8_t adxl345_set_auto_sleep(adxl345_handle_t *handle, adxl345_bool_t enable);
 
 /**
  * @brief      get the auto sleep status
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *enable points to a bool value buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *enable pointer to a bool value buffer
  * @return     status code
  *             - 0 success
  *             - 1 get auto sleep failed
@@ -1478,8 +1478,8 @@ uint8_t adxl345_get_auto_sleep(adxl345_handle_t *handle, adxl345_bool_t *enable)
 
 /**
  * @brief     enable or disable the measure
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] enable is a bool value
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] enable bool value
  * @return    status code
  *            - 0 success
  *            - 1 set measure failed
@@ -1491,8 +1491,8 @@ uint8_t adxl345_set_measure(adxl345_handle_t *handle, adxl345_bool_t enable);
 
 /**
  * @brief      get the measure status
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *enable points to a bool value buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *enable pointer to a bool value buffer
  * @return     status code
  *             - 0 success
  *             - 1 get measure failed
@@ -1504,8 +1504,8 @@ uint8_t adxl345_get_measure(adxl345_handle_t *handle, adxl345_bool_t *enable);
 
 /**
  * @brief     enable or disable the sleep mode
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] enable is a bool value
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] enable bool value
  * @return    status code
  *            - 0 success
  *            - 1 set sleep failed
@@ -1517,8 +1517,8 @@ uint8_t adxl345_set_sleep(adxl345_handle_t *handle, adxl345_bool_t enable);
 
 /**
  * @brief      get the sleep mode status
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *enable points to a bool value buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *enable pointer to a bool value buffer
  * @return     status code
  *             - 0 success
  *             - 1 get sleep failed
@@ -1530,8 +1530,8 @@ uint8_t adxl345_get_sleep(adxl345_handle_t *handle, adxl345_bool_t *enable);
 
 /**
  * @brief     set the sleep frequency
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] sleep_frequency is the sleep frequency
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] sleep_frequency sleep frequency
  * @return    status code
  *            - 0 success
  *            - 1 set sleep frequency failed
@@ -1543,8 +1543,8 @@ uint8_t adxl345_set_sleep_frequency(adxl345_handle_t *handle, adxl345_sleep_freq
 
 /**
  * @brief     set the sleep frequency
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] sleep_frequency is the sleep frequency
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] sleep_frequency sleep frequency
  * @return    status code
  *            - 0 success
  *            - 1 set sleep frequency failed
@@ -1556,8 +1556,8 @@ uint8_t adxl345_set_sleep_frequency(adxl345_handle_t *handle, adxl345_sleep_freq
 
 /**
  * @brief      get the sleep frequency
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *sleep_frequency points to a sleep frequency buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *sleep_frequency pointer to a sleep frequency buffer
  * @return     status code
  *             - 0 success
  *             - 1 get sleep frequency failed
@@ -1580,9 +1580,9 @@ uint8_t adxl345_get_sleep_frequency(adxl345_handle_t *handle, adxl345_sleep_freq
 
 /**
  * @brief     enable or disable the interrupt
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] type is the interrupt type
- * @param[in] enable is the bool value
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] type interrupt type
+ * @param[in] enable bool value
  * @return    status code
  *            - 0 success
  *            - 1 set interrupt failed
@@ -1594,9 +1594,9 @@ uint8_t adxl345_set_interrupt(adxl345_handle_t *handle, adxl345_interrupt_t type
 
 /**
  * @brief      get the interrupt status
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  type is the interrupt type
- * @param[out] *enable points to a bool value buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  type interrupt type
+ * @param[out] *enable pointer to a bool value buffer
  * @return     status code
  *             - 0 success
  *             - 1 get interrupt failed
@@ -1608,8 +1608,8 @@ uint8_t adxl345_get_interrupt(adxl345_handle_t *handle, adxl345_interrupt_t type
 
 /**
  * @brief      get the interrupt source
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *source points to an interrupt source buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *source pointer to an interrupt source buffer
  * @return     status code
  *             - 0 success
  *             - 1 get interrupt source failed
@@ -1621,9 +1621,9 @@ uint8_t adxl345_get_interrupt_source(adxl345_handle_t *handle, uint8_t *source);
 
 /**
  * @brief     set the interrupt map
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] type is the interrupt type
- * @param[in] pin is the interrupt pin
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] type interrupt type
+ * @param[in] pin interrupt pin
  * @return    status code
  *            - 0 success
  *            - 1 set interrupt map failed
@@ -1635,9 +1635,9 @@ uint8_t adxl345_set_interrupt_map(adxl345_handle_t *handle, adxl345_interrupt_t 
 
 /**
  * @brief      get the interrupt map
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  type is the interrupt type
- * @param[out] *pin points to an interrupt pin buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  type interrupt type
+ * @param[out] *pin pointer to an interrupt pin buffer
  * @return     status code
  *             - 0 success
  *             - 1 get interrupt map failed
@@ -1649,8 +1649,8 @@ uint8_t adxl345_get_interrupt_map(adxl345_handle_t *handle, adxl345_interrupt_t 
 
 /**
  * @brief     set the interrupt active level
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] active_level is the interrupt active level
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] active_level interrupt active level
  * @return    status code
  *            - 0 success
  *            - 1 set interrupt active level failed
@@ -1662,8 +1662,8 @@ uint8_t adxl345_set_interrupt_active_level(adxl345_handle_t *handle, adxl345_int
 
 /**
  * @brief      get the interrupt active level
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *active_level points to an interrupt active level buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *active_level pointer to an interrupt active level buffer
  * @return     status code
  *             - 0 success
  *             - 1 get interrupt active level failed
@@ -1686,8 +1686,8 @@ uint8_t adxl345_get_interrupt_active_level(adxl345_handle_t *handle, adxl345_int
 
 /**
  * @brief     set the fifo watermark
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] level is the watermark level
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] level watermark level
  * @return    status code
  *            - 0 success
  *            - 1 set watermark failed
@@ -1699,8 +1699,8 @@ uint8_t adxl345_set_watermark(adxl345_handle_t *handle, uint8_t level);
 
 /**
  * @brief      get the fifo watermark
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *level points to a watermark level buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *level pointer to a watermark level buffer
  * @return     status code
  *             - 0 success
  *             - 1 get watermark failed
@@ -1712,8 +1712,8 @@ uint8_t adxl345_get_watermark(adxl345_handle_t *handle, uint8_t *level);
 
 /**
  * @brief      get the current fifo watermark level
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[out] *level points to a current watermark level buffer
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[out] *level pointer to a current watermark level buffer
  * @return     status code
  *             - 0 success
  *             - 1 get watermark level failed
@@ -1736,10 +1736,10 @@ uint8_t adxl345_get_watermark_level(adxl345_handle_t *handle, uint8_t *level);
 
 /**
  * @brief     set the chip register
- * @param[in] *handle points to an adxl345 handle structure
- * @param[in] reg is the register address
- * @param[in] *buf points to a data buffer
- * @param[in] len is the data buffer length
+ * @param[in] *handle pointer to an adxl345 handle structure
+ * @param[in] reg register address
+ * @param[in] *buf pointer to a data buffer
+ * @param[in] len length of data buffer
  * @return    status code
  *            - 0 success
  *            - 1 write failed
@@ -1751,10 +1751,10 @@ uint8_t adxl345_set_reg(adxl345_handle_t *handle, uint8_t reg, uint8_t *buf, uin
 
 /**
  * @brief      get the chip register
- * @param[in]  *handle points to an adxl345 handle structure
- * @param[in]  reg is the register address
- * @param[out] *buf points to a data buffer
- * @param[in]  len is the data buffer length
+ * @param[in]  *handle pointer to an adxl345 handle structure
+ * @param[in]  reg register address
+ * @param[out] *buf pointer to a data buffer
+ * @param[in]  len length of data buffer
  * @return     status code
  *             - 0 success
  *             - 1 read failed

@@ -69,7 +69,7 @@ void EXTI0_IRQHandler(void)
 
 /**
  * @brief     gpio exti callback
- * @param[in] pin is the gpio pin
+ * @param[in] pin gpio pin
  * @note      none
  */
 void HAL_GPIO_EXTI_Callback(uint16_t pin)
@@ -83,8 +83,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t pin)
 
 /**
  * @brief     fifo callback
- * @param[in] **g points to a converted data buffer
- * @param[in] len is the data buffer
+ * @param[in] **g pointer to a converted data buffer
+ * @param[in] len length of data buffer
  * @note      none
  */
 static void a_fifo_callback(float (*g)[3], uint16_t len)
@@ -94,7 +94,7 @@ static void a_fifo_callback(float (*g)[3], uint16_t len)
 
 /**
  * @brief     interrupt callback
- * @param[in] type is the irq type
+ * @param[in] type irq type
  * @note      none
  */
 static void a_interrupt_callback(uint8_t type)
@@ -148,8 +148,8 @@ static void a_interrupt_callback(uint8_t type)
 
 /**
  * @brief     adxl345 full function
- * @param[in] argc is arg numbers
- * @param[in] **argv is the arg address
+ * @param[in] argc arg numbers
+ * @param[in] **argv arg address
  * @return    status code
  *            - 0 success
  *            - 1 run failed

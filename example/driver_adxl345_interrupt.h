@@ -101,13 +101,13 @@ uint8_t adxl345_interrupt_irq_handler(void);
 
 /**
  * @brief     interrupt example init
- * @param[in] interface is the chip interface
- * @param[in] addr_pin is the iic device address
- * @param[in] *callback points to a irq callback address
- * @param[in] tap_enable is the tap enable bool value
- * @param[in] action_enable is the action enable bool value
- * @param[in] inaction_enable is the inaction enable bool value
- * @param[in] fall_enable is the fall enable bool value
+ * @param[in] interface chip interface
+ * @param[in] addr_pin iic device address
+ * @param[in] *callback pointer to an irq callback address
+ * @param[in] tap_enable bool value
+ * @param[in] action_enable bool value
+ * @param[in] inaction_enable bool value
+ * @param[in] fall_enable bool value
  * @return    status code
  *            - 0 success
  *            - 1 init failed

@@ -98,9 +98,9 @@ uint8_t adxl345_fifo_irq_handler(void);
 
 /**
  * @brief     fifo example init
- * @param[in] interface is the chip interface
- * @param[in] addr_pin is the iic device address
- * @param[in] *callback points to a irq callback address
+ * @param[in] interface chip interface
+ * @param[in] addr_pin iic device address
+ * @param[in] *callback pointer to an irq callback address
  * @return    status code
  *            - 0 success
  *            - 1 init failed
