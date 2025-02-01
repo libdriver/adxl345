@@ -1,3 +1,9 @@
+## 2.0.4 (2025-02-01)
+
+## Bug Fixes
+
+- fix source_read bugs
+
 ## 2.0.3 (2025-01-05)
 
 ## Bug Fixes

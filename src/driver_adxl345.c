@@ -1991,7 +1991,7 @@ uint8_t adxl345_get_interrupt_source(adxl345_handle_t *handle, uint8_t *source)
         return 3;                                                                              /* return error */
     }
     
-    return a_adxl345_iic_spi_read(handle, ADXL345_REG_INT_ENABLE, (uint8_t *)source, 1);       /* read config */
+    return a_adxl345_iic_spi_read(handle, ADXL345_REG_INT_SOURCE, (uint8_t *)source, 1);       /* read config */
 }
 
 /**
