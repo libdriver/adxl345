@@ -3389,9 +3389,114 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
         {
             if (justify == 1)                                                                     /* if justify */
             {
-                raw[0][0] = (raw[0][0] & 0x80) | (raw[0][0] & (~0x80)) >> (16 - 10 - range);      /* set raw x */
-                raw[0][1] = (raw[0][1] & 0x80) | (raw[0][1] & (~0x80)) >> (16 - 10 - range);      /* set raw y */
-                raw[0][2] = (raw[0][2] & 0x80) | (raw[0][2] & (~0x80)) >> (16 - 10 - range);      /* set raw z */
+                if (range == 0x00)                                                                /* if 2g */
+                {
+                    if ((raw[0][0] & (1 << 15)) != 0)                                             /* check sigend bit */
+                    {
+                        raw[0][0] = ((uint16_t)0xFC << 8) | ((raw[0][0] >> 6) & 0x3FF);           /* negative */
+                    }
+                    else
+                    {
+                        raw[0][0] = (raw[0][0] >> 6) & 0x3FF;                                     /* positive */
+                    }
+                    if ((raw[0][1] & (1 << 15)) != 0)                                             /* check sigend bit */
+                    {
+                        raw[0][1] = ((uint16_t)0xFC << 8) | ((raw[0][1] >> 6) & 0x3FF);           /* negative */
+                    }
+                    else
+                    {
+                        raw[0][1] = (raw[0][1] >> 6) & 0x3FF;                                     /* positive */
+                    }
+                    if ((raw[0][2] & (1 << 15)) != 0)                                             /* check sigend bit */
+                    {
+                        raw[0][2] = ((uint16_t)0xFC << 8) | ((raw[0][2] >> 6) & 0x3FF);           /* negative */
+                    }
+                    else
+                    {
+                        raw[0][2] = (raw[0][2] >> 6) & 0x3FF;                                     /* positive */
+                    }
+                }
+                else if (range == 0x01)                                                           /* if 4g */
+                {
+                    if ((raw[0][0] & (1 << 15)) != 0)                                             /* check sigend bit */
+                    {
+                        raw[0][0] = ((uint16_t)0xF3 << 8) | ((raw[0][0] >> 5) & 0x7FF);           /* negative */
+                    }
+                    else
+                    {
+                        raw[0][0] = (raw[0][0] >> 5) & 0x7FF;                                     /* positive */
+                    }
+                    if ((raw[0][1] & (1 << 15)) != 0)                                             /* check sigend bit */
+                    {
+                        raw[0][1] = ((uint16_t)0xF3 << 8) | ((raw[0][1] >> 5) & 0x7FF);           /* negative */
+                    }
+                    else
+                    {
+                        raw[0][1] = (raw[0][1] >> 5) & 0x7FF;                                     /* positive */
+                    }
+                    if ((raw[0][2] & (1 << 15)) != 0)                                             /* check sigend bit */
+                    {
+                        raw[0][2] = ((uint16_t)0xF3 << 8) | ((raw[0][2] >> 5) & 0x7FF);           /* negative */
+                    }
+                    else
+                    {
+                        raw[0][2] = (raw[0][2] >> 5) & 0x7FF;                                     /* positive */
+                    }
+                }
+                else if (range == 0x02)                                                           /* if 8g */
+                {
+                    if ((raw[0][0] & (1 << 15)) != 0)                                             /* check sigend bit */
+                    {
+                        raw[0][0] = ((uint16_t)0xF0 << 8) | ((raw[0][0] >> 4) & 0xFFF);           /* negative */
+                    }
+                    else
+                    {
+                        raw[0][0] = (raw[0][0] >> 4) & 0xFFF;                                     /* positive */
+                    }
+                    if ((raw[0][1] & (1 << 15)) != 0)                                             /* check sigend bit */
+                    {
+                        raw[0][1] = ((uint16_t)0xF0 << 8) | ((raw[0][1] >> 4) & 0xFFF);           /* negative */
+                    }
+                    else
+                    {
+                        raw[0][1] = (raw[0][1] >> 4) & 0xFFF;                                     /* positive */
+                    }
+                    if ((raw[0][2] & (1 << 15)) != 0)                                             /* check sigend bit */
+                    {
+                        raw[0][2] = ((uint16_t)0xF0 << 8) | ((raw[0][2] >> 4) & 0xFFF);           /* negative */
+                    }
+                    else
+                    {
+                        raw[0][2] = (raw[0][2] >> 4) & 0xFFF;                                     /* positive */
+                    }
+                }
+                else                                                                              /* if 16g */
+                {
+                    if ((raw[0][0] & (1 << 15)) != 0)                                             /* check sigend bit */
+                    {
+                        raw[0][0] = ((uint16_t)0xE0 << 8) | ((raw[0][0] >> 3) & 0x1FFF);          /* negative */
+                    }
+                    else
+                    {
+                        raw[0][0] = (raw[0][0] >> 3) & 0x1FFF;                                    /* positive */
+                    }
+                    if ((raw[0][1] & (1 << 15)) != 0)                                             /* check sigend bit */
+                    {
+                        raw[0][1] = ((uint16_t)0xE0 << 8) | ((raw[0][1] >> 3) & 0x1FFF);          /* negative */
+                    }
+                    else
+                    {
+                        raw[0][1] = (raw[0][1] >> 3) & 0x1FFF;                                    /* positive */
+                    }
+                    if ((raw[0][2] & (1 << 15)) != 0)                                             /* check sigend bit */
+                    {
+                        raw[0][2] = ((uint16_t)0xE0 << 8) | ((raw[0][2] >> 3) & 0x1FFF);          /* negative */
+                    }
+                    else
+                    {
+                        raw[0][2] = (raw[0][2] >> 3) & 0x1FFF;                                    /* positive */
+                    }
+                }
             }
             g[0][0] = (float)(raw[0][0]) * 0.0039f;                                               /* convert x */
             g[0][1] = (float)(raw[0][1]) * 0.0039f;                                               /* convert y */
@@ -3401,9 +3506,30 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
         {
             if (justify == 1)                                                                     /* if justify */
             {
-                raw[0][0] = (raw[0][0] & 0x80) | (raw[0][0] & (~0x80)) >> (16 - 10);              /* set raw z */
-                raw[0][1] = (raw[0][1] & 0x80) | (raw[0][1] & (~0x80)) >> (16 - 10);              /* set raw y */
-                raw[0][2] = (raw[0][2] & 0x80) | (raw[0][2] & (~0x80)) >> (16 - 10);              /* set raw z */
+                if ((raw[0][0] & (1 << 15)) != 0)                                                 /* check sigend bit */
+                {
+                    raw[0][0] = ((uint16_t)0xFC << 8) | ((raw[0][0] >> 6) & 0x3FF);               /* negative */
+                }
+                else
+                {
+                    raw[0][0] = (raw[0][0] >> 6) & 0x3FF;                                         /* positive */
+                }
+                if ((raw[0][1] & (1 << 15)) != 0)                                                 /* check sigend bit */
+                {
+                    raw[0][1] = ((uint16_t)0xFC << 8) | ((raw[0][1] >> 6) & 0x3FF);               /* negative */
+                }
+                else
+                {
+                    raw[0][1] = (raw[0][1] >> 6) & 0x3FF;                                         /* positive */
+                }
+                if ((raw[0][2] & (1 << 15)) != 0)                                                 /* check sigend bit */
+                {
+                    raw[0][2] = ((uint16_t)0xFC << 8) | ((raw[0][2] >> 6) & 0x3FF);               /* negative */
+                }
+                else
+                {
+                    raw[0][2] = (raw[0][2] >> 6) & 0x3FF;                                         /* positive */
+                }
             }
             if (range == 0x00)                                                                    /* if 2g */
             {
@@ -3458,9 +3584,114 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
             {
                 if (justify == 1)                                                                 /* if justify */
                 {
-                    raw[i][0] = (raw[i][0] & 0x80) | (raw[i][0] & (~0x80)) >> (16 -10 - range);   /* get raw x */
-                    raw[i][1] = (raw[i][1] & 0x80) | (raw[i][1] & (~0x80)) >> (16 -10 - range);   /* get raw y */
-                    raw[i][2] = (raw[i][2] & 0x80) | (raw[i][2] & (~0x80)) >> (16 -10 - range);   /* get raw z */
+                    if (range == 0x00)                                                            /* if 2g */
+                    {
+                        if ((raw[i][0] & (1 << 15)) != 0)                                         /* check sigend bit */
+                        {
+                            raw[i][0] = ((uint16_t)0xFC << 8) | ((raw[i][0] >> 6) & 0x3FF);       /* negative */
+                        }
+                        else
+                        {
+                            raw[i][0] = (raw[i][0] >> 6) & 0x3FF;                                 /* positive */
+                        }
+                        if ((raw[i][1] & (1 << 15)) != 0)                                         /* check sigend bit */
+                        {
+                            raw[i][1] = ((uint16_t)0xFC << 8) | ((raw[i][1] >> 6) & 0x3FF);       /* negative */
+                        }
+                        else
+                        {
+                            raw[i][1] = (raw[i][1] >> 6) & 0x3FF;                                 /* positive */
+                        }
+                        if ((raw[i][2] & (1 << 15)) != 0)                                         /* check sigend bit */
+                        {
+                            raw[i][2] = ((uint16_t)0xFC << 8) | ((raw[i][2] >> 6) & 0x3FF);       /* negative */
+                        }
+                        else
+                        {
+                            raw[i][2] = (raw[i][2] >> 6) & 0x3FF;                                 /* positive */
+                        }
+                    }
+                    else if (range == 0x01)                                                       /* if 4g */
+                    {
+                        if ((raw[i][0] & (1 << 15)) != 0)                                         /* check sigend bit */
+                        {
+                            raw[i][0] = ((uint16_t)0xF3 << 8) | ((raw[i][0] >> 5) & 0x7FF);       /* negative */
+                        }
+                        else
+                        {
+                            raw[i][0] = (raw[i][0] >> 5) & 0x7FF;                                 /* positive */
+                        }
+                        if ((raw[i][1] & (1 << 15)) != 0)                                         /* check sigend bit */
+                        {
+                            raw[i][1] = ((uint16_t)0xF3 << 8) | ((raw[i][1] >> 5) & 0x7FF);       /* negative */
+                        }
+                        else
+                        {
+                            raw[i][1] = (raw[i][1] >> 5) & 0x7FF;                                 /* positive */
+                        }
+                        if ((raw[i][2] & (1 << 15)) != 0)                                         /* check sigend bit */
+                        {
+                            raw[i][2] = ((uint16_t)0xF3 << 8) | ((raw[i][2] >> 5) & 0x7FF);       /* negative */
+                        }
+                        else
+                        {
+                            raw[i][2] = (raw[i][2] >> 5) & 0x7FF;                                 /* positive */
+                        }
+                    }
+                    else if (range == 0x02)                                                       /* if 8g */
+                    {
+                        if ((raw[i][0] & (1 << 15)) != 0)                                         /* check sigend bit */
+                        {
+                            raw[i][0] = ((uint16_t)0xF0 << 8) | ((raw[i][0] >> 4) & 0xFFF);       /* negative */
+                        }
+                        else
+                        {
+                            raw[i][0] = (raw[i][0] >> 4) & 0xFFF;                                 /* positive */
+                        }
+                        if ((raw[i][1] & (1 << 15)) != 0)                                         /* check sigend bit */
+                        {
+                            raw[i][1] = ((uint16_t)0xF0 << 8) | ((raw[i][1] >> 4) & 0xFFF);       /* negative */
+                        }
+                        else
+                        {
+                            raw[i][1] = (raw[i][1] >> 4) & 0xFFF;                                 /* positive */
+                        }
+                        if ((raw[i][2] & (1 << 15)) != 0)                                         /* check sigend bit */
+                        {
+                            raw[i][2] = ((uint16_t)0xF0 << 8) | ((raw[i][2] >> 4) & 0xFFF);       /* negative */
+                        }
+                        else
+                        {
+                            raw[i][2] = (raw[i][2] >> 4) & 0xFFF;                                 /* positive */
+                        }
+                    }
+                    else                                                                          /* if 16g */
+                    {
+                        if ((raw[i][0] & (1 << 15)) != 0)                                         /* check sigend bit */
+                        {
+                            raw[i][0] = ((uint16_t)0xE0 << 8) | ((raw[i][0] >> 3) & 0x1FFF);      /* negative */
+                        }
+                        else
+                        {
+                            raw[i][0] = (raw[i][0] >> 3) & 0x1FFF;                                /* positive */
+                        }
+                        if ((raw[i][1] & (1 << 15)) != 0)                                         /* check sigend bit */
+                        {
+                            raw[i][1] = ((uint16_t)0xE0 << 8) | ((raw[i][1] >> 3) & 0x1FFF);      /* negative */
+                        }
+                        else
+                        {
+                            raw[i][1] = (raw[i][1] >> 3) & 0x1FFF;                                /* positive */
+                        }
+                        if ((raw[i][2] & (1 << 15)) != 0)                                         /* check sigend bit */
+                        {
+                            raw[i][2] = ((uint16_t)0xE0 << 8) | ((raw[i][2] >> 3) & 0x1FFF);      /* negative */
+                        }
+                        else
+                        {
+                            raw[i][2] = (raw[i][2] >> 3) & 0x1FFF;                                /* positive */
+                        }
+                    }
                 }
                 g[i][0] = (float)(raw[i][0])*0.0039f;                                             /* convert x */
                 g[i][1] = (float)(raw[i][1])*0.0039f;                                             /* convert y */
@@ -3470,9 +3701,30 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
             {
                 if (justify == 1)                                                                 /* if justify */
                 {
-                    raw[i][0] = (raw[i][0] & 0x80) | (raw[i][0] & (~0x80)) >> (16 - 10);          /* set raw x */
-                    raw[i][1] = (raw[i][1] & 0x80) | (raw[i][1] & (~0x80)) >> (16 - 10);          /* set raw y */
-                    raw[i][2] = (raw[i][2] & 0x80) | (raw[i][2] & (~0x80)) >> (16 - 10);          /* set raw z */
+                    if ((raw[i][0] & (1 << 15)) != 0)                                             /* check sigend bit */
+                    {
+                        raw[i][0] = ((uint16_t)0xFC << 8) | ((raw[i][0] >> 6) & 0x3FF);           /* negative */
+                    }
+                    else
+                    {
+                        raw[i][0] = (raw[i][0] >> 6) & 0x3FF;                                     /* positive */
+                    }
+                    if ((raw[i][1] & (1 << 15)) != 0)                                             /* check sigend bit */
+                    {
+                        raw[i][1] = ((uint16_t)0xFC << 8) | ((raw[i][1] >> 6) & 0x3FF);           /* negative */
+                    }
+                    else
+                    {
+                        raw[i][1] = (raw[i][1] >> 6) & 0x3FF;                                     /* positive */
+                    }
+                    if ((raw[i][2] & (1 << 15)) != 0)                                             /* check sigend bit */
+                    {
+                        raw[i][2] = ((uint16_t)0xFC << 8) | ((raw[i][2] >> 6) & 0x3FF);           /* negative */
+                    }
+                    else
+                    {
+                        raw[i][2] = (raw[i][2] >> 6) & 0x3FF;                                     /* positive */
+                    }
                 }
                 if (range == 0x00)                                                                /* if 2g */
                 {
