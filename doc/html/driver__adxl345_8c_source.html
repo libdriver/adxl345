@@ -2354,250 +2354,502 @@ $(document).ready(function(){initNavTree('driver__adxl345_8c_source.html',''); i
 <div class="line"><a name="l03389"></a><span class="lineno"> 3389</span>&#160;        {</div>
 <div class="line"><a name="l03390"></a><span class="lineno"> 3390</span>&#160;            <span class="keywordflow">if</span> (justify == 1)                                                                     <span class="comment">/* if justify */</span></div>
 <div class="line"><a name="l03391"></a><span class="lineno"> 3391</span>&#160;            {</div>
-<div class="line"><a name="l03392"></a><span class="lineno"> 3392</span>&#160;                raw[0][0] = (raw[0][0] &amp; 0x80) | (raw[0][0] &amp; (~0x80)) &gt;&gt; (16 - 10 - range);      <span class="comment">/* set raw x */</span></div>
-<div class="line"><a name="l03393"></a><span class="lineno"> 3393</span>&#160;                raw[0][1] = (raw[0][1] &amp; 0x80) | (raw[0][1] &amp; (~0x80)) &gt;&gt; (16 - 10 - range);      <span class="comment">/* set raw y */</span></div>
-<div class="line"><a name="l03394"></a><span class="lineno"> 3394</span>&#160;                raw[0][2] = (raw[0][2] &amp; 0x80) | (raw[0][2] &amp; (~0x80)) &gt;&gt; (16 - 10 - range);      <span class="comment">/* set raw z */</span></div>
-<div class="line"><a name="l03395"></a><span class="lineno"> 3395</span>&#160;            }</div>
-<div class="line"><a name="l03396"></a><span class="lineno"> 3396</span>&#160;            g[0][0] = (float)(raw[0][0]) * 0.0039f;                                               <span class="comment">/* convert x */</span></div>
-<div class="line"><a name="l03397"></a><span class="lineno"> 3397</span>&#160;            g[0][1] = (float)(raw[0][1]) * 0.0039f;                                               <span class="comment">/* convert y */</span></div>
-<div class="line"><a name="l03398"></a><span class="lineno"> 3398</span>&#160;            g[0][2] = (float)(raw[0][2]) * 0.0039f;                                               <span class="comment">/* convert z */</span></div>
-<div class="line"><a name="l03399"></a><span class="lineno"> 3399</span>&#160;        }</div>
-<div class="line"><a name="l03400"></a><span class="lineno"> 3400</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l03401"></a><span class="lineno"> 3401</span>&#160;        {</div>
-<div class="line"><a name="l03402"></a><span class="lineno"> 3402</span>&#160;            <span class="keywordflow">if</span> (justify == 1)                                                                     <span class="comment">/* if justify */</span></div>
-<div class="line"><a name="l03403"></a><span class="lineno"> 3403</span>&#160;            {</div>
-<div class="line"><a name="l03404"></a><span class="lineno"> 3404</span>&#160;                raw[0][0] = (raw[0][0] &amp; 0x80) | (raw[0][0] &amp; (~0x80)) &gt;&gt; (16 - 10);              <span class="comment">/* set raw z */</span></div>
-<div class="line"><a name="l03405"></a><span class="lineno"> 3405</span>&#160;                raw[0][1] = (raw[0][1] &amp; 0x80) | (raw[0][1] &amp; (~0x80)) &gt;&gt; (16 - 10);              <span class="comment">/* set raw y */</span></div>
-<div class="line"><a name="l03406"></a><span class="lineno"> 3406</span>&#160;                raw[0][2] = (raw[0][2] &amp; 0x80) | (raw[0][2] &amp; (~0x80)) &gt;&gt; (16 - 10);              <span class="comment">/* set raw z */</span></div>
-<div class="line"><a name="l03407"></a><span class="lineno"> 3407</span>&#160;            }</div>
-<div class="line"><a name="l03408"></a><span class="lineno"> 3408</span>&#160;            <span class="keywordflow">if</span> (range == 0x00)                                                                    <span class="comment">/* if 2g */</span></div>
-<div class="line"><a name="l03409"></a><span class="lineno"> 3409</span>&#160;            {</div>
-<div class="line"><a name="l03410"></a><span class="lineno"> 3410</span>&#160;                g[0][0] = (float)(raw[0][0]) * 0.0039f;                                           <span class="comment">/* convert x */</span></div>
-<div class="line"><a name="l03411"></a><span class="lineno"> 3411</span>&#160;                g[0][1] = (float)(raw[0][1]) * 0.0039f;                                           <span class="comment">/* convert y */</span></div>
-<div class="line"><a name="l03412"></a><span class="lineno"> 3412</span>&#160;                g[0][2] = (float)(raw[0][2]) * 0.0039f;                                           <span class="comment">/* convert z */</span></div>
-<div class="line"><a name="l03413"></a><span class="lineno"> 3413</span>&#160;            }</div>
-<div class="line"><a name="l03414"></a><span class="lineno"> 3414</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (range == 0x01)                                                               <span class="comment">/* if 4g */</span></div>
-<div class="line"><a name="l03415"></a><span class="lineno"> 3415</span>&#160;            {</div>
-<div class="line"><a name="l03416"></a><span class="lineno"> 3416</span>&#160;                g[0][0] = (float)(raw[0][0]) * 0.0078f;                                           <span class="comment">/* convert x */</span></div>
-<div class="line"><a name="l03417"></a><span class="lineno"> 3417</span>&#160;                g[0][1] = (float)(raw[0][1]) * 0.0078f;                                           <span class="comment">/* convert y */</span></div>
-<div class="line"><a name="l03418"></a><span class="lineno"> 3418</span>&#160;                g[0][2] = (float)(raw[0][2]) * 0.0078f;                                           <span class="comment">/* convert z */</span></div>
-<div class="line"><a name="l03419"></a><span class="lineno"> 3419</span>&#160;            }</div>
-<div class="line"><a name="l03420"></a><span class="lineno"> 3420</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (range == 0x02)                                                               <span class="comment">/* if 8g */</span></div>
-<div class="line"><a name="l03421"></a><span class="lineno"> 3421</span>&#160;            {</div>
-<div class="line"><a name="l03422"></a><span class="lineno"> 3422</span>&#160;                g[0][0] = (float)(raw[0][0]) * 0.0156f;                                           <span class="comment">/* convert x */</span></div>
-<div class="line"><a name="l03423"></a><span class="lineno"> 3423</span>&#160;                g[0][1] = (float)(raw[0][1]) * 0.0156f;                                           <span class="comment">/* convert y */</span></div>
-<div class="line"><a name="l03424"></a><span class="lineno"> 3424</span>&#160;                g[0][2] = (float)(raw[0][2]) * 0.0156f;                                           <span class="comment">/* convert z */</span></div>
-<div class="line"><a name="l03425"></a><span class="lineno"> 3425</span>&#160;            }</div>
-<div class="line"><a name="l03426"></a><span class="lineno"> 3426</span>&#160;            <span class="keywordflow">else</span>                                                                                  <span class="comment">/* if 16g */</span></div>
-<div class="line"><a name="l03427"></a><span class="lineno"> 3427</span>&#160;            {</div>
-<div class="line"><a name="l03428"></a><span class="lineno"> 3428</span>&#160;                g[0][0] = (float)(raw[0][0]) * 0.0312f;                                           <span class="comment">/* convert x */</span></div>
-<div class="line"><a name="l03429"></a><span class="lineno"> 3429</span>&#160;                g[0][1] = (float)(raw[0][1]) * 0.0312f;                                           <span class="comment">/* convert y */</span></div>
-<div class="line"><a name="l03430"></a><span class="lineno"> 3430</span>&#160;                g[0][2] = (float)(raw[0][2]) * 0.0312f;                                           <span class="comment">/* convert z */</span></div>
-<div class="line"><a name="l03431"></a><span class="lineno"> 3431</span>&#160;            }</div>
-<div class="line"><a name="l03432"></a><span class="lineno"> 3432</span>&#160;        }</div>
-<div class="line"><a name="l03433"></a><span class="lineno"> 3433</span>&#160;    }</div>
-<div class="line"><a name="l03434"></a><span class="lineno"> 3434</span>&#160;    <span class="keywordflow">else</span>                                                                                          <span class="comment">/* fifo mode */</span></div>
-<div class="line"><a name="l03435"></a><span class="lineno"> 3435</span>&#160;    {</div>
-<div class="line"><a name="l03436"></a><span class="lineno"> 3436</span>&#160;        res = a_adxl345_iic_spi_read(handle, <a class="code" href="driver__adxl345_8c.html#a9ba8252efafd2b9e9a7257a15062c027">ADXL345_REG_FIFO_STATUS</a>, (uint8_t *)&amp;prev, 1);       <span class="comment">/* read fifo status */</span></div>
-<div class="line"><a name="l03437"></a><span class="lineno"> 3437</span>&#160;        <span class="keywordflow">if</span> (res != 0)                                                                             <span class="comment">/* check result */</span></div>
-<div class="line"><a name="l03438"></a><span class="lineno"> 3438</span>&#160;        {</div>
-<div class="line"><a name="l03439"></a><span class="lineno"> 3439</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a769d5b3a6c14790a0e126e8fe70b384b">debug_print</a>(<span class="stringliteral">&quot;adxl345: read failed.\n&quot;</span>);                                       <span class="comment">/* read failed */</span></div>
-<div class="line"><a name="l03440"></a><span class="lineno"> 3440</span>&#160;            </div>
-<div class="line"><a name="l03441"></a><span class="lineno"> 3441</span>&#160;            <span class="keywordflow">return</span> 1;                                                                             <span class="comment">/* return error */</span></div>
-<div class="line"><a name="l03442"></a><span class="lineno"> 3442</span>&#160;        }</div>
-<div class="line"><a name="l03443"></a><span class="lineno"> 3443</span>&#160;        cnt = prev &amp; 0x3F;                                                                        <span class="comment">/* get cnt */</span></div>
-<div class="line"><a name="l03444"></a><span class="lineno"> 3444</span>&#160;        *len = ((*len) &lt; cnt) ? (*len) : cnt;                                                     <span class="comment">/* get min cnt */</span></div>
-<div class="line"><a name="l03445"></a><span class="lineno"> 3445</span>&#160;        res = a_adxl345_iic_spi_read(handle, <a class="code" href="driver__adxl345_8c.html#ad357e2d6384df108aab1cffc6dc32782">ADXL345_REG_DATAX0</a>, (uint8_t *)buf, 6*(*len));       <span class="comment">/* read data */</span></div>
-<div class="line"><a name="l03446"></a><span class="lineno"> 3446</span>&#160;        <span class="keywordflow">if</span> (res != 0)                                                                             <span class="comment">/* check result */</span></div>
-<div class="line"><a name="l03447"></a><span class="lineno"> 3447</span>&#160;        {</div>
-<div class="line"><a name="l03448"></a><span class="lineno"> 3448</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a769d5b3a6c14790a0e126e8fe70b384b">debug_print</a>(<span class="stringliteral">&quot;adxl345: read failed.\n&quot;</span>);                                       <span class="comment">/* read failed */</span></div>
-<div class="line"><a name="l03449"></a><span class="lineno"> 3449</span>&#160;           </div>
-<div class="line"><a name="l03450"></a><span class="lineno"> 3450</span>&#160;            <span class="keywordflow">return</span> 1;                                                                             <span class="comment">/* return error */</span></div>
-<div class="line"><a name="l03451"></a><span class="lineno"> 3451</span>&#160;        }</div>
-<div class="line"><a name="l03452"></a><span class="lineno"> 3452</span>&#160;        <span class="keywordflow">for</span> (i = 0; i &lt; (*len); i++)                                                              <span class="comment">/* read length */</span></div>
-<div class="line"><a name="l03453"></a><span class="lineno"> 3453</span>&#160;        {</div>
-<div class="line"><a name="l03454"></a><span class="lineno"> 3454</span>&#160;            raw[i][0] = (int16_t)(buf[1 + i * 6] &lt;&lt; 8) | buf[0 + i * 6];                          <span class="comment">/* set raw x */</span></div>
-<div class="line"><a name="l03455"></a><span class="lineno"> 3455</span>&#160;            raw[i][1] = (int16_t)(buf[3 + i * 6] &lt;&lt; 8) | buf[2 + i * 6];                          <span class="comment">/* set raw y */</span></div>
-<div class="line"><a name="l03456"></a><span class="lineno"> 3456</span>&#160;            raw[i][2] = (int16_t)(buf[5 + i * 6] &lt;&lt; 8) | buf[4 + i * 6];                          <span class="comment">/* set raw z */</span></div>
-<div class="line"><a name="l03457"></a><span class="lineno"> 3457</span>&#160;            <span class="keywordflow">if</span> (full_res == 1)                                                                    <span class="comment">/* if full resolution */</span></div>
-<div class="line"><a name="l03458"></a><span class="lineno"> 3458</span>&#160;            {</div>
-<div class="line"><a name="l03459"></a><span class="lineno"> 3459</span>&#160;                <span class="keywordflow">if</span> (justify == 1)                                                                 <span class="comment">/* if justify */</span></div>
-<div class="line"><a name="l03460"></a><span class="lineno"> 3460</span>&#160;                {</div>
-<div class="line"><a name="l03461"></a><span class="lineno"> 3461</span>&#160;                    raw[i][0] = (raw[i][0] &amp; 0x80) | (raw[i][0] &amp; (~0x80)) &gt;&gt; (16 -10 - range);   <span class="comment">/* get raw x */</span></div>
-<div class="line"><a name="l03462"></a><span class="lineno"> 3462</span>&#160;                    raw[i][1] = (raw[i][1] &amp; 0x80) | (raw[i][1] &amp; (~0x80)) &gt;&gt; (16 -10 - range);   <span class="comment">/* get raw y */</span></div>
-<div class="line"><a name="l03463"></a><span class="lineno"> 3463</span>&#160;                    raw[i][2] = (raw[i][2] &amp; 0x80) | (raw[i][2] &amp; (~0x80)) &gt;&gt; (16 -10 - range);   <span class="comment">/* get raw z */</span></div>
-<div class="line"><a name="l03464"></a><span class="lineno"> 3464</span>&#160;                }</div>
-<div class="line"><a name="l03465"></a><span class="lineno"> 3465</span>&#160;                g[i][0] = (float)(raw[i][0])*0.0039f;                                             <span class="comment">/* convert x */</span></div>
-<div class="line"><a name="l03466"></a><span class="lineno"> 3466</span>&#160;                g[i][1] = (float)(raw[i][1])*0.0039f;                                             <span class="comment">/* convert y */</span></div>
-<div class="line"><a name="l03467"></a><span class="lineno"> 3467</span>&#160;                g[i][2] = (float)(raw[i][2])*0.0039f;                                             <span class="comment">/* convert z */</span></div>
-<div class="line"><a name="l03468"></a><span class="lineno"> 3468</span>&#160;            }</div>
-<div class="line"><a name="l03469"></a><span class="lineno"> 3469</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l03470"></a><span class="lineno"> 3470</span>&#160;            {</div>
-<div class="line"><a name="l03471"></a><span class="lineno"> 3471</span>&#160;                <span class="keywordflow">if</span> (justify == 1)                                                                 <span class="comment">/* if justify */</span></div>
-<div class="line"><a name="l03472"></a><span class="lineno"> 3472</span>&#160;                {</div>
-<div class="line"><a name="l03473"></a><span class="lineno"> 3473</span>&#160;                    raw[i][0] = (raw[i][0] &amp; 0x80) | (raw[i][0] &amp; (~0x80)) &gt;&gt; (16 - 10);          <span class="comment">/* set raw x */</span></div>
-<div class="line"><a name="l03474"></a><span class="lineno"> 3474</span>&#160;                    raw[i][1] = (raw[i][1] &amp; 0x80) | (raw[i][1] &amp; (~0x80)) &gt;&gt; (16 - 10);          <span class="comment">/* set raw y */</span></div>
-<div class="line"><a name="l03475"></a><span class="lineno"> 3475</span>&#160;                    raw[i][2] = (raw[i][2] &amp; 0x80) | (raw[i][2] &amp; (~0x80)) &gt;&gt; (16 - 10);          <span class="comment">/* set raw z */</span></div>
-<div class="line"><a name="l03476"></a><span class="lineno"> 3476</span>&#160;                }</div>
-<div class="line"><a name="l03477"></a><span class="lineno"> 3477</span>&#160;                <span class="keywordflow">if</span> (range == 0x00)                                                                <span class="comment">/* if 2g */</span></div>
-<div class="line"><a name="l03478"></a><span class="lineno"> 3478</span>&#160;                {</div>
-<div class="line"><a name="l03479"></a><span class="lineno"> 3479</span>&#160;                    g[i][0] = (float)(raw[i][0]) * 0.0039f;                                       <span class="comment">/* convert x */</span></div>
-<div class="line"><a name="l03480"></a><span class="lineno"> 3480</span>&#160;                    g[i][1] = (float)(raw[i][1]) * 0.0039f;                                       <span class="comment">/* convert y */</span></div>
-<div class="line"><a name="l03481"></a><span class="lineno"> 3481</span>&#160;                    g[i][2] = (float)(raw[i][2]) * 0.0039f;                                       <span class="comment">/* convert z */</span></div>
-<div class="line"><a name="l03482"></a><span class="lineno"> 3482</span>&#160;                }</div>
-<div class="line"><a name="l03483"></a><span class="lineno"> 3483</span>&#160;                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (range == 0x01)                                                           <span class="comment">/* if 4g */</span></div>
-<div class="line"><a name="l03484"></a><span class="lineno"> 3484</span>&#160;                {</div>
-<div class="line"><a name="l03485"></a><span class="lineno"> 3485</span>&#160;                    g[i][0] = (float)(raw[i][0]) * 0.0078f;                                       <span class="comment">/* convert x */</span></div>
-<div class="line"><a name="l03486"></a><span class="lineno"> 3486</span>&#160;                    g[i][1] = (float)(raw[i][1]) * 0.0078f;                                       <span class="comment">/* convert y */</span></div>
-<div class="line"><a name="l03487"></a><span class="lineno"> 3487</span>&#160;                    g[i][2] = (float)(raw[i][2]) * 0.0078f;                                       <span class="comment">/* convert z */</span></div>
-<div class="line"><a name="l03488"></a><span class="lineno"> 3488</span>&#160;                }</div>
-<div class="line"><a name="l03489"></a><span class="lineno"> 3489</span>&#160;                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (range == 0x02)                                                           <span class="comment">/* if 8g */</span></div>
-<div class="line"><a name="l03490"></a><span class="lineno"> 3490</span>&#160;                {</div>
-<div class="line"><a name="l03491"></a><span class="lineno"> 3491</span>&#160;                    g[i][0] = (float)(raw[i][0]) * 0.0156f;                                       <span class="comment">/* convert x */</span></div>
-<div class="line"><a name="l03492"></a><span class="lineno"> 3492</span>&#160;                    g[i][1] = (float)(raw[i][1]) * 0.0156f;                                       <span class="comment">/* convert y */</span></div>
-<div class="line"><a name="l03493"></a><span class="lineno"> 3493</span>&#160;                    g[i][2] = (float)(raw[i][2]) * 0.0156f;                                       <span class="comment">/* convert z */</span></div>
-<div class="line"><a name="l03494"></a><span class="lineno"> 3494</span>&#160;                }</div>
-<div class="line"><a name="l03495"></a><span class="lineno"> 3495</span>&#160;                <span class="keywordflow">else</span>                                                                              <span class="comment">/* if 16g */</span></div>
-<div class="line"><a name="l03496"></a><span class="lineno"> 3496</span>&#160;                {</div>
-<div class="line"><a name="l03497"></a><span class="lineno"> 3497</span>&#160;                    g[i][0] = (float)(raw[i][0]) * 0.0312f;                                       <span class="comment">/* convert x */</span></div>
-<div class="line"><a name="l03498"></a><span class="lineno"> 3498</span>&#160;                    g[i][1] = (float)(raw[i][1]) * 0.0312f;                                       <span class="comment">/* convert y */</span></div>
-<div class="line"><a name="l03499"></a><span class="lineno"> 3499</span>&#160;                    g[i][2] = (float)(raw[i][2]) * 0.0312f;                                       <span class="comment">/* convert z */</span></div>
-<div class="line"><a name="l03500"></a><span class="lineno"> 3500</span>&#160;                }</div>
-<div class="line"><a name="l03501"></a><span class="lineno"> 3501</span>&#160;            }</div>
-<div class="line"><a name="l03502"></a><span class="lineno"> 3502</span>&#160;        }</div>
-<div class="line"><a name="l03503"></a><span class="lineno"> 3503</span>&#160;    }</div>
-<div class="line"><a name="l03504"></a><span class="lineno"> 3504</span>&#160;    </div>
-<div class="line"><a name="l03505"></a><span class="lineno"> 3505</span>&#160;    <span class="keywordflow">return</span> 0;                                                                                     <span class="comment">/* success return 0 */</span></div>
-<div class="line"><a name="l03506"></a><span class="lineno"> 3506</span>&#160;}</div>
-<div class="line"><a name="l03507"></a><span class="lineno"> 3507</span>&#160; </div>
-<div class="line"><a name="l03518"></a><span class="lineno"><a class="line" href="group__adxl345__basic__driver.html#ga4a6327fa66cc62de852dd091f6a348ab"> 3518</a></span>&#160;uint8_t <a class="code" href="group__adxl345__basic__driver.html#ga4a6327fa66cc62de852dd091f6a348ab">adxl345_irq_handler</a>(<a class="code" href="structadxl345__handle__s.html">adxl345_handle_t</a> *handle)</div>
-<div class="line"><a name="l03519"></a><span class="lineno"> 3519</span>&#160;{</div>
-<div class="line"><a name="l03520"></a><span class="lineno"> 3520</span>&#160;    uint8_t res, prev;</div>
-<div class="line"><a name="l03521"></a><span class="lineno"> 3521</span>&#160;    </div>
-<div class="line"><a name="l03522"></a><span class="lineno"> 3522</span>&#160;    <span class="keywordflow">if</span> (handle == NULL)                                                                      <span class="comment">/* check handle */</span></div>
-<div class="line"><a name="l03523"></a><span class="lineno"> 3523</span>&#160;    {</div>
-<div class="line"><a name="l03524"></a><span class="lineno"> 3524</span>&#160;        <span class="keywordflow">return</span> 2;                                                                            <span class="comment">/* return error */</span></div>
-<div class="line"><a name="l03525"></a><span class="lineno"> 3525</span>&#160;    }</div>
-<div class="line"><a name="l03526"></a><span class="lineno"> 3526</span>&#160;    <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a19bedf28d2b9748f6a62d9ae93f4e68f">inited</a> != 1)                                                                 <span class="comment">/* check handle initialization */</span></div>
-<div class="line"><a name="l03527"></a><span class="lineno"> 3527</span>&#160;    {</div>
-<div class="line"><a name="l03528"></a><span class="lineno"> 3528</span>&#160;        <span class="keywordflow">return</span> 3;                                                                            <span class="comment">/* return error */</span></div>
-<div class="line"><a name="l03529"></a><span class="lineno"> 3529</span>&#160;    }</div>
-<div class="line"><a name="l03530"></a><span class="lineno"> 3530</span>&#160;    </div>
-<div class="line"><a name="l03531"></a><span class="lineno"> 3531</span>&#160;    res = a_adxl345_iic_spi_read(handle, <a class="code" href="driver__adxl345_8c.html#aa1a2a197465ce44bf8a2c06acc22c561">ADXL345_REG_INT_SOURCE</a>, (uint8_t *)&amp;prev, 1);       <span class="comment">/* read config */</span></div>
-<div class="line"><a name="l03532"></a><span class="lineno"> 3532</span>&#160;    <span class="keywordflow">if</span> (res != 0)                                                                            <span class="comment">/* check result */</span></div>
-<div class="line"><a name="l03533"></a><span class="lineno"> 3533</span>&#160;    {</div>
-<div class="line"><a name="l03534"></a><span class="lineno"> 3534</span>&#160;        handle-&gt;<a class="code" href="structadxl345__handle__s.html#a769d5b3a6c14790a0e126e8fe70b384b">debug_print</a>(<span class="stringliteral">&quot;adxl345: read failed.\n&quot;</span>);                                      <span class="comment">/* read failed */</span></div>
-<div class="line"><a name="l03535"></a><span class="lineno"> 3535</span>&#160;        </div>
-<div class="line"><a name="l03536"></a><span class="lineno"> 3536</span>&#160;        <span class="keywordflow">return</span> 1;                                                                            <span class="comment">/* return error */</span></div>
-<div class="line"><a name="l03537"></a><span class="lineno"> 3537</span>&#160;    }</div>
-<div class="line"><a name="l03538"></a><span class="lineno"> 3538</span>&#160;    <span class="keywordflow">if</span> ((prev &amp; (1 &lt;&lt; <a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa0e9a6aadbc77f6ca0a2edd77ba2cba43">ADXL345_INTERRUPT_DATA_READY</a>)) != 0)                                   <span class="comment">/* if data ready */</span></div>
-<div class="line"><a name="l03539"></a><span class="lineno"> 3539</span>&#160;    {</div>
-<div class="line"><a name="l03540"></a><span class="lineno"> 3540</span>&#160;        <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a> != NULL)                                                <span class="comment">/* if receive callback */</span></div>
-<div class="line"><a name="l03541"></a><span class="lineno"> 3541</span>&#160;        {</div>
-<div class="line"><a name="l03542"></a><span class="lineno"> 3542</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a>(<a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa0e9a6aadbc77f6ca0a2edd77ba2cba43">ADXL345_INTERRUPT_DATA_READY</a>);                          <span class="comment">/* run callback */</span></div>
-<div class="line"><a name="l03543"></a><span class="lineno"> 3543</span>&#160;        }</div>
-<div class="line"><a name="l03544"></a><span class="lineno"> 3544</span>&#160;    }</div>
-<div class="line"><a name="l03545"></a><span class="lineno"> 3545</span>&#160;    <span class="keywordflow">if</span> ((prev &amp; (1 &lt;&lt; <a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa401278aba736a17c8195c557e5984ff0">ADXL345_INTERRUPT_SINGLE_TAP</a>)) != 0)                                   <span class="comment">/* if single tap */</span></div>
-<div class="line"><a name="l03546"></a><span class="lineno"> 3546</span>&#160;    {</div>
-<div class="line"><a name="l03547"></a><span class="lineno"> 3547</span>&#160;        <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a> != NULL)                                                <span class="comment">/* if receive callback */</span></div>
-<div class="line"><a name="l03548"></a><span class="lineno"> 3548</span>&#160;        {</div>
-<div class="line"><a name="l03549"></a><span class="lineno"> 3549</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a>(<a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa401278aba736a17c8195c557e5984ff0">ADXL345_INTERRUPT_SINGLE_TAP</a>);                          <span class="comment">/* run callback */</span></div>
-<div class="line"><a name="l03550"></a><span class="lineno"> 3550</span>&#160;        }</div>
-<div class="line"><a name="l03551"></a><span class="lineno"> 3551</span>&#160;    }</div>
-<div class="line"><a name="l03552"></a><span class="lineno"> 3552</span>&#160;    <span class="keywordflow">if</span> ((prev &amp; (1 &lt;&lt; <a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa2d3fb827c63817611def33852d4dee59">ADXL345_INTERRUPT_DOUBLE_TAP</a>)) != 0)                                   <span class="comment">/* if double tap */</span></div>
-<div class="line"><a name="l03553"></a><span class="lineno"> 3553</span>&#160;    {</div>
-<div class="line"><a name="l03554"></a><span class="lineno"> 3554</span>&#160;        <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a> != NULL)                                                <span class="comment">/* if receive callback */</span></div>
-<div class="line"><a name="l03555"></a><span class="lineno"> 3555</span>&#160;        {</div>
-<div class="line"><a name="l03556"></a><span class="lineno"> 3556</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a>(<a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa2d3fb827c63817611def33852d4dee59">ADXL345_INTERRUPT_DOUBLE_TAP</a>);                          <span class="comment">/* run callback */</span></div>
-<div class="line"><a name="l03557"></a><span class="lineno"> 3557</span>&#160;        }</div>
-<div class="line"><a name="l03558"></a><span class="lineno"> 3558</span>&#160;    }</div>
-<div class="line"><a name="l03559"></a><span class="lineno"> 3559</span>&#160;    <span class="keywordflow">if</span> ((prev &amp; (1 &lt;&lt; <a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa3f046276d3e59075a9dcafca698795ed">ADXL345_INTERRUPT_ACTIVITY</a>)) != 0)                                     <span class="comment">/* if activity */</span></div>
-<div class="line"><a name="l03560"></a><span class="lineno"> 3560</span>&#160;    {</div>
-<div class="line"><a name="l03561"></a><span class="lineno"> 3561</span>&#160;        <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a> != NULL)                                                <span class="comment">/*if receive callback */</span></div>
-<div class="line"><a name="l03562"></a><span class="lineno"> 3562</span>&#160;        {</div>
-<div class="line"><a name="l03563"></a><span class="lineno"> 3563</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a>(<a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa3f046276d3e59075a9dcafca698795ed">ADXL345_INTERRUPT_ACTIVITY</a>);                            <span class="comment">/* run callback */</span></div>
-<div class="line"><a name="l03564"></a><span class="lineno"> 3564</span>&#160;        }</div>
-<div class="line"><a name="l03565"></a><span class="lineno"> 3565</span>&#160;    }</div>
-<div class="line"><a name="l03566"></a><span class="lineno"> 3566</span>&#160;    <span class="keywordflow">if</span> ((prev &amp; (1 &lt;&lt; <a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa65796b925c29132647fcc13f6d65dbf7">ADXL345_INTERRUPT_INACTIVITY</a>)) != 0)                                   <span class="comment">/* if inactivity */</span></div>
-<div class="line"><a name="l03567"></a><span class="lineno"> 3567</span>&#160;    {</div>
-<div class="line"><a name="l03568"></a><span class="lineno"> 3568</span>&#160;        <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a> != NULL)                                                <span class="comment">/*if receive callback */</span></div>
-<div class="line"><a name="l03569"></a><span class="lineno"> 3569</span>&#160;        {</div>
-<div class="line"><a name="l03570"></a><span class="lineno"> 3570</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a>(<a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa65796b925c29132647fcc13f6d65dbf7">ADXL345_INTERRUPT_INACTIVITY</a>);                          <span class="comment">/* run callback */</span></div>
-<div class="line"><a name="l03571"></a><span class="lineno"> 3571</span>&#160;        }</div>
-<div class="line"><a name="l03572"></a><span class="lineno"> 3572</span>&#160;    }</div>
-<div class="line"><a name="l03573"></a><span class="lineno"> 3573</span>&#160;    <span class="keywordflow">if</span> ((prev &amp; (1 &lt;&lt; <a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aaf0d131553ea0afdb8bd051b24e492d5f">ADXL345_INTERRUPT_FREE_FALL</a>)) != 0)                                    <span class="comment">/* if free fall */</span></div>
-<div class="line"><a name="l03574"></a><span class="lineno"> 3574</span>&#160;    {</div>
-<div class="line"><a name="l03575"></a><span class="lineno"> 3575</span>&#160;        <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a> != NULL)                                                <span class="comment">/* if receive callback */</span></div>
-<div class="line"><a name="l03576"></a><span class="lineno"> 3576</span>&#160;        {</div>
-<div class="line"><a name="l03577"></a><span class="lineno"> 3577</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a>(<a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aaf0d131553ea0afdb8bd051b24e492d5f">ADXL345_INTERRUPT_FREE_FALL</a>);                           <span class="comment">/* run callback */</span></div>
-<div class="line"><a name="l03578"></a><span class="lineno"> 3578</span>&#160;        }</div>
-<div class="line"><a name="l03579"></a><span class="lineno"> 3579</span>&#160;    }</div>
-<div class="line"><a name="l03580"></a><span class="lineno"> 3580</span>&#160;    <span class="keywordflow">if</span> ((prev &amp; (1 &lt;&lt; <a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa788df194c62c7ed3f6e1b55e2791a803">ADXL345_INTERRUPT_WATERMARK</a>)) != 0)                                    <span class="comment">/* if watermark */</span></div>
-<div class="line"><a name="l03581"></a><span class="lineno"> 3581</span>&#160;    {</div>
-<div class="line"><a name="l03582"></a><span class="lineno"> 3582</span>&#160;        <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a> != NULL)                                                <span class="comment">/* if receive callback */</span></div>
-<div class="line"><a name="l03583"></a><span class="lineno"> 3583</span>&#160;        {</div>
-<div class="line"><a name="l03584"></a><span class="lineno"> 3584</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a>(<a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa788df194c62c7ed3f6e1b55e2791a803">ADXL345_INTERRUPT_WATERMARK</a>);                           <span class="comment">/* run callback */</span></div>
-<div class="line"><a name="l03585"></a><span class="lineno"> 3585</span>&#160;        }</div>
-<div class="line"><a name="l03586"></a><span class="lineno"> 3586</span>&#160;    }</div>
-<div class="line"><a name="l03587"></a><span class="lineno"> 3587</span>&#160;    <span class="keywordflow">if</span> ((prev &amp; (1 &lt;&lt; <a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aabbc90f23e9839fff2ef9b6ecc79b7e06">ADXL345_INTERRUPT_OVERRUN</a>)) != 0)                                      <span class="comment">/* if overrun */</span></div>
-<div class="line"><a name="l03588"></a><span class="lineno"> 3588</span>&#160;    {</div>
-<div class="line"><a name="l03589"></a><span class="lineno"> 3589</span>&#160;        <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a> != NULL)                                                <span class="comment">/* if receive callback */</span></div>
-<div class="line"><a name="l03590"></a><span class="lineno"> 3590</span>&#160;        {</div>
-<div class="line"><a name="l03591"></a><span class="lineno"> 3591</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a>(<a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aabbc90f23e9839fff2ef9b6ecc79b7e06">ADXL345_INTERRUPT_OVERRUN</a>);                             <span class="comment">/* run callback */</span></div>
-<div class="line"><a name="l03592"></a><span class="lineno"> 3592</span>&#160;        }</div>
-<div class="line"><a name="l03593"></a><span class="lineno"> 3593</span>&#160;    }</div>
-<div class="line"><a name="l03594"></a><span class="lineno"> 3594</span>&#160;    </div>
-<div class="line"><a name="l03595"></a><span class="lineno"> 3595</span>&#160;    <span class="keywordflow">return</span> 0;                                                                                <span class="comment">/* success return 0 */</span></div>
-<div class="line"><a name="l03596"></a><span class="lineno"> 3596</span>&#160;}</div>
-<div class="line"><a name="l03597"></a><span class="lineno"> 3597</span>&#160; </div>
-<div class="line"><a name="l03611"></a><span class="lineno"><a class="line" href="group__adxl345__extern__driver.html#ga73234553f77d29af76f5887075062d50"> 3611</a></span>&#160;uint8_t <a class="code" href="group__adxl345__extern__driver.html#ga73234553f77d29af76f5887075062d50">adxl345_set_reg</a>(<a class="code" href="structadxl345__handle__s.html">adxl345_handle_t</a> *handle, uint8_t reg, uint8_t *buf, uint16_t len)</div>
-<div class="line"><a name="l03612"></a><span class="lineno"> 3612</span>&#160;{</div>
-<div class="line"><a name="l03613"></a><span class="lineno"> 3613</span>&#160;    <span class="keywordflow">if</span> (handle == NULL)                                          <span class="comment">/* check handle */</span></div>
-<div class="line"><a name="l03614"></a><span class="lineno"> 3614</span>&#160;    {</div>
-<div class="line"><a name="l03615"></a><span class="lineno"> 3615</span>&#160;        <span class="keywordflow">return</span> 2;                                                <span class="comment">/* return error */</span></div>
-<div class="line"><a name="l03616"></a><span class="lineno"> 3616</span>&#160;    }</div>
-<div class="line"><a name="l03617"></a><span class="lineno"> 3617</span>&#160;    <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a19bedf28d2b9748f6a62d9ae93f4e68f">inited</a> != 1)                                     <span class="comment">/* check handle initialization */</span></div>
-<div class="line"><a name="l03618"></a><span class="lineno"> 3618</span>&#160;    {</div>
-<div class="line"><a name="l03619"></a><span class="lineno"> 3619</span>&#160;        <span class="keywordflow">return</span> 3;                                                <span class="comment">/* return error */</span></div>
-<div class="line"><a name="l03620"></a><span class="lineno"> 3620</span>&#160;    }</div>
-<div class="line"><a name="l03621"></a><span class="lineno"> 3621</span>&#160;    </div>
-<div class="line"><a name="l03622"></a><span class="lineno"> 3622</span>&#160;    <span class="keywordflow">return</span> a_adxl345_iic_spi_write(handle, reg, buf, len);       <span class="comment">/* write data */</span></div>
-<div class="line"><a name="l03623"></a><span class="lineno"> 3623</span>&#160;}</div>
-<div class="line"><a name="l03624"></a><span class="lineno"> 3624</span>&#160; </div>
-<div class="line"><a name="l03638"></a><span class="lineno"><a class="line" href="group__adxl345__extern__driver.html#ga400b41a1b9f0e7b2b8efb65a6a74a3c0"> 3638</a></span>&#160;uint8_t <a class="code" href="group__adxl345__extern__driver.html#ga400b41a1b9f0e7b2b8efb65a6a74a3c0">adxl345_get_reg</a>(<a class="code" href="structadxl345__handle__s.html">adxl345_handle_t</a> *handle, uint8_t reg, uint8_t *buf, uint16_t len)</div>
-<div class="line"><a name="l03639"></a><span class="lineno"> 3639</span>&#160;{</div>
-<div class="line"><a name="l03640"></a><span class="lineno"> 3640</span>&#160;    <span class="keywordflow">if</span> (handle == NULL)                                         <span class="comment">/* check handle */</span></div>
-<div class="line"><a name="l03641"></a><span class="lineno"> 3641</span>&#160;    {</div>
-<div class="line"><a name="l03642"></a><span class="lineno"> 3642</span>&#160;        <span class="keywordflow">return</span> 2;                                               <span class="comment">/* return error */</span></div>
-<div class="line"><a name="l03643"></a><span class="lineno"> 3643</span>&#160;    }</div>
-<div class="line"><a name="l03644"></a><span class="lineno"> 3644</span>&#160;    <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a19bedf28d2b9748f6a62d9ae93f4e68f">inited</a> != 1)                                    <span class="comment">/* check handle initialization */</span></div>
-<div class="line"><a name="l03645"></a><span class="lineno"> 3645</span>&#160;    {</div>
-<div class="line"><a name="l03646"></a><span class="lineno"> 3646</span>&#160;        <span class="keywordflow">return</span> 3;                                               <span class="comment">/* return error */</span></div>
-<div class="line"><a name="l03647"></a><span class="lineno"> 3647</span>&#160;    }</div>
-<div class="line"><a name="l03648"></a><span class="lineno"> 3648</span>&#160;    </div>
-<div class="line"><a name="l03649"></a><span class="lineno"> 3649</span>&#160;    <span class="keywordflow">return</span> a_adxl345_iic_spi_read(handle, reg, buf, len);       <span class="comment">/* read data */</span></div>
-<div class="line"><a name="l03650"></a><span class="lineno"> 3650</span>&#160;}</div>
-<div class="line"><a name="l03651"></a><span class="lineno"> 3651</span>&#160; </div>
-<div class="line"><a name="l03660"></a><span class="lineno"><a class="line" href="group__adxl345__basic__driver.html#gaf033eb7300d8109a9a8512e84e84a9ec"> 3660</a></span>&#160;uint8_t <a class="code" href="group__adxl345__basic__driver.html#gaf033eb7300d8109a9a8512e84e84a9ec">adxl345_info</a>(<a class="code" href="structadxl345__info__s.html">adxl345_info_t</a> *info)</div>
-<div class="line"><a name="l03661"></a><span class="lineno"> 3661</span>&#160;{</div>
-<div class="line"><a name="l03662"></a><span class="lineno"> 3662</span>&#160;    <span class="keywordflow">if</span> (info == NULL)                                               <span class="comment">/* check handle */</span></div>
-<div class="line"><a name="l03663"></a><span class="lineno"> 3663</span>&#160;    {</div>
-<div class="line"><a name="l03664"></a><span class="lineno"> 3664</span>&#160;        <span class="keywordflow">return</span> 2;                                                   <span class="comment">/* return error */</span></div>
-<div class="line"><a name="l03665"></a><span class="lineno"> 3665</span>&#160;    }</div>
-<div class="line"><a name="l03666"></a><span class="lineno"> 3666</span>&#160;    </div>
-<div class="line"><a name="l03667"></a><span class="lineno"> 3667</span>&#160;    memset(info, 0, <span class="keyword">sizeof</span>(<a class="code" href="structadxl345__info__s.html">adxl345_info_t</a>));                        <span class="comment">/* initialize adxl345 info structure */</span></div>
-<div class="line"><a name="l03668"></a><span class="lineno"> 3668</span>&#160;    strncpy(info-&gt;<a class="code" href="structadxl345__info__s.html#af890958c72bd715cc6454a10dc846ae6">chip_name</a>, <a class="code" href="driver__adxl345_8c.html#adc9da0a24824ca1239b593f6459b3954">CHIP_NAME</a>, 32);                        <span class="comment">/* copy chip name */</span></div>
-<div class="line"><a name="l03669"></a><span class="lineno"> 3669</span>&#160;    strncpy(info-&gt;<a class="code" href="structadxl345__info__s.html#ad25285dbf810c90f8eaf3fcef6f2b2ea">manufacturer_name</a>, <a class="code" href="driver__adxl345_8c.html#aaa2b8f5b105c3019df0cb346f472e803">MANUFACTURER_NAME</a>, 32);        <span class="comment">/* copy manufacturer name */</span></div>
-<div class="line"><a name="l03670"></a><span class="lineno"> 3670</span>&#160;    strncpy(info-&gt;<a class="code" href="structadxl345__info__s.html#aebaa6c28dd4f2c3dc27566fcb910fd28">interface</a>, <span class="stringliteral">&quot;IIC SPI&quot;</span>, 8);                         <span class="comment">/* copy interface name */</span></div>
-<div class="line"><a name="l03671"></a><span class="lineno"> 3671</span>&#160;    info-&gt;<a class="code" href="structadxl345__info__s.html#ad8bde6ddadaf43d951e62f3befb9d35a">supply_voltage_min_v</a> = <a class="code" href="driver__adxl345_8c.html#aac8d8cbd899667d609787ef4cf37054d">SUPPLY_VOLTAGE_MIN</a>;                <span class="comment">/* set minimal supply voltage */</span></div>
-<div class="line"><a name="l03672"></a><span class="lineno"> 3672</span>&#160;    info-&gt;<a class="code" href="structadxl345__info__s.html#a3d2b12bcac7a85ea8646bff9debe8660">supply_voltage_max_v</a> = <a class="code" href="driver__adxl345_8c.html#a68eba8b601afe11f1b871d944976c035">SUPPLY_VOLTAGE_MAX</a>;                <span class="comment">/* set maximum supply voltage */</span></div>
-<div class="line"><a name="l03673"></a><span class="lineno"> 3673</span>&#160;    info-&gt;<a class="code" href="structadxl345__info__s.html#a9db82802561bf22d799b03a345f1d1dc">max_current_ma</a> = <a class="code" href="driver__adxl345_8c.html#a2989837a37d6d63b59c6dd541b785435">MAX_CURRENT</a>;                             <span class="comment">/* set maximum current */</span></div>
-<div class="line"><a name="l03674"></a><span class="lineno"> 3674</span>&#160;    info-&gt;<a class="code" href="structadxl345__info__s.html#a3366a5dce9b829e03c3d321c2b4df3f6">temperature_max</a> = <a class="code" href="driver__adxl345_8c.html#a90c0b20d54005712fcc8cb01281360e9">TEMPERATURE_MAX</a>;                        <span class="comment">/* set minimal temperature */</span></div>
-<div class="line"><a name="l03675"></a><span class="lineno"> 3675</span>&#160;    info-&gt;<a class="code" href="structadxl345__info__s.html#a8f9dbe66ac0b66ebae0a36fcb4ba368e">temperature_min</a> = <a class="code" href="driver__adxl345_8c.html#aab353db5bf4eb787f86a2080f609a551">TEMPERATURE_MIN</a>;                        <span class="comment">/* set maximum temperature */</span></div>
-<div class="line"><a name="l03676"></a><span class="lineno"> 3676</span>&#160;    info-&gt;<a class="code" href="structadxl345__info__s.html#a41b0bd442708b70d252c50b92c75265a">driver_version</a> = <a class="code" href="driver__adxl345_8c.html#ae578001fe043b4cca7a0edd801cfe9c4">DRIVER_VERSION</a>;                          <span class="comment">/* set driver version */</span></div>
-<div class="line"><a name="l03677"></a><span class="lineno"> 3677</span>&#160;    </div>
-<div class="line"><a name="l03678"></a><span class="lineno"> 3678</span>&#160;    <span class="keywordflow">return</span> 0;                                                       <span class="comment">/* success return 0 */</span></div>
-<div class="line"><a name="l03679"></a><span class="lineno"> 3679</span>&#160;}</div>
+<div class="line"><a name="l03392"></a><span class="lineno"> 3392</span>&#160;                <span class="keywordflow">if</span> (range == 0x00)                                                                <span class="comment">/* if 2g */</span></div>
+<div class="line"><a name="l03393"></a><span class="lineno"> 3393</span>&#160;                {</div>
+<div class="line"><a name="l03394"></a><span class="lineno"> 3394</span>&#160;                    <span class="keywordflow">if</span> ((raw[0][0] &amp; (1 &lt;&lt; 15)) != 0)                                             <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03395"></a><span class="lineno"> 3395</span>&#160;                    {</div>
+<div class="line"><a name="l03396"></a><span class="lineno"> 3396</span>&#160;                        raw[0][0] = ((uint16_t)0xFC &lt;&lt; 8) | ((raw[0][0] &gt;&gt; 6) &amp; 0x3FF);           <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03397"></a><span class="lineno"> 3397</span>&#160;                    }</div>
+<div class="line"><a name="l03398"></a><span class="lineno"> 3398</span>&#160;                    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03399"></a><span class="lineno"> 3399</span>&#160;                    {</div>
+<div class="line"><a name="l03400"></a><span class="lineno"> 3400</span>&#160;                        raw[0][0] = (raw[0][0] &gt;&gt; 6) &amp; 0x3FF;                                     <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03401"></a><span class="lineno"> 3401</span>&#160;                    }</div>
+<div class="line"><a name="l03402"></a><span class="lineno"> 3402</span>&#160;                    <span class="keywordflow">if</span> ((raw[0][1] &amp; (1 &lt;&lt; 15)) != 0)                                             <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03403"></a><span class="lineno"> 3403</span>&#160;                    {</div>
+<div class="line"><a name="l03404"></a><span class="lineno"> 3404</span>&#160;                        raw[0][1] = ((uint16_t)0xFC &lt;&lt; 8) | ((raw[0][1] &gt;&gt; 6) &amp; 0x3FF);           <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03405"></a><span class="lineno"> 3405</span>&#160;                    }</div>
+<div class="line"><a name="l03406"></a><span class="lineno"> 3406</span>&#160;                    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03407"></a><span class="lineno"> 3407</span>&#160;                    {</div>
+<div class="line"><a name="l03408"></a><span class="lineno"> 3408</span>&#160;                        raw[0][1] = (raw[0][1] &gt;&gt; 6) &amp; 0x3FF;                                     <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03409"></a><span class="lineno"> 3409</span>&#160;                    }</div>
+<div class="line"><a name="l03410"></a><span class="lineno"> 3410</span>&#160;                    <span class="keywordflow">if</span> ((raw[0][2] &amp; (1 &lt;&lt; 15)) != 0)                                             <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03411"></a><span class="lineno"> 3411</span>&#160;                    {</div>
+<div class="line"><a name="l03412"></a><span class="lineno"> 3412</span>&#160;                        raw[0][2] = ((uint16_t)0xFC &lt;&lt; 8) | ((raw[0][2] &gt;&gt; 6) &amp; 0x3FF);           <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03413"></a><span class="lineno"> 3413</span>&#160;                    }</div>
+<div class="line"><a name="l03414"></a><span class="lineno"> 3414</span>&#160;                    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03415"></a><span class="lineno"> 3415</span>&#160;                    {</div>
+<div class="line"><a name="l03416"></a><span class="lineno"> 3416</span>&#160;                        raw[0][2] = (raw[0][2] &gt;&gt; 6) &amp; 0x3FF;                                     <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03417"></a><span class="lineno"> 3417</span>&#160;                    }</div>
+<div class="line"><a name="l03418"></a><span class="lineno"> 3418</span>&#160;                }</div>
+<div class="line"><a name="l03419"></a><span class="lineno"> 3419</span>&#160;                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (range == 0x01)                                                           <span class="comment">/* if 4g */</span></div>
+<div class="line"><a name="l03420"></a><span class="lineno"> 3420</span>&#160;                {</div>
+<div class="line"><a name="l03421"></a><span class="lineno"> 3421</span>&#160;                    <span class="keywordflow">if</span> ((raw[0][0] &amp; (1 &lt;&lt; 15)) != 0)                                             <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03422"></a><span class="lineno"> 3422</span>&#160;                    {</div>
+<div class="line"><a name="l03423"></a><span class="lineno"> 3423</span>&#160;                        raw[0][0] = ((uint16_t)0xF3 &lt;&lt; 8) | ((raw[0][0] &gt;&gt; 5) &amp; 0x7FF);           <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03424"></a><span class="lineno"> 3424</span>&#160;                    }</div>
+<div class="line"><a name="l03425"></a><span class="lineno"> 3425</span>&#160;                    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03426"></a><span class="lineno"> 3426</span>&#160;                    {</div>
+<div class="line"><a name="l03427"></a><span class="lineno"> 3427</span>&#160;                        raw[0][0] = (raw[0][0] &gt;&gt; 5) &amp; 0x7FF;                                     <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03428"></a><span class="lineno"> 3428</span>&#160;                    }</div>
+<div class="line"><a name="l03429"></a><span class="lineno"> 3429</span>&#160;                    <span class="keywordflow">if</span> ((raw[0][1] &amp; (1 &lt;&lt; 15)) != 0)                                             <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03430"></a><span class="lineno"> 3430</span>&#160;                    {</div>
+<div class="line"><a name="l03431"></a><span class="lineno"> 3431</span>&#160;                        raw[0][1] = ((uint16_t)0xF3 &lt;&lt; 8) | ((raw[0][1] &gt;&gt; 5) &amp; 0x7FF);           <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03432"></a><span class="lineno"> 3432</span>&#160;                    }</div>
+<div class="line"><a name="l03433"></a><span class="lineno"> 3433</span>&#160;                    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03434"></a><span class="lineno"> 3434</span>&#160;                    {</div>
+<div class="line"><a name="l03435"></a><span class="lineno"> 3435</span>&#160;                        raw[0][1] = (raw[0][1] &gt;&gt; 5) &amp; 0x7FF;                                     <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03436"></a><span class="lineno"> 3436</span>&#160;                    }</div>
+<div class="line"><a name="l03437"></a><span class="lineno"> 3437</span>&#160;                    <span class="keywordflow">if</span> ((raw[0][2] &amp; (1 &lt;&lt; 15)) != 0)                                             <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03438"></a><span class="lineno"> 3438</span>&#160;                    {</div>
+<div class="line"><a name="l03439"></a><span class="lineno"> 3439</span>&#160;                        raw[0][2] = ((uint16_t)0xF3 &lt;&lt; 8) | ((raw[0][2] &gt;&gt; 5) &amp; 0x7FF);           <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03440"></a><span class="lineno"> 3440</span>&#160;                    }</div>
+<div class="line"><a name="l03441"></a><span class="lineno"> 3441</span>&#160;                    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03442"></a><span class="lineno"> 3442</span>&#160;                    {</div>
+<div class="line"><a name="l03443"></a><span class="lineno"> 3443</span>&#160;                        raw[0][2] = (raw[0][2] &gt;&gt; 5) &amp; 0x7FF;                                     <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03444"></a><span class="lineno"> 3444</span>&#160;                    }</div>
+<div class="line"><a name="l03445"></a><span class="lineno"> 3445</span>&#160;                }</div>
+<div class="line"><a name="l03446"></a><span class="lineno"> 3446</span>&#160;                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (range == 0x02)                                                           <span class="comment">/* if 8g */</span></div>
+<div class="line"><a name="l03447"></a><span class="lineno"> 3447</span>&#160;                {</div>
+<div class="line"><a name="l03448"></a><span class="lineno"> 3448</span>&#160;                    <span class="keywordflow">if</span> ((raw[0][0] &amp; (1 &lt;&lt; 15)) != 0)                                             <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03449"></a><span class="lineno"> 3449</span>&#160;                    {</div>
+<div class="line"><a name="l03450"></a><span class="lineno"> 3450</span>&#160;                        raw[0][0] = ((uint16_t)0xF0 &lt;&lt; 8) | ((raw[0][0] &gt;&gt; 4) &amp; 0xFFF);           <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03451"></a><span class="lineno"> 3451</span>&#160;                    }</div>
+<div class="line"><a name="l03452"></a><span class="lineno"> 3452</span>&#160;                    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03453"></a><span class="lineno"> 3453</span>&#160;                    {</div>
+<div class="line"><a name="l03454"></a><span class="lineno"> 3454</span>&#160;                        raw[0][0] = (raw[0][0] &gt;&gt; 4) &amp; 0xFFF;                                     <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03455"></a><span class="lineno"> 3455</span>&#160;                    }</div>
+<div class="line"><a name="l03456"></a><span class="lineno"> 3456</span>&#160;                    <span class="keywordflow">if</span> ((raw[0][1] &amp; (1 &lt;&lt; 15)) != 0)                                             <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03457"></a><span class="lineno"> 3457</span>&#160;                    {</div>
+<div class="line"><a name="l03458"></a><span class="lineno"> 3458</span>&#160;                        raw[0][1] = ((uint16_t)0xF0 &lt;&lt; 8) | ((raw[0][1] &gt;&gt; 4) &amp; 0xFFF);           <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03459"></a><span class="lineno"> 3459</span>&#160;                    }</div>
+<div class="line"><a name="l03460"></a><span class="lineno"> 3460</span>&#160;                    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03461"></a><span class="lineno"> 3461</span>&#160;                    {</div>
+<div class="line"><a name="l03462"></a><span class="lineno"> 3462</span>&#160;                        raw[0][1] = (raw[0][1] &gt;&gt; 4) &amp; 0xFFF;                                     <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03463"></a><span class="lineno"> 3463</span>&#160;                    }</div>
+<div class="line"><a name="l03464"></a><span class="lineno"> 3464</span>&#160;                    <span class="keywordflow">if</span> ((raw[0][2] &amp; (1 &lt;&lt; 15)) != 0)                                             <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03465"></a><span class="lineno"> 3465</span>&#160;                    {</div>
+<div class="line"><a name="l03466"></a><span class="lineno"> 3466</span>&#160;                        raw[0][2] = ((uint16_t)0xF0 &lt;&lt; 8) | ((raw[0][2] &gt;&gt; 4) &amp; 0xFFF);           <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03467"></a><span class="lineno"> 3467</span>&#160;                    }</div>
+<div class="line"><a name="l03468"></a><span class="lineno"> 3468</span>&#160;                    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03469"></a><span class="lineno"> 3469</span>&#160;                    {</div>
+<div class="line"><a name="l03470"></a><span class="lineno"> 3470</span>&#160;                        raw[0][2] = (raw[0][2] &gt;&gt; 4) &amp; 0xFFF;                                     <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03471"></a><span class="lineno"> 3471</span>&#160;                    }</div>
+<div class="line"><a name="l03472"></a><span class="lineno"> 3472</span>&#160;                }</div>
+<div class="line"><a name="l03473"></a><span class="lineno"> 3473</span>&#160;                <span class="keywordflow">else</span>                                                                              <span class="comment">/* if 16g */</span></div>
+<div class="line"><a name="l03474"></a><span class="lineno"> 3474</span>&#160;                {</div>
+<div class="line"><a name="l03475"></a><span class="lineno"> 3475</span>&#160;                    <span class="keywordflow">if</span> ((raw[0][0] &amp; (1 &lt;&lt; 15)) != 0)                                             <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03476"></a><span class="lineno"> 3476</span>&#160;                    {</div>
+<div class="line"><a name="l03477"></a><span class="lineno"> 3477</span>&#160;                        raw[0][0] = ((uint16_t)0xE0 &lt;&lt; 8) | ((raw[0][0] &gt;&gt; 3) &amp; 0x1FFF);          <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03478"></a><span class="lineno"> 3478</span>&#160;                    }</div>
+<div class="line"><a name="l03479"></a><span class="lineno"> 3479</span>&#160;                    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03480"></a><span class="lineno"> 3480</span>&#160;                    {</div>
+<div class="line"><a name="l03481"></a><span class="lineno"> 3481</span>&#160;                        raw[0][0] = (raw[0][0] &gt;&gt; 3) &amp; 0x1FFF;                                    <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03482"></a><span class="lineno"> 3482</span>&#160;                    }</div>
+<div class="line"><a name="l03483"></a><span class="lineno"> 3483</span>&#160;                    <span class="keywordflow">if</span> ((raw[0][1] &amp; (1 &lt;&lt; 15)) != 0)                                             <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03484"></a><span class="lineno"> 3484</span>&#160;                    {</div>
+<div class="line"><a name="l03485"></a><span class="lineno"> 3485</span>&#160;                        raw[0][1] = ((uint16_t)0xE0 &lt;&lt; 8) | ((raw[0][1] &gt;&gt; 3) &amp; 0x1FFF);          <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03486"></a><span class="lineno"> 3486</span>&#160;                    }</div>
+<div class="line"><a name="l03487"></a><span class="lineno"> 3487</span>&#160;                    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03488"></a><span class="lineno"> 3488</span>&#160;                    {</div>
+<div class="line"><a name="l03489"></a><span class="lineno"> 3489</span>&#160;                        raw[0][1] = (raw[0][1] &gt;&gt; 3) &amp; 0x1FFF;                                    <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03490"></a><span class="lineno"> 3490</span>&#160;                    }</div>
+<div class="line"><a name="l03491"></a><span class="lineno"> 3491</span>&#160;                    <span class="keywordflow">if</span> ((raw[0][2] &amp; (1 &lt;&lt; 15)) != 0)                                             <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03492"></a><span class="lineno"> 3492</span>&#160;                    {</div>
+<div class="line"><a name="l03493"></a><span class="lineno"> 3493</span>&#160;                        raw[0][2] = ((uint16_t)0xE0 &lt;&lt; 8) | ((raw[0][2] &gt;&gt; 3) &amp; 0x1FFF);          <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03494"></a><span class="lineno"> 3494</span>&#160;                    }</div>
+<div class="line"><a name="l03495"></a><span class="lineno"> 3495</span>&#160;                    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03496"></a><span class="lineno"> 3496</span>&#160;                    {</div>
+<div class="line"><a name="l03497"></a><span class="lineno"> 3497</span>&#160;                        raw[0][2] = (raw[0][2] &gt;&gt; 3) &amp; 0x1FFF;                                    <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03498"></a><span class="lineno"> 3498</span>&#160;                    }</div>
+<div class="line"><a name="l03499"></a><span class="lineno"> 3499</span>&#160;                }</div>
+<div class="line"><a name="l03500"></a><span class="lineno"> 3500</span>&#160;            }</div>
+<div class="line"><a name="l03501"></a><span class="lineno"> 3501</span>&#160;            g[0][0] = (float)(raw[0][0]) * 0.0039f;                                               <span class="comment">/* convert x */</span></div>
+<div class="line"><a name="l03502"></a><span class="lineno"> 3502</span>&#160;            g[0][1] = (float)(raw[0][1]) * 0.0039f;                                               <span class="comment">/* convert y */</span></div>
+<div class="line"><a name="l03503"></a><span class="lineno"> 3503</span>&#160;            g[0][2] = (float)(raw[0][2]) * 0.0039f;                                               <span class="comment">/* convert z */</span></div>
+<div class="line"><a name="l03504"></a><span class="lineno"> 3504</span>&#160;        }</div>
+<div class="line"><a name="l03505"></a><span class="lineno"> 3505</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03506"></a><span class="lineno"> 3506</span>&#160;        {</div>
+<div class="line"><a name="l03507"></a><span class="lineno"> 3507</span>&#160;            <span class="keywordflow">if</span> (justify == 1)                                                                     <span class="comment">/* if justify */</span></div>
+<div class="line"><a name="l03508"></a><span class="lineno"> 3508</span>&#160;            {</div>
+<div class="line"><a name="l03509"></a><span class="lineno"> 3509</span>&#160;                <span class="keywordflow">if</span> ((raw[0][0] &amp; (1 &lt;&lt; 15)) != 0)                                                 <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03510"></a><span class="lineno"> 3510</span>&#160;                {</div>
+<div class="line"><a name="l03511"></a><span class="lineno"> 3511</span>&#160;                    raw[0][0] = ((uint16_t)0xFC &lt;&lt; 8) | ((raw[0][0] &gt;&gt; 6) &amp; 0x3FF);               <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03512"></a><span class="lineno"> 3512</span>&#160;                }</div>
+<div class="line"><a name="l03513"></a><span class="lineno"> 3513</span>&#160;                <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03514"></a><span class="lineno"> 3514</span>&#160;                {</div>
+<div class="line"><a name="l03515"></a><span class="lineno"> 3515</span>&#160;                    raw[0][0] = (raw[0][0] &gt;&gt; 6) &amp; 0x3FF;                                         <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03516"></a><span class="lineno"> 3516</span>&#160;                }</div>
+<div class="line"><a name="l03517"></a><span class="lineno"> 3517</span>&#160;                <span class="keywordflow">if</span> ((raw[0][1] &amp; (1 &lt;&lt; 15)) != 0)                                                 <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03518"></a><span class="lineno"> 3518</span>&#160;                {</div>
+<div class="line"><a name="l03519"></a><span class="lineno"> 3519</span>&#160;                    raw[0][1] = ((uint16_t)0xFC &lt;&lt; 8) | ((raw[0][1] &gt;&gt; 6) &amp; 0x3FF);               <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03520"></a><span class="lineno"> 3520</span>&#160;                }</div>
+<div class="line"><a name="l03521"></a><span class="lineno"> 3521</span>&#160;                <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03522"></a><span class="lineno"> 3522</span>&#160;                {</div>
+<div class="line"><a name="l03523"></a><span class="lineno"> 3523</span>&#160;                    raw[0][1] = (raw[0][1] &gt;&gt; 6) &amp; 0x3FF;                                         <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03524"></a><span class="lineno"> 3524</span>&#160;                }</div>
+<div class="line"><a name="l03525"></a><span class="lineno"> 3525</span>&#160;                <span class="keywordflow">if</span> ((raw[0][2] &amp; (1 &lt;&lt; 15)) != 0)                                                 <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03526"></a><span class="lineno"> 3526</span>&#160;                {</div>
+<div class="line"><a name="l03527"></a><span class="lineno"> 3527</span>&#160;                    raw[0][2] = ((uint16_t)0xFC &lt;&lt; 8) | ((raw[0][2] &gt;&gt; 6) &amp; 0x3FF);               <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03528"></a><span class="lineno"> 3528</span>&#160;                }</div>
+<div class="line"><a name="l03529"></a><span class="lineno"> 3529</span>&#160;                <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03530"></a><span class="lineno"> 3530</span>&#160;                {</div>
+<div class="line"><a name="l03531"></a><span class="lineno"> 3531</span>&#160;                    raw[0][2] = (raw[0][2] &gt;&gt; 6) &amp; 0x3FF;                                         <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03532"></a><span class="lineno"> 3532</span>&#160;                }</div>
+<div class="line"><a name="l03533"></a><span class="lineno"> 3533</span>&#160;            }</div>
+<div class="line"><a name="l03534"></a><span class="lineno"> 3534</span>&#160;            <span class="keywordflow">if</span> (range == 0x00)                                                                    <span class="comment">/* if 2g */</span></div>
+<div class="line"><a name="l03535"></a><span class="lineno"> 3535</span>&#160;            {</div>
+<div class="line"><a name="l03536"></a><span class="lineno"> 3536</span>&#160;                g[0][0] = (float)(raw[0][0]) * 0.0039f;                                           <span class="comment">/* convert x */</span></div>
+<div class="line"><a name="l03537"></a><span class="lineno"> 3537</span>&#160;                g[0][1] = (float)(raw[0][1]) * 0.0039f;                                           <span class="comment">/* convert y */</span></div>
+<div class="line"><a name="l03538"></a><span class="lineno"> 3538</span>&#160;                g[0][2] = (float)(raw[0][2]) * 0.0039f;                                           <span class="comment">/* convert z */</span></div>
+<div class="line"><a name="l03539"></a><span class="lineno"> 3539</span>&#160;            }</div>
+<div class="line"><a name="l03540"></a><span class="lineno"> 3540</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (range == 0x01)                                                               <span class="comment">/* if 4g */</span></div>
+<div class="line"><a name="l03541"></a><span class="lineno"> 3541</span>&#160;            {</div>
+<div class="line"><a name="l03542"></a><span class="lineno"> 3542</span>&#160;                g[0][0] = (float)(raw[0][0]) * 0.0078f;                                           <span class="comment">/* convert x */</span></div>
+<div class="line"><a name="l03543"></a><span class="lineno"> 3543</span>&#160;                g[0][1] = (float)(raw[0][1]) * 0.0078f;                                           <span class="comment">/* convert y */</span></div>
+<div class="line"><a name="l03544"></a><span class="lineno"> 3544</span>&#160;                g[0][2] = (float)(raw[0][2]) * 0.0078f;                                           <span class="comment">/* convert z */</span></div>
+<div class="line"><a name="l03545"></a><span class="lineno"> 3545</span>&#160;            }</div>
+<div class="line"><a name="l03546"></a><span class="lineno"> 3546</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (range == 0x02)                                                               <span class="comment">/* if 8g */</span></div>
+<div class="line"><a name="l03547"></a><span class="lineno"> 3547</span>&#160;            {</div>
+<div class="line"><a name="l03548"></a><span class="lineno"> 3548</span>&#160;                g[0][0] = (float)(raw[0][0]) * 0.0156f;                                           <span class="comment">/* convert x */</span></div>
+<div class="line"><a name="l03549"></a><span class="lineno"> 3549</span>&#160;                g[0][1] = (float)(raw[0][1]) * 0.0156f;                                           <span class="comment">/* convert y */</span></div>
+<div class="line"><a name="l03550"></a><span class="lineno"> 3550</span>&#160;                g[0][2] = (float)(raw[0][2]) * 0.0156f;                                           <span class="comment">/* convert z */</span></div>
+<div class="line"><a name="l03551"></a><span class="lineno"> 3551</span>&#160;            }</div>
+<div class="line"><a name="l03552"></a><span class="lineno"> 3552</span>&#160;            <span class="keywordflow">else</span>                                                                                  <span class="comment">/* if 16g */</span></div>
+<div class="line"><a name="l03553"></a><span class="lineno"> 3553</span>&#160;            {</div>
+<div class="line"><a name="l03554"></a><span class="lineno"> 3554</span>&#160;                g[0][0] = (float)(raw[0][0]) * 0.0312f;                                           <span class="comment">/* convert x */</span></div>
+<div class="line"><a name="l03555"></a><span class="lineno"> 3555</span>&#160;                g[0][1] = (float)(raw[0][1]) * 0.0312f;                                           <span class="comment">/* convert y */</span></div>
+<div class="line"><a name="l03556"></a><span class="lineno"> 3556</span>&#160;                g[0][2] = (float)(raw[0][2]) * 0.0312f;                                           <span class="comment">/* convert z */</span></div>
+<div class="line"><a name="l03557"></a><span class="lineno"> 3557</span>&#160;            }</div>
+<div class="line"><a name="l03558"></a><span class="lineno"> 3558</span>&#160;        }</div>
+<div class="line"><a name="l03559"></a><span class="lineno"> 3559</span>&#160;    }</div>
+<div class="line"><a name="l03560"></a><span class="lineno"> 3560</span>&#160;    <span class="keywordflow">else</span>                                                                                          <span class="comment">/* fifo mode */</span></div>
+<div class="line"><a name="l03561"></a><span class="lineno"> 3561</span>&#160;    {</div>
+<div class="line"><a name="l03562"></a><span class="lineno"> 3562</span>&#160;        res = a_adxl345_iic_spi_read(handle, <a class="code" href="driver__adxl345_8c.html#a9ba8252efafd2b9e9a7257a15062c027">ADXL345_REG_FIFO_STATUS</a>, (uint8_t *)&amp;prev, 1);       <span class="comment">/* read fifo status */</span></div>
+<div class="line"><a name="l03563"></a><span class="lineno"> 3563</span>&#160;        <span class="keywordflow">if</span> (res != 0)                                                                             <span class="comment">/* check result */</span></div>
+<div class="line"><a name="l03564"></a><span class="lineno"> 3564</span>&#160;        {</div>
+<div class="line"><a name="l03565"></a><span class="lineno"> 3565</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a769d5b3a6c14790a0e126e8fe70b384b">debug_print</a>(<span class="stringliteral">&quot;adxl345: read failed.\n&quot;</span>);                                       <span class="comment">/* read failed */</span></div>
+<div class="line"><a name="l03566"></a><span class="lineno"> 3566</span>&#160;            </div>
+<div class="line"><a name="l03567"></a><span class="lineno"> 3567</span>&#160;            <span class="keywordflow">return</span> 1;                                                                             <span class="comment">/* return error */</span></div>
+<div class="line"><a name="l03568"></a><span class="lineno"> 3568</span>&#160;        }</div>
+<div class="line"><a name="l03569"></a><span class="lineno"> 3569</span>&#160;        cnt = prev &amp; 0x3F;                                                                        <span class="comment">/* get cnt */</span></div>
+<div class="line"><a name="l03570"></a><span class="lineno"> 3570</span>&#160;        *len = ((*len) &lt; cnt) ? (*len) : cnt;                                                     <span class="comment">/* get min cnt */</span></div>
+<div class="line"><a name="l03571"></a><span class="lineno"> 3571</span>&#160;        res = a_adxl345_iic_spi_read(handle, <a class="code" href="driver__adxl345_8c.html#ad357e2d6384df108aab1cffc6dc32782">ADXL345_REG_DATAX0</a>, (uint8_t *)buf, 6*(*len));       <span class="comment">/* read data */</span></div>
+<div class="line"><a name="l03572"></a><span class="lineno"> 3572</span>&#160;        <span class="keywordflow">if</span> (res != 0)                                                                             <span class="comment">/* check result */</span></div>
+<div class="line"><a name="l03573"></a><span class="lineno"> 3573</span>&#160;        {</div>
+<div class="line"><a name="l03574"></a><span class="lineno"> 3574</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a769d5b3a6c14790a0e126e8fe70b384b">debug_print</a>(<span class="stringliteral">&quot;adxl345: read failed.\n&quot;</span>);                                       <span class="comment">/* read failed */</span></div>
+<div class="line"><a name="l03575"></a><span class="lineno"> 3575</span>&#160;           </div>
+<div class="line"><a name="l03576"></a><span class="lineno"> 3576</span>&#160;            <span class="keywordflow">return</span> 1;                                                                             <span class="comment">/* return error */</span></div>
+<div class="line"><a name="l03577"></a><span class="lineno"> 3577</span>&#160;        }</div>
+<div class="line"><a name="l03578"></a><span class="lineno"> 3578</span>&#160;        <span class="keywordflow">for</span> (i = 0; i &lt; (*len); i++)                                                              <span class="comment">/* read length */</span></div>
+<div class="line"><a name="l03579"></a><span class="lineno"> 3579</span>&#160;        {</div>
+<div class="line"><a name="l03580"></a><span class="lineno"> 3580</span>&#160;            raw[i][0] = (int16_t)(buf[1 + i * 6] &lt;&lt; 8) | buf[0 + i * 6];                          <span class="comment">/* set raw x */</span></div>
+<div class="line"><a name="l03581"></a><span class="lineno"> 3581</span>&#160;            raw[i][1] = (int16_t)(buf[3 + i * 6] &lt;&lt; 8) | buf[2 + i * 6];                          <span class="comment">/* set raw y */</span></div>
+<div class="line"><a name="l03582"></a><span class="lineno"> 3582</span>&#160;            raw[i][2] = (int16_t)(buf[5 + i * 6] &lt;&lt; 8) | buf[4 + i * 6];                          <span class="comment">/* set raw z */</span></div>
+<div class="line"><a name="l03583"></a><span class="lineno"> 3583</span>&#160;            <span class="keywordflow">if</span> (full_res == 1)                                                                    <span class="comment">/* if full resolution */</span></div>
+<div class="line"><a name="l03584"></a><span class="lineno"> 3584</span>&#160;            {</div>
+<div class="line"><a name="l03585"></a><span class="lineno"> 3585</span>&#160;                <span class="keywordflow">if</span> (justify == 1)                                                                 <span class="comment">/* if justify */</span></div>
+<div class="line"><a name="l03586"></a><span class="lineno"> 3586</span>&#160;                {</div>
+<div class="line"><a name="l03587"></a><span class="lineno"> 3587</span>&#160;                    <span class="keywordflow">if</span> (range == 0x00)                                                            <span class="comment">/* if 2g */</span></div>
+<div class="line"><a name="l03588"></a><span class="lineno"> 3588</span>&#160;                    {</div>
+<div class="line"><a name="l03589"></a><span class="lineno"> 3589</span>&#160;                        <span class="keywordflow">if</span> ((raw[i][0] &amp; (1 &lt;&lt; 15)) != 0)                                         <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03590"></a><span class="lineno"> 3590</span>&#160;                        {</div>
+<div class="line"><a name="l03591"></a><span class="lineno"> 3591</span>&#160;                            raw[i][0] = ((uint16_t)0xFC &lt;&lt; 8) | ((raw[i][0] &gt;&gt; 6) &amp; 0x3FF);       <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03592"></a><span class="lineno"> 3592</span>&#160;                        }</div>
+<div class="line"><a name="l03593"></a><span class="lineno"> 3593</span>&#160;                        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03594"></a><span class="lineno"> 3594</span>&#160;                        {</div>
+<div class="line"><a name="l03595"></a><span class="lineno"> 3595</span>&#160;                            raw[i][0] = (raw[i][0] &gt;&gt; 6) &amp; 0x3FF;                                 <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03596"></a><span class="lineno"> 3596</span>&#160;                        }</div>
+<div class="line"><a name="l03597"></a><span class="lineno"> 3597</span>&#160;                        <span class="keywordflow">if</span> ((raw[i][1] &amp; (1 &lt;&lt; 15)) != 0)                                         <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03598"></a><span class="lineno"> 3598</span>&#160;                        {</div>
+<div class="line"><a name="l03599"></a><span class="lineno"> 3599</span>&#160;                            raw[i][1] = ((uint16_t)0xFC &lt;&lt; 8) | ((raw[i][1] &gt;&gt; 6) &amp; 0x3FF);       <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03600"></a><span class="lineno"> 3600</span>&#160;                        }</div>
+<div class="line"><a name="l03601"></a><span class="lineno"> 3601</span>&#160;                        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03602"></a><span class="lineno"> 3602</span>&#160;                        {</div>
+<div class="line"><a name="l03603"></a><span class="lineno"> 3603</span>&#160;                            raw[i][1] = (raw[i][1] &gt;&gt; 6) &amp; 0x3FF;                                 <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03604"></a><span class="lineno"> 3604</span>&#160;                        }</div>
+<div class="line"><a name="l03605"></a><span class="lineno"> 3605</span>&#160;                        <span class="keywordflow">if</span> ((raw[i][2] &amp; (1 &lt;&lt; 15)) != 0)                                         <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03606"></a><span class="lineno"> 3606</span>&#160;                        {</div>
+<div class="line"><a name="l03607"></a><span class="lineno"> 3607</span>&#160;                            raw[i][2] = ((uint16_t)0xFC &lt;&lt; 8) | ((raw[i][2] &gt;&gt; 6) &amp; 0x3FF);       <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03608"></a><span class="lineno"> 3608</span>&#160;                        }</div>
+<div class="line"><a name="l03609"></a><span class="lineno"> 3609</span>&#160;                        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03610"></a><span class="lineno"> 3610</span>&#160;                        {</div>
+<div class="line"><a name="l03611"></a><span class="lineno"> 3611</span>&#160;                            raw[i][2] = (raw[i][2] &gt;&gt; 6) &amp; 0x3FF;                                 <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03612"></a><span class="lineno"> 3612</span>&#160;                        }</div>
+<div class="line"><a name="l03613"></a><span class="lineno"> 3613</span>&#160;                    }</div>
+<div class="line"><a name="l03614"></a><span class="lineno"> 3614</span>&#160;                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (range == 0x01)                                                       <span class="comment">/* if 4g */</span></div>
+<div class="line"><a name="l03615"></a><span class="lineno"> 3615</span>&#160;                    {</div>
+<div class="line"><a name="l03616"></a><span class="lineno"> 3616</span>&#160;                        <span class="keywordflow">if</span> ((raw[i][0] &amp; (1 &lt;&lt; 15)) != 0)                                         <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03617"></a><span class="lineno"> 3617</span>&#160;                        {</div>
+<div class="line"><a name="l03618"></a><span class="lineno"> 3618</span>&#160;                            raw[i][0] = ((uint16_t)0xF3 &lt;&lt; 8) | ((raw[i][0] &gt;&gt; 5) &amp; 0x7FF);       <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03619"></a><span class="lineno"> 3619</span>&#160;                        }</div>
+<div class="line"><a name="l03620"></a><span class="lineno"> 3620</span>&#160;                        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03621"></a><span class="lineno"> 3621</span>&#160;                        {</div>
+<div class="line"><a name="l03622"></a><span class="lineno"> 3622</span>&#160;                            raw[i][0] = (raw[i][0] &gt;&gt; 5) &amp; 0x7FF;                                 <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03623"></a><span class="lineno"> 3623</span>&#160;                        }</div>
+<div class="line"><a name="l03624"></a><span class="lineno"> 3624</span>&#160;                        <span class="keywordflow">if</span> ((raw[i][1] &amp; (1 &lt;&lt; 15)) != 0)                                         <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03625"></a><span class="lineno"> 3625</span>&#160;                        {</div>
+<div class="line"><a name="l03626"></a><span class="lineno"> 3626</span>&#160;                            raw[i][1] = ((uint16_t)0xF3 &lt;&lt; 8) | ((raw[i][1] &gt;&gt; 5) &amp; 0x7FF);       <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03627"></a><span class="lineno"> 3627</span>&#160;                        }</div>
+<div class="line"><a name="l03628"></a><span class="lineno"> 3628</span>&#160;                        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03629"></a><span class="lineno"> 3629</span>&#160;                        {</div>
+<div class="line"><a name="l03630"></a><span class="lineno"> 3630</span>&#160;                            raw[i][1] = (raw[i][1] &gt;&gt; 5) &amp; 0x7FF;                                 <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03631"></a><span class="lineno"> 3631</span>&#160;                        }</div>
+<div class="line"><a name="l03632"></a><span class="lineno"> 3632</span>&#160;                        <span class="keywordflow">if</span> ((raw[i][2] &amp; (1 &lt;&lt; 15)) != 0)                                         <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03633"></a><span class="lineno"> 3633</span>&#160;                        {</div>
+<div class="line"><a name="l03634"></a><span class="lineno"> 3634</span>&#160;                            raw[i][2] = ((uint16_t)0xF3 &lt;&lt; 8) | ((raw[i][2] &gt;&gt; 5) &amp; 0x7FF);       <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03635"></a><span class="lineno"> 3635</span>&#160;                        }</div>
+<div class="line"><a name="l03636"></a><span class="lineno"> 3636</span>&#160;                        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03637"></a><span class="lineno"> 3637</span>&#160;                        {</div>
+<div class="line"><a name="l03638"></a><span class="lineno"> 3638</span>&#160;                            raw[i][2] = (raw[i][2] &gt;&gt; 5) &amp; 0x7FF;                                 <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03639"></a><span class="lineno"> 3639</span>&#160;                        }</div>
+<div class="line"><a name="l03640"></a><span class="lineno"> 3640</span>&#160;                    }</div>
+<div class="line"><a name="l03641"></a><span class="lineno"> 3641</span>&#160;                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (range == 0x02)                                                       <span class="comment">/* if 8g */</span></div>
+<div class="line"><a name="l03642"></a><span class="lineno"> 3642</span>&#160;                    {</div>
+<div class="line"><a name="l03643"></a><span class="lineno"> 3643</span>&#160;                        <span class="keywordflow">if</span> ((raw[i][0] &amp; (1 &lt;&lt; 15)) != 0)                                         <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03644"></a><span class="lineno"> 3644</span>&#160;                        {</div>
+<div class="line"><a name="l03645"></a><span class="lineno"> 3645</span>&#160;                            raw[i][0] = ((uint16_t)0xF0 &lt;&lt; 8) | ((raw[i][0] &gt;&gt; 4) &amp; 0xFFF);       <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03646"></a><span class="lineno"> 3646</span>&#160;                        }</div>
+<div class="line"><a name="l03647"></a><span class="lineno"> 3647</span>&#160;                        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03648"></a><span class="lineno"> 3648</span>&#160;                        {</div>
+<div class="line"><a name="l03649"></a><span class="lineno"> 3649</span>&#160;                            raw[i][0] = (raw[i][0] &gt;&gt; 4) &amp; 0xFFF;                                 <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03650"></a><span class="lineno"> 3650</span>&#160;                        }</div>
+<div class="line"><a name="l03651"></a><span class="lineno"> 3651</span>&#160;                        <span class="keywordflow">if</span> ((raw[i][1] &amp; (1 &lt;&lt; 15)) != 0)                                         <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03652"></a><span class="lineno"> 3652</span>&#160;                        {</div>
+<div class="line"><a name="l03653"></a><span class="lineno"> 3653</span>&#160;                            raw[i][1] = ((uint16_t)0xF0 &lt;&lt; 8) | ((raw[i][1] &gt;&gt; 4) &amp; 0xFFF);       <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03654"></a><span class="lineno"> 3654</span>&#160;                        }</div>
+<div class="line"><a name="l03655"></a><span class="lineno"> 3655</span>&#160;                        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03656"></a><span class="lineno"> 3656</span>&#160;                        {</div>
+<div class="line"><a name="l03657"></a><span class="lineno"> 3657</span>&#160;                            raw[i][1] = (raw[i][1] &gt;&gt; 4) &amp; 0xFFF;                                 <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03658"></a><span class="lineno"> 3658</span>&#160;                        }</div>
+<div class="line"><a name="l03659"></a><span class="lineno"> 3659</span>&#160;                        <span class="keywordflow">if</span> ((raw[i][2] &amp; (1 &lt;&lt; 15)) != 0)                                         <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03660"></a><span class="lineno"> 3660</span>&#160;                        {</div>
+<div class="line"><a name="l03661"></a><span class="lineno"> 3661</span>&#160;                            raw[i][2] = ((uint16_t)0xF0 &lt;&lt; 8) | ((raw[i][2] &gt;&gt; 4) &amp; 0xFFF);       <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03662"></a><span class="lineno"> 3662</span>&#160;                        }</div>
+<div class="line"><a name="l03663"></a><span class="lineno"> 3663</span>&#160;                        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03664"></a><span class="lineno"> 3664</span>&#160;                        {</div>
+<div class="line"><a name="l03665"></a><span class="lineno"> 3665</span>&#160;                            raw[i][2] = (raw[i][2] &gt;&gt; 4) &amp; 0xFFF;                                 <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03666"></a><span class="lineno"> 3666</span>&#160;                        }</div>
+<div class="line"><a name="l03667"></a><span class="lineno"> 3667</span>&#160;                    }</div>
+<div class="line"><a name="l03668"></a><span class="lineno"> 3668</span>&#160;                    <span class="keywordflow">else</span>                                                                          <span class="comment">/* if 16g */</span></div>
+<div class="line"><a name="l03669"></a><span class="lineno"> 3669</span>&#160;                    {</div>
+<div class="line"><a name="l03670"></a><span class="lineno"> 3670</span>&#160;                        <span class="keywordflow">if</span> ((raw[i][0] &amp; (1 &lt;&lt; 15)) != 0)                                         <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03671"></a><span class="lineno"> 3671</span>&#160;                        {</div>
+<div class="line"><a name="l03672"></a><span class="lineno"> 3672</span>&#160;                            raw[i][0] = ((uint16_t)0xE0 &lt;&lt; 8) | ((raw[i][0] &gt;&gt; 3) &amp; 0x1FFF);      <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03673"></a><span class="lineno"> 3673</span>&#160;                        }</div>
+<div class="line"><a name="l03674"></a><span class="lineno"> 3674</span>&#160;                        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03675"></a><span class="lineno"> 3675</span>&#160;                        {</div>
+<div class="line"><a name="l03676"></a><span class="lineno"> 3676</span>&#160;                            raw[i][0] = (raw[i][0] &gt;&gt; 3) &amp; 0x1FFF;                                <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03677"></a><span class="lineno"> 3677</span>&#160;                        }</div>
+<div class="line"><a name="l03678"></a><span class="lineno"> 3678</span>&#160;                        <span class="keywordflow">if</span> ((raw[i][1] &amp; (1 &lt;&lt; 15)) != 0)                                         <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03679"></a><span class="lineno"> 3679</span>&#160;                        {</div>
+<div class="line"><a name="l03680"></a><span class="lineno"> 3680</span>&#160;                            raw[i][1] = ((uint16_t)0xE0 &lt;&lt; 8) | ((raw[i][1] &gt;&gt; 3) &amp; 0x1FFF);      <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03681"></a><span class="lineno"> 3681</span>&#160;                        }</div>
+<div class="line"><a name="l03682"></a><span class="lineno"> 3682</span>&#160;                        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03683"></a><span class="lineno"> 3683</span>&#160;                        {</div>
+<div class="line"><a name="l03684"></a><span class="lineno"> 3684</span>&#160;                            raw[i][1] = (raw[i][1] &gt;&gt; 3) &amp; 0x1FFF;                                <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03685"></a><span class="lineno"> 3685</span>&#160;                        }</div>
+<div class="line"><a name="l03686"></a><span class="lineno"> 3686</span>&#160;                        <span class="keywordflow">if</span> ((raw[i][2] &amp; (1 &lt;&lt; 15)) != 0)                                         <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03687"></a><span class="lineno"> 3687</span>&#160;                        {</div>
+<div class="line"><a name="l03688"></a><span class="lineno"> 3688</span>&#160;                            raw[i][2] = ((uint16_t)0xE0 &lt;&lt; 8) | ((raw[i][2] &gt;&gt; 3) &amp; 0x1FFF);      <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03689"></a><span class="lineno"> 3689</span>&#160;                        }</div>
+<div class="line"><a name="l03690"></a><span class="lineno"> 3690</span>&#160;                        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03691"></a><span class="lineno"> 3691</span>&#160;                        {</div>
+<div class="line"><a name="l03692"></a><span class="lineno"> 3692</span>&#160;                            raw[i][2] = (raw[i][2] &gt;&gt; 3) &amp; 0x1FFF;                                <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03693"></a><span class="lineno"> 3693</span>&#160;                        }</div>
+<div class="line"><a name="l03694"></a><span class="lineno"> 3694</span>&#160;                    }</div>
+<div class="line"><a name="l03695"></a><span class="lineno"> 3695</span>&#160;                }</div>
+<div class="line"><a name="l03696"></a><span class="lineno"> 3696</span>&#160;                g[i][0] = (float)(raw[i][0])*0.0039f;                                             <span class="comment">/* convert x */</span></div>
+<div class="line"><a name="l03697"></a><span class="lineno"> 3697</span>&#160;                g[i][1] = (float)(raw[i][1])*0.0039f;                                             <span class="comment">/* convert y */</span></div>
+<div class="line"><a name="l03698"></a><span class="lineno"> 3698</span>&#160;                g[i][2] = (float)(raw[i][2])*0.0039f;                                             <span class="comment">/* convert z */</span></div>
+<div class="line"><a name="l03699"></a><span class="lineno"> 3699</span>&#160;            }</div>
+<div class="line"><a name="l03700"></a><span class="lineno"> 3700</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03701"></a><span class="lineno"> 3701</span>&#160;            {</div>
+<div class="line"><a name="l03702"></a><span class="lineno"> 3702</span>&#160;                <span class="keywordflow">if</span> (justify == 1)                                                                 <span class="comment">/* if justify */</span></div>
+<div class="line"><a name="l03703"></a><span class="lineno"> 3703</span>&#160;                {</div>
+<div class="line"><a name="l03704"></a><span class="lineno"> 3704</span>&#160;                    <span class="keywordflow">if</span> ((raw[i][0] &amp; (1 &lt;&lt; 15)) != 0)                                             <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03705"></a><span class="lineno"> 3705</span>&#160;                    {</div>
+<div class="line"><a name="l03706"></a><span class="lineno"> 3706</span>&#160;                        raw[i][0] = ((uint16_t)0xFC &lt;&lt; 8) | ((raw[i][0] &gt;&gt; 6) &amp; 0x3FF);           <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03707"></a><span class="lineno"> 3707</span>&#160;                    }</div>
+<div class="line"><a name="l03708"></a><span class="lineno"> 3708</span>&#160;                    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03709"></a><span class="lineno"> 3709</span>&#160;                    {</div>
+<div class="line"><a name="l03710"></a><span class="lineno"> 3710</span>&#160;                        raw[i][0] = (raw[i][0] &gt;&gt; 6) &amp; 0x3FF;                                     <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03711"></a><span class="lineno"> 3711</span>&#160;                    }</div>
+<div class="line"><a name="l03712"></a><span class="lineno"> 3712</span>&#160;                    <span class="keywordflow">if</span> ((raw[i][1] &amp; (1 &lt;&lt; 15)) != 0)                                             <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03713"></a><span class="lineno"> 3713</span>&#160;                    {</div>
+<div class="line"><a name="l03714"></a><span class="lineno"> 3714</span>&#160;                        raw[i][1] = ((uint16_t)0xFC &lt;&lt; 8) | ((raw[i][1] &gt;&gt; 6) &amp; 0x3FF);           <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03715"></a><span class="lineno"> 3715</span>&#160;                    }</div>
+<div class="line"><a name="l03716"></a><span class="lineno"> 3716</span>&#160;                    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03717"></a><span class="lineno"> 3717</span>&#160;                    {</div>
+<div class="line"><a name="l03718"></a><span class="lineno"> 3718</span>&#160;                        raw[i][1] = (raw[i][1] &gt;&gt; 6) &amp; 0x3FF;                                     <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03719"></a><span class="lineno"> 3719</span>&#160;                    }</div>
+<div class="line"><a name="l03720"></a><span class="lineno"> 3720</span>&#160;                    <span class="keywordflow">if</span> ((raw[i][2] &amp; (1 &lt;&lt; 15)) != 0)                                             <span class="comment">/* check sigend bit */</span></div>
+<div class="line"><a name="l03721"></a><span class="lineno"> 3721</span>&#160;                    {</div>
+<div class="line"><a name="l03722"></a><span class="lineno"> 3722</span>&#160;                        raw[i][2] = ((uint16_t)0xFC &lt;&lt; 8) | ((raw[i][2] &gt;&gt; 6) &amp; 0x3FF);           <span class="comment">/* negative */</span></div>
+<div class="line"><a name="l03723"></a><span class="lineno"> 3723</span>&#160;                    }</div>
+<div class="line"><a name="l03724"></a><span class="lineno"> 3724</span>&#160;                    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l03725"></a><span class="lineno"> 3725</span>&#160;                    {</div>
+<div class="line"><a name="l03726"></a><span class="lineno"> 3726</span>&#160;                        raw[i][2] = (raw[i][2] &gt;&gt; 6) &amp; 0x3FF;                                     <span class="comment">/* positive */</span></div>
+<div class="line"><a name="l03727"></a><span class="lineno"> 3727</span>&#160;                    }</div>
+<div class="line"><a name="l03728"></a><span class="lineno"> 3728</span>&#160;                }</div>
+<div class="line"><a name="l03729"></a><span class="lineno"> 3729</span>&#160;                <span class="keywordflow">if</span> (range == 0x00)                                                                <span class="comment">/* if 2g */</span></div>
+<div class="line"><a name="l03730"></a><span class="lineno"> 3730</span>&#160;                {</div>
+<div class="line"><a name="l03731"></a><span class="lineno"> 3731</span>&#160;                    g[i][0] = (float)(raw[i][0]) * 0.0039f;                                       <span class="comment">/* convert x */</span></div>
+<div class="line"><a name="l03732"></a><span class="lineno"> 3732</span>&#160;                    g[i][1] = (float)(raw[i][1]) * 0.0039f;                                       <span class="comment">/* convert y */</span></div>
+<div class="line"><a name="l03733"></a><span class="lineno"> 3733</span>&#160;                    g[i][2] = (float)(raw[i][2]) * 0.0039f;                                       <span class="comment">/* convert z */</span></div>
+<div class="line"><a name="l03734"></a><span class="lineno"> 3734</span>&#160;                }</div>
+<div class="line"><a name="l03735"></a><span class="lineno"> 3735</span>&#160;                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (range == 0x01)                                                           <span class="comment">/* if 4g */</span></div>
+<div class="line"><a name="l03736"></a><span class="lineno"> 3736</span>&#160;                {</div>
+<div class="line"><a name="l03737"></a><span class="lineno"> 3737</span>&#160;                    g[i][0] = (float)(raw[i][0]) * 0.0078f;                                       <span class="comment">/* convert x */</span></div>
+<div class="line"><a name="l03738"></a><span class="lineno"> 3738</span>&#160;                    g[i][1] = (float)(raw[i][1]) * 0.0078f;                                       <span class="comment">/* convert y */</span></div>
+<div class="line"><a name="l03739"></a><span class="lineno"> 3739</span>&#160;                    g[i][2] = (float)(raw[i][2]) * 0.0078f;                                       <span class="comment">/* convert z */</span></div>
+<div class="line"><a name="l03740"></a><span class="lineno"> 3740</span>&#160;                }</div>
+<div class="line"><a name="l03741"></a><span class="lineno"> 3741</span>&#160;                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (range == 0x02)                                                           <span class="comment">/* if 8g */</span></div>
+<div class="line"><a name="l03742"></a><span class="lineno"> 3742</span>&#160;                {</div>
+<div class="line"><a name="l03743"></a><span class="lineno"> 3743</span>&#160;                    g[i][0] = (float)(raw[i][0]) * 0.0156f;                                       <span class="comment">/* convert x */</span></div>
+<div class="line"><a name="l03744"></a><span class="lineno"> 3744</span>&#160;                    g[i][1] = (float)(raw[i][1]) * 0.0156f;                                       <span class="comment">/* convert y */</span></div>
+<div class="line"><a name="l03745"></a><span class="lineno"> 3745</span>&#160;                    g[i][2] = (float)(raw[i][2]) * 0.0156f;                                       <span class="comment">/* convert z */</span></div>
+<div class="line"><a name="l03746"></a><span class="lineno"> 3746</span>&#160;                }</div>
+<div class="line"><a name="l03747"></a><span class="lineno"> 3747</span>&#160;                <span class="keywordflow">else</span>                                                                              <span class="comment">/* if 16g */</span></div>
+<div class="line"><a name="l03748"></a><span class="lineno"> 3748</span>&#160;                {</div>
+<div class="line"><a name="l03749"></a><span class="lineno"> 3749</span>&#160;                    g[i][0] = (float)(raw[i][0]) * 0.0312f;                                       <span class="comment">/* convert x */</span></div>
+<div class="line"><a name="l03750"></a><span class="lineno"> 3750</span>&#160;                    g[i][1] = (float)(raw[i][1]) * 0.0312f;                                       <span class="comment">/* convert y */</span></div>
+<div class="line"><a name="l03751"></a><span class="lineno"> 3751</span>&#160;                    g[i][2] = (float)(raw[i][2]) * 0.0312f;                                       <span class="comment">/* convert z */</span></div>
+<div class="line"><a name="l03752"></a><span class="lineno"> 3752</span>&#160;                }</div>
+<div class="line"><a name="l03753"></a><span class="lineno"> 3753</span>&#160;            }</div>
+<div class="line"><a name="l03754"></a><span class="lineno"> 3754</span>&#160;        }</div>
+<div class="line"><a name="l03755"></a><span class="lineno"> 3755</span>&#160;    }</div>
+<div class="line"><a name="l03756"></a><span class="lineno"> 3756</span>&#160;    </div>
+<div class="line"><a name="l03757"></a><span class="lineno"> 3757</span>&#160;    <span class="keywordflow">return</span> 0;                                                                                     <span class="comment">/* success return 0 */</span></div>
+<div class="line"><a name="l03758"></a><span class="lineno"> 3758</span>&#160;}</div>
+<div class="line"><a name="l03759"></a><span class="lineno"> 3759</span>&#160; </div>
+<div class="line"><a name="l03770"></a><span class="lineno"><a class="line" href="group__adxl345__basic__driver.html#ga4a6327fa66cc62de852dd091f6a348ab"> 3770</a></span>&#160;uint8_t <a class="code" href="group__adxl345__basic__driver.html#ga4a6327fa66cc62de852dd091f6a348ab">adxl345_irq_handler</a>(<a class="code" href="structadxl345__handle__s.html">adxl345_handle_t</a> *handle)</div>
+<div class="line"><a name="l03771"></a><span class="lineno"> 3771</span>&#160;{</div>
+<div class="line"><a name="l03772"></a><span class="lineno"> 3772</span>&#160;    uint8_t res, prev;</div>
+<div class="line"><a name="l03773"></a><span class="lineno"> 3773</span>&#160;    </div>
+<div class="line"><a name="l03774"></a><span class="lineno"> 3774</span>&#160;    <span class="keywordflow">if</span> (handle == NULL)                                                                      <span class="comment">/* check handle */</span></div>
+<div class="line"><a name="l03775"></a><span class="lineno"> 3775</span>&#160;    {</div>
+<div class="line"><a name="l03776"></a><span class="lineno"> 3776</span>&#160;        <span class="keywordflow">return</span> 2;                                                                            <span class="comment">/* return error */</span></div>
+<div class="line"><a name="l03777"></a><span class="lineno"> 3777</span>&#160;    }</div>
+<div class="line"><a name="l03778"></a><span class="lineno"> 3778</span>&#160;    <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a19bedf28d2b9748f6a62d9ae93f4e68f">inited</a> != 1)                                                                 <span class="comment">/* check handle initialization */</span></div>
+<div class="line"><a name="l03779"></a><span class="lineno"> 3779</span>&#160;    {</div>
+<div class="line"><a name="l03780"></a><span class="lineno"> 3780</span>&#160;        <span class="keywordflow">return</span> 3;                                                                            <span class="comment">/* return error */</span></div>
+<div class="line"><a name="l03781"></a><span class="lineno"> 3781</span>&#160;    }</div>
+<div class="line"><a name="l03782"></a><span class="lineno"> 3782</span>&#160;    </div>
+<div class="line"><a name="l03783"></a><span class="lineno"> 3783</span>&#160;    res = a_adxl345_iic_spi_read(handle, <a class="code" href="driver__adxl345_8c.html#aa1a2a197465ce44bf8a2c06acc22c561">ADXL345_REG_INT_SOURCE</a>, (uint8_t *)&amp;prev, 1);       <span class="comment">/* read config */</span></div>
+<div class="line"><a name="l03784"></a><span class="lineno"> 3784</span>&#160;    <span class="keywordflow">if</span> (res != 0)                                                                            <span class="comment">/* check result */</span></div>
+<div class="line"><a name="l03785"></a><span class="lineno"> 3785</span>&#160;    {</div>
+<div class="line"><a name="l03786"></a><span class="lineno"> 3786</span>&#160;        handle-&gt;<a class="code" href="structadxl345__handle__s.html#a769d5b3a6c14790a0e126e8fe70b384b">debug_print</a>(<span class="stringliteral">&quot;adxl345: read failed.\n&quot;</span>);                                      <span class="comment">/* read failed */</span></div>
+<div class="line"><a name="l03787"></a><span class="lineno"> 3787</span>&#160;        </div>
+<div class="line"><a name="l03788"></a><span class="lineno"> 3788</span>&#160;        <span class="keywordflow">return</span> 1;                                                                            <span class="comment">/* return error */</span></div>
+<div class="line"><a name="l03789"></a><span class="lineno"> 3789</span>&#160;    }</div>
+<div class="line"><a name="l03790"></a><span class="lineno"> 3790</span>&#160;    <span class="keywordflow">if</span> ((prev &amp; (1 &lt;&lt; <a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa0e9a6aadbc77f6ca0a2edd77ba2cba43">ADXL345_INTERRUPT_DATA_READY</a>)) != 0)                                   <span class="comment">/* if data ready */</span></div>
+<div class="line"><a name="l03791"></a><span class="lineno"> 3791</span>&#160;    {</div>
+<div class="line"><a name="l03792"></a><span class="lineno"> 3792</span>&#160;        <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a> != NULL)                                                <span class="comment">/* if receive callback */</span></div>
+<div class="line"><a name="l03793"></a><span class="lineno"> 3793</span>&#160;        {</div>
+<div class="line"><a name="l03794"></a><span class="lineno"> 3794</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a>(<a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa0e9a6aadbc77f6ca0a2edd77ba2cba43">ADXL345_INTERRUPT_DATA_READY</a>);                          <span class="comment">/* run callback */</span></div>
+<div class="line"><a name="l03795"></a><span class="lineno"> 3795</span>&#160;        }</div>
+<div class="line"><a name="l03796"></a><span class="lineno"> 3796</span>&#160;    }</div>
+<div class="line"><a name="l03797"></a><span class="lineno"> 3797</span>&#160;    <span class="keywordflow">if</span> ((prev &amp; (1 &lt;&lt; <a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa401278aba736a17c8195c557e5984ff0">ADXL345_INTERRUPT_SINGLE_TAP</a>)) != 0)                                   <span class="comment">/* if single tap */</span></div>
+<div class="line"><a name="l03798"></a><span class="lineno"> 3798</span>&#160;    {</div>
+<div class="line"><a name="l03799"></a><span class="lineno"> 3799</span>&#160;        <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a> != NULL)                                                <span class="comment">/* if receive callback */</span></div>
+<div class="line"><a name="l03800"></a><span class="lineno"> 3800</span>&#160;        {</div>
+<div class="line"><a name="l03801"></a><span class="lineno"> 3801</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a>(<a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa401278aba736a17c8195c557e5984ff0">ADXL345_INTERRUPT_SINGLE_TAP</a>);                          <span class="comment">/* run callback */</span></div>
+<div class="line"><a name="l03802"></a><span class="lineno"> 3802</span>&#160;        }</div>
+<div class="line"><a name="l03803"></a><span class="lineno"> 3803</span>&#160;    }</div>
+<div class="line"><a name="l03804"></a><span class="lineno"> 3804</span>&#160;    <span class="keywordflow">if</span> ((prev &amp; (1 &lt;&lt; <a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa2d3fb827c63817611def33852d4dee59">ADXL345_INTERRUPT_DOUBLE_TAP</a>)) != 0)                                   <span class="comment">/* if double tap */</span></div>
+<div class="line"><a name="l03805"></a><span class="lineno"> 3805</span>&#160;    {</div>
+<div class="line"><a name="l03806"></a><span class="lineno"> 3806</span>&#160;        <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a> != NULL)                                                <span class="comment">/* if receive callback */</span></div>
+<div class="line"><a name="l03807"></a><span class="lineno"> 3807</span>&#160;        {</div>
+<div class="line"><a name="l03808"></a><span class="lineno"> 3808</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a>(<a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa2d3fb827c63817611def33852d4dee59">ADXL345_INTERRUPT_DOUBLE_TAP</a>);                          <span class="comment">/* run callback */</span></div>
+<div class="line"><a name="l03809"></a><span class="lineno"> 3809</span>&#160;        }</div>
+<div class="line"><a name="l03810"></a><span class="lineno"> 3810</span>&#160;    }</div>
+<div class="line"><a name="l03811"></a><span class="lineno"> 3811</span>&#160;    <span class="keywordflow">if</span> ((prev &amp; (1 &lt;&lt; <a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa3f046276d3e59075a9dcafca698795ed">ADXL345_INTERRUPT_ACTIVITY</a>)) != 0)                                     <span class="comment">/* if activity */</span></div>
+<div class="line"><a name="l03812"></a><span class="lineno"> 3812</span>&#160;    {</div>
+<div class="line"><a name="l03813"></a><span class="lineno"> 3813</span>&#160;        <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a> != NULL)                                                <span class="comment">/*if receive callback */</span></div>
+<div class="line"><a name="l03814"></a><span class="lineno"> 3814</span>&#160;        {</div>
+<div class="line"><a name="l03815"></a><span class="lineno"> 3815</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a>(<a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa3f046276d3e59075a9dcafca698795ed">ADXL345_INTERRUPT_ACTIVITY</a>);                            <span class="comment">/* run callback */</span></div>
+<div class="line"><a name="l03816"></a><span class="lineno"> 3816</span>&#160;        }</div>
+<div class="line"><a name="l03817"></a><span class="lineno"> 3817</span>&#160;    }</div>
+<div class="line"><a name="l03818"></a><span class="lineno"> 3818</span>&#160;    <span class="keywordflow">if</span> ((prev &amp; (1 &lt;&lt; <a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa65796b925c29132647fcc13f6d65dbf7">ADXL345_INTERRUPT_INACTIVITY</a>)) != 0)                                   <span class="comment">/* if inactivity */</span></div>
+<div class="line"><a name="l03819"></a><span class="lineno"> 3819</span>&#160;    {</div>
+<div class="line"><a name="l03820"></a><span class="lineno"> 3820</span>&#160;        <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a> != NULL)                                                <span class="comment">/*if receive callback */</span></div>
+<div class="line"><a name="l03821"></a><span class="lineno"> 3821</span>&#160;        {</div>
+<div class="line"><a name="l03822"></a><span class="lineno"> 3822</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a>(<a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa65796b925c29132647fcc13f6d65dbf7">ADXL345_INTERRUPT_INACTIVITY</a>);                          <span class="comment">/* run callback */</span></div>
+<div class="line"><a name="l03823"></a><span class="lineno"> 3823</span>&#160;        }</div>
+<div class="line"><a name="l03824"></a><span class="lineno"> 3824</span>&#160;    }</div>
+<div class="line"><a name="l03825"></a><span class="lineno"> 3825</span>&#160;    <span class="keywordflow">if</span> ((prev &amp; (1 &lt;&lt; <a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aaf0d131553ea0afdb8bd051b24e492d5f">ADXL345_INTERRUPT_FREE_FALL</a>)) != 0)                                    <span class="comment">/* if free fall */</span></div>
+<div class="line"><a name="l03826"></a><span class="lineno"> 3826</span>&#160;    {</div>
+<div class="line"><a name="l03827"></a><span class="lineno"> 3827</span>&#160;        <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a> != NULL)                                                <span class="comment">/* if receive callback */</span></div>
+<div class="line"><a name="l03828"></a><span class="lineno"> 3828</span>&#160;        {</div>
+<div class="line"><a name="l03829"></a><span class="lineno"> 3829</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a>(<a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aaf0d131553ea0afdb8bd051b24e492d5f">ADXL345_INTERRUPT_FREE_FALL</a>);                           <span class="comment">/* run callback */</span></div>
+<div class="line"><a name="l03830"></a><span class="lineno"> 3830</span>&#160;        }</div>
+<div class="line"><a name="l03831"></a><span class="lineno"> 3831</span>&#160;    }</div>
+<div class="line"><a name="l03832"></a><span class="lineno"> 3832</span>&#160;    <span class="keywordflow">if</span> ((prev &amp; (1 &lt;&lt; <a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa788df194c62c7ed3f6e1b55e2791a803">ADXL345_INTERRUPT_WATERMARK</a>)) != 0)                                    <span class="comment">/* if watermark */</span></div>
+<div class="line"><a name="l03833"></a><span class="lineno"> 3833</span>&#160;    {</div>
+<div class="line"><a name="l03834"></a><span class="lineno"> 3834</span>&#160;        <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a> != NULL)                                                <span class="comment">/* if receive callback */</span></div>
+<div class="line"><a name="l03835"></a><span class="lineno"> 3835</span>&#160;        {</div>
+<div class="line"><a name="l03836"></a><span class="lineno"> 3836</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a>(<a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aa788df194c62c7ed3f6e1b55e2791a803">ADXL345_INTERRUPT_WATERMARK</a>);                           <span class="comment">/* run callback */</span></div>
+<div class="line"><a name="l03837"></a><span class="lineno"> 3837</span>&#160;        }</div>
+<div class="line"><a name="l03838"></a><span class="lineno"> 3838</span>&#160;    }</div>
+<div class="line"><a name="l03839"></a><span class="lineno"> 3839</span>&#160;    <span class="keywordflow">if</span> ((prev &amp; (1 &lt;&lt; <a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aabbc90f23e9839fff2ef9b6ecc79b7e06">ADXL345_INTERRUPT_OVERRUN</a>)) != 0)                                      <span class="comment">/* if overrun */</span></div>
+<div class="line"><a name="l03840"></a><span class="lineno"> 3840</span>&#160;    {</div>
+<div class="line"><a name="l03841"></a><span class="lineno"> 3841</span>&#160;        <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a> != NULL)                                                <span class="comment">/* if receive callback */</span></div>
+<div class="line"><a name="l03842"></a><span class="lineno"> 3842</span>&#160;        {</div>
+<div class="line"><a name="l03843"></a><span class="lineno"> 3843</span>&#160;            handle-&gt;<a class="code" href="structadxl345__handle__s.html#a4a9a1af4e28aea769f6d9f02a02e07c3">receive_callback</a>(<a class="code" href="group__adxl345__interrupt__driver.html#gga67b8ca103b0d1a481b2f63a8b55ec43aabbc90f23e9839fff2ef9b6ecc79b7e06">ADXL345_INTERRUPT_OVERRUN</a>);                             <span class="comment">/* run callback */</span></div>
+<div class="line"><a name="l03844"></a><span class="lineno"> 3844</span>&#160;        }</div>
+<div class="line"><a name="l03845"></a><span class="lineno"> 3845</span>&#160;    }</div>
+<div class="line"><a name="l03846"></a><span class="lineno"> 3846</span>&#160;    </div>
+<div class="line"><a name="l03847"></a><span class="lineno"> 3847</span>&#160;    <span class="keywordflow">return</span> 0;                                                                                <span class="comment">/* success return 0 */</span></div>
+<div class="line"><a name="l03848"></a><span class="lineno"> 3848</span>&#160;}</div>
+<div class="line"><a name="l03849"></a><span class="lineno"> 3849</span>&#160; </div>
+<div class="line"><a name="l03863"></a><span class="lineno"><a class="line" href="group__adxl345__extern__driver.html#ga73234553f77d29af76f5887075062d50"> 3863</a></span>&#160;uint8_t <a class="code" href="group__adxl345__extern__driver.html#ga73234553f77d29af76f5887075062d50">adxl345_set_reg</a>(<a class="code" href="structadxl345__handle__s.html">adxl345_handle_t</a> *handle, uint8_t reg, uint8_t *buf, uint16_t len)</div>
+<div class="line"><a name="l03864"></a><span class="lineno"> 3864</span>&#160;{</div>
+<div class="line"><a name="l03865"></a><span class="lineno"> 3865</span>&#160;    <span class="keywordflow">if</span> (handle == NULL)                                          <span class="comment">/* check handle */</span></div>
+<div class="line"><a name="l03866"></a><span class="lineno"> 3866</span>&#160;    {</div>
+<div class="line"><a name="l03867"></a><span class="lineno"> 3867</span>&#160;        <span class="keywordflow">return</span> 2;                                                <span class="comment">/* return error */</span></div>
+<div class="line"><a name="l03868"></a><span class="lineno"> 3868</span>&#160;    }</div>
+<div class="line"><a name="l03869"></a><span class="lineno"> 3869</span>&#160;    <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a19bedf28d2b9748f6a62d9ae93f4e68f">inited</a> != 1)                                     <span class="comment">/* check handle initialization */</span></div>
+<div class="line"><a name="l03870"></a><span class="lineno"> 3870</span>&#160;    {</div>
+<div class="line"><a name="l03871"></a><span class="lineno"> 3871</span>&#160;        <span class="keywordflow">return</span> 3;                                                <span class="comment">/* return error */</span></div>
+<div class="line"><a name="l03872"></a><span class="lineno"> 3872</span>&#160;    }</div>
+<div class="line"><a name="l03873"></a><span class="lineno"> 3873</span>&#160;    </div>
+<div class="line"><a name="l03874"></a><span class="lineno"> 3874</span>&#160;    <span class="keywordflow">return</span> a_adxl345_iic_spi_write(handle, reg, buf, len);       <span class="comment">/* write data */</span></div>
+<div class="line"><a name="l03875"></a><span class="lineno"> 3875</span>&#160;}</div>
+<div class="line"><a name="l03876"></a><span class="lineno"> 3876</span>&#160; </div>
+<div class="line"><a name="l03890"></a><span class="lineno"><a class="line" href="group__adxl345__extern__driver.html#ga400b41a1b9f0e7b2b8efb65a6a74a3c0"> 3890</a></span>&#160;uint8_t <a class="code" href="group__adxl345__extern__driver.html#ga400b41a1b9f0e7b2b8efb65a6a74a3c0">adxl345_get_reg</a>(<a class="code" href="structadxl345__handle__s.html">adxl345_handle_t</a> *handle, uint8_t reg, uint8_t *buf, uint16_t len)</div>
+<div class="line"><a name="l03891"></a><span class="lineno"> 3891</span>&#160;{</div>
+<div class="line"><a name="l03892"></a><span class="lineno"> 3892</span>&#160;    <span class="keywordflow">if</span> (handle == NULL)                                         <span class="comment">/* check handle */</span></div>
+<div class="line"><a name="l03893"></a><span class="lineno"> 3893</span>&#160;    {</div>
+<div class="line"><a name="l03894"></a><span class="lineno"> 3894</span>&#160;        <span class="keywordflow">return</span> 2;                                               <span class="comment">/* return error */</span></div>
+<div class="line"><a name="l03895"></a><span class="lineno"> 3895</span>&#160;    }</div>
+<div class="line"><a name="l03896"></a><span class="lineno"> 3896</span>&#160;    <span class="keywordflow">if</span> (handle-&gt;<a class="code" href="structadxl345__handle__s.html#a19bedf28d2b9748f6a62d9ae93f4e68f">inited</a> != 1)                                    <span class="comment">/* check handle initialization */</span></div>
+<div class="line"><a name="l03897"></a><span class="lineno"> 3897</span>&#160;    {</div>
+<div class="line"><a name="l03898"></a><span class="lineno"> 3898</span>&#160;        <span class="keywordflow">return</span> 3;                                               <span class="comment">/* return error */</span></div>
+<div class="line"><a name="l03899"></a><span class="lineno"> 3899</span>&#160;    }</div>
+<div class="line"><a name="l03900"></a><span class="lineno"> 3900</span>&#160;    </div>
+<div class="line"><a name="l03901"></a><span class="lineno"> 3901</span>&#160;    <span class="keywordflow">return</span> a_adxl345_iic_spi_read(handle, reg, buf, len);       <span class="comment">/* read data */</span></div>
+<div class="line"><a name="l03902"></a><span class="lineno"> 3902</span>&#160;}</div>
+<div class="line"><a name="l03903"></a><span class="lineno"> 3903</span>&#160; </div>
+<div class="line"><a name="l03912"></a><span class="lineno"><a class="line" href="group__adxl345__basic__driver.html#gaf033eb7300d8109a9a8512e84e84a9ec"> 3912</a></span>&#160;uint8_t <a class="code" href="group__adxl345__basic__driver.html#gaf033eb7300d8109a9a8512e84e84a9ec">adxl345_info</a>(<a class="code" href="structadxl345__info__s.html">adxl345_info_t</a> *info)</div>
+<div class="line"><a name="l03913"></a><span class="lineno"> 3913</span>&#160;{</div>
+<div class="line"><a name="l03914"></a><span class="lineno"> 3914</span>&#160;    <span class="keywordflow">if</span> (info == NULL)                                               <span class="comment">/* check handle */</span></div>
+<div class="line"><a name="l03915"></a><span class="lineno"> 3915</span>&#160;    {</div>
+<div class="line"><a name="l03916"></a><span class="lineno"> 3916</span>&#160;        <span class="keywordflow">return</span> 2;                                                   <span class="comment">/* return error */</span></div>
+<div class="line"><a name="l03917"></a><span class="lineno"> 3917</span>&#160;    }</div>
+<div class="line"><a name="l03918"></a><span class="lineno"> 3918</span>&#160;    </div>
+<div class="line"><a name="l03919"></a><span class="lineno"> 3919</span>&#160;    memset(info, 0, <span class="keyword">sizeof</span>(<a class="code" href="structadxl345__info__s.html">adxl345_info_t</a>));                        <span class="comment">/* initialize adxl345 info structure */</span></div>
+<div class="line"><a name="l03920"></a><span class="lineno"> 3920</span>&#160;    strncpy(info-&gt;<a class="code" href="structadxl345__info__s.html#af890958c72bd715cc6454a10dc846ae6">chip_name</a>, <a class="code" href="driver__adxl345_8c.html#adc9da0a24824ca1239b593f6459b3954">CHIP_NAME</a>, 32);                        <span class="comment">/* copy chip name */</span></div>
+<div class="line"><a name="l03921"></a><span class="lineno"> 3921</span>&#160;    strncpy(info-&gt;<a class="code" href="structadxl345__info__s.html#ad25285dbf810c90f8eaf3fcef6f2b2ea">manufacturer_name</a>, <a class="code" href="driver__adxl345_8c.html#aaa2b8f5b105c3019df0cb346f472e803">MANUFACTURER_NAME</a>, 32);        <span class="comment">/* copy manufacturer name */</span></div>
+<div class="line"><a name="l03922"></a><span class="lineno"> 3922</span>&#160;    strncpy(info-&gt;<a class="code" href="structadxl345__info__s.html#aebaa6c28dd4f2c3dc27566fcb910fd28">interface</a>, <span class="stringliteral">&quot;IIC SPI&quot;</span>, 8);                         <span class="comment">/* copy interface name */</span></div>
+<div class="line"><a name="l03923"></a><span class="lineno"> 3923</span>&#160;    info-&gt;<a class="code" href="structadxl345__info__s.html#ad8bde6ddadaf43d951e62f3befb9d35a">supply_voltage_min_v</a> = <a class="code" href="driver__adxl345_8c.html#aac8d8cbd899667d609787ef4cf37054d">SUPPLY_VOLTAGE_MIN</a>;                <span class="comment">/* set minimal supply voltage */</span></div>
+<div class="line"><a name="l03924"></a><span class="lineno"> 3924</span>&#160;    info-&gt;<a class="code" href="structadxl345__info__s.html#a3d2b12bcac7a85ea8646bff9debe8660">supply_voltage_max_v</a> = <a class="code" href="driver__adxl345_8c.html#a68eba8b601afe11f1b871d944976c035">SUPPLY_VOLTAGE_MAX</a>;                <span class="comment">/* set maximum supply voltage */</span></div>
+<div class="line"><a name="l03925"></a><span class="lineno"> 3925</span>&#160;    info-&gt;<a class="code" href="structadxl345__info__s.html#a9db82802561bf22d799b03a345f1d1dc">max_current_ma</a> = <a class="code" href="driver__adxl345_8c.html#a2989837a37d6d63b59c6dd541b785435">MAX_CURRENT</a>;                             <span class="comment">/* set maximum current */</span></div>
+<div class="line"><a name="l03926"></a><span class="lineno"> 3926</span>&#160;    info-&gt;<a class="code" href="structadxl345__info__s.html#a3366a5dce9b829e03c3d321c2b4df3f6">temperature_max</a> = <a class="code" href="driver__adxl345_8c.html#a90c0b20d54005712fcc8cb01281360e9">TEMPERATURE_MAX</a>;                        <span class="comment">/* set minimal temperature */</span></div>
+<div class="line"><a name="l03927"></a><span class="lineno"> 3927</span>&#160;    info-&gt;<a class="code" href="structadxl345__info__s.html#a8f9dbe66ac0b66ebae0a36fcb4ba368e">temperature_min</a> = <a class="code" href="driver__adxl345_8c.html#aab353db5bf4eb787f86a2080f609a551">TEMPERATURE_MIN</a>;                        <span class="comment">/* set maximum temperature */</span></div>
+<div class="line"><a name="l03928"></a><span class="lineno"> 3928</span>&#160;    info-&gt;<a class="code" href="structadxl345__info__s.html#a41b0bd442708b70d252c50b92c75265a">driver_version</a> = <a class="code" href="driver__adxl345_8c.html#ae578001fe043b4cca7a0edd801cfe9c4">DRIVER_VERSION</a>;                          <span class="comment">/* set driver version */</span></div>
+<div class="line"><a name="l03929"></a><span class="lineno"> 3929</span>&#160;    </div>
+<div class="line"><a name="l03930"></a><span class="lineno"> 3930</span>&#160;    <span class="keywordflow">return</span> 0;                                                       <span class="comment">/* success return 0 */</span></div>
+<div class="line"><a name="l03931"></a><span class="lineno"> 3931</span>&#160;}</div>
 <div class="ttc" id="adriver__adxl345_8c_html_a027ffe4ead3047b75f1c15f8ee27acef"><div class="ttname"><a href="driver__adxl345_8c.html#a027ffe4ead3047b75f1c15f8ee27acef">ADXL345_REG_DUR</a></div><div class="ttdeci">#define ADXL345_REG_DUR</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l00060">driver_adxl345.c:60</a></div></div>
 <div class="ttc" id="adriver__adxl345_8c_html_a0522945d2a7b9a37f7d76e2620234576"><div class="ttname"><a href="driver__adxl345_8c.html#a0522945d2a7b9a37f7d76e2620234576">ADXL345_REG_THRESH_FF</a></div><div class="ttdeci">#define ADXL345_REG_THRESH_FF</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l00067">driver_adxl345.c:67</a></div></div>
 <div class="ttc" id="adriver__adxl345_8c_html_a07887f474abd214ba8528cd136bc2b60"><div class="ttname"><a href="driver__adxl345_8c.html#a07887f474abd214ba8528cd136bc2b60">ADXL345_REG_TAP_AXES</a></div><div class="ttdeci">#define ADXL345_REG_TAP_AXES</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l00069">driver_adxl345.c:69</a></div></div>
@@ -2656,7 +2908,7 @@ $(document).ready(function(){initNavTree('driver__adxl345_8c_source.html',''); i
 <div class="ttc" id="agroup__adxl345__basic__driver_html_ga442aa1fd6b2ebfa51830a19ff6beffa7"><div class="ttname"><a href="group__adxl345__basic__driver.html#ga442aa1fd6b2ebfa51830a19ff6beffa7">adxl345_set_measure</a></div><div class="ttdeci">uint8_t adxl345_set_measure(adxl345_handle_t *handle, adxl345_bool_t enable)</div><div class="ttdoc">enable or disable the measure</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l02896">driver_adxl345.c:2896</a></div></div>
 <div class="ttc" id="agroup__adxl345__basic__driver_html_ga46923c97f43e45a5332332c2f31af677"><div class="ttname"><a href="group__adxl345__basic__driver.html#ga46923c97f43e45a5332332c2f31af677">adxl345_set_trigger_pin</a></div><div class="ttdeci">uint8_t adxl345_set_trigger_pin(adxl345_handle_t *handle, adxl345_interrupt_pin_t pin)</div><div class="ttdoc">set the trigger pin</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l02526">driver_adxl345.c:2526</a></div></div>
 <div class="ttc" id="agroup__adxl345__basic__driver_html_ga48339d6fc18a8612e7806ce01b020ff6"><div class="ttname"><a href="group__adxl345__basic__driver.html#ga48339d6fc18a8612e7806ce01b020ff6">adxl345_get_full_resolution</a></div><div class="ttdeci">uint8_t adxl345_get_full_resolution(adxl345_handle_t *handle, adxl345_bool_t *enable)</div><div class="ttdoc">get the full resolution status</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l02267">driver_adxl345.c:2267</a></div></div>
-<div class="ttc" id="agroup__adxl345__basic__driver_html_ga4a6327fa66cc62de852dd091f6a348ab"><div class="ttname"><a href="group__adxl345__basic__driver.html#ga4a6327fa66cc62de852dd091f6a348ab">adxl345_irq_handler</a></div><div class="ttdeci">uint8_t adxl345_irq_handler(adxl345_handle_t *handle)</div><div class="ttdoc">irq handler</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l03518">driver_adxl345.c:3518</a></div></div>
+<div class="ttc" id="agroup__adxl345__basic__driver_html_ga4a6327fa66cc62de852dd091f6a348ab"><div class="ttname"><a href="group__adxl345__basic__driver.html#ga4a6327fa66cc62de852dd091f6a348ab">adxl345_irq_handler</a></div><div class="ttdeci">uint8_t adxl345_irq_handler(adxl345_handle_t *handle)</div><div class="ttdoc">irq handler</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l03770">driver_adxl345.c:3770</a></div></div>
 <div class="ttc" id="agroup__adxl345__basic__driver_html_ga4adae7ff4fc525c59ac9afbf4f3b264b"><div class="ttname"><a href="group__adxl345__basic__driver.html#ga4adae7ff4fc525c59ac9afbf4f3b264b">adxl345_set_link_activity_inactivity</a></div><div class="ttdeci">uint8_t adxl345_set_link_activity_inactivity(adxl345_handle_t *handle, adxl345_bool_t enable)</div><div class="ttdoc">enable or disable the activity and inactivity linking</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l02748">driver_adxl345.c:2748</a></div></div>
 <div class="ttc" id="agroup__adxl345__basic__driver_html_ga4b2aa5d399b791f74d6422950b983bca"><div class="ttname"><a href="group__adxl345__basic__driver.html#ga4b2aa5d399b791f74d6422950b983bca">adxl345_get_free_fall_time</a></div><div class="ttdeci">uint8_t adxl345_get_free_fall_time(adxl345_handle_t *handle, uint8_t *t)</div><div class="ttdoc">get the free fall time</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l01503">driver_adxl345.c:1503</a></div></div>
 <div class="ttc" id="agroup__adxl345__basic__driver_html_ga4c60de432feda508c837013b31fb7709"><div class="ttname"><a href="group__adxl345__basic__driver.html#ga4c60de432feda508c837013b31fb7709">adxl345_free_fall_time_convert_to_data</a></div><div class="ttdeci">uint8_t adxl345_free_fall_time_convert_to_data(adxl345_handle_t *handle, uint8_t reg, uint16_t *ms)</div><div class="ttdoc">convert the register raw data to the free fall time</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l01555">driver_adxl345.c:1555</a></div></div>
@@ -2728,14 +2980,14 @@ $(document).ready(function(){initNavTree('driver__adxl345_8c_source.html',''); i
 <div class="ttc" id="agroup__adxl345__basic__driver_html_gae97cb6b21726e0e96bc0ecc4ec00bed6"><div class="ttname"><a href="group__adxl345__basic__driver.html#gae97cb6b21726e0e96bc0ecc4ec00bed6">adxl345_sleep_frequency_t</a></div><div class="ttdeci">adxl345_sleep_frequency_t</div><div class="ttdoc">adxl345 sleep frequency enumeration definition</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8h_source.html#l00194">driver_adxl345.h:195</a></div></div>
 <div class="ttc" id="agroup__adxl345__basic__driver_html_gaea295b0a392fe2ce5036d0b1ec858272"><div class="ttname"><a href="group__adxl345__basic__driver.html#gaea295b0a392fe2ce5036d0b1ec858272">adxl345_offset_convert_to_data</a></div><div class="ttdeci">uint8_t adxl345_offset_convert_to_data(adxl345_handle_t *handle, int8_t reg, float *g)</div><div class="ttdoc">convert the register raw data to the offset</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l00499">driver_adxl345.c:499</a></div></div>
 <div class="ttc" id="agroup__adxl345__basic__driver_html_gaef91234b54b6f542a8fedae8165d7555"><div class="ttname"><a href="group__adxl345__basic__driver.html#gaef91234b54b6f542a8fedae8165d7555">adxl345_mode_t</a></div><div class="ttdeci">adxl345_mode_t</div><div class="ttdoc">adxl345 mode enumeration definition</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8h_source.html#l00205">driver_adxl345.h:206</a></div></div>
-<div class="ttc" id="agroup__adxl345__basic__driver_html_gaf033eb7300d8109a9a8512e84e84a9ec"><div class="ttname"><a href="group__adxl345__basic__driver.html#gaf033eb7300d8109a9a8512e84e84a9ec">adxl345_info</a></div><div class="ttdeci">uint8_t adxl345_info(adxl345_info_t *info)</div><div class="ttdoc">get chip's information</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l03660">driver_adxl345.c:3660</a></div></div>
+<div class="ttc" id="agroup__adxl345__basic__driver_html_gaf033eb7300d8109a9a8512e84e84a9ec"><div class="ttname"><a href="group__adxl345__basic__driver.html#gaf033eb7300d8109a9a8512e84e84a9ec">adxl345_info</a></div><div class="ttdeci">uint8_t adxl345_info(adxl345_info_t *info)</div><div class="ttdoc">get chip's information</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l03912">driver_adxl345.c:3912</a></div></div>
 <div class="ttc" id="agroup__adxl345__basic__driver_html_gaf42c27ab69f959c6ebd920a495aca4b0"><div class="ttname"><a href="group__adxl345__basic__driver.html#gaf42c27ab69f959c6ebd920a495aca4b0">adxl345_set_tap_threshold</a></div><div class="ttdeci">uint8_t adxl345_set_tap_threshold(adxl345_handle_t *handle, uint8_t threshold)</div><div class="ttdoc">set the tap threshold</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l00266">driver_adxl345.c:266</a></div></div>
 <div class="ttc" id="agroup__adxl345__basic__driver_html_gafa1609d575a2ab167b4c5f4a6f77b7c9"><div class="ttname"><a href="group__adxl345__basic__driver.html#gafa1609d575a2ab167b4c5f4a6f77b7c9">adxl345_set_range</a></div><div class="ttdeci">uint8_t adxl345_set_range(adxl345_handle_t *handle, adxl345_range_t range)</div><div class="ttdoc">set the chip range</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l02378">driver_adxl345.c:2378</a></div></div>
 <div class="ttc" id="agroup__adxl345__basic__driver_html_gafafac6e383a51d215cf7e48cb99e64d6"><div class="ttname"><a href="group__adxl345__basic__driver.html#gafafac6e383a51d215cf7e48cb99e64d6">adxl345_free_fall_threshold_convert_to_data</a></div><div class="ttdeci">uint8_t adxl345_free_fall_threshold_convert_to_data(adxl345_handle_t *handle, uint8_t reg, float *g)</div><div class="ttdoc">convert the register raw data to the free fall threshold</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l01451">driver_adxl345.c:1451</a></div></div>
 <div class="ttc" id="agroup__adxl345__basic__driver_html_gga01379764ec2c7e5701ff913be385c6d8a7f7c782dcd601120a25ee54d1515be91"><div class="ttname"><a href="group__adxl345__basic__driver.html#gga01379764ec2c7e5701ff913be385c6d8a7f7c782dcd601120a25ee54d1515be91">ADXL345_INTERFACE_IIC</a></div><div class="ttdeci">@ ADXL345_INTERFACE_IIC</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8h_source.html#l00065">driver_adxl345.h:65</a></div></div>
 <div class="ttc" id="agroup__adxl345__basic__driver_html_ggaef91234b54b6f542a8fedae8165d7555a0037bdbb2e171390d6420e0a67c5efeb"><div class="ttname"><a href="group__adxl345__basic__driver.html#ggaef91234b54b6f542a8fedae8165d7555a0037bdbb2e171390d6420e0a67c5efeb">ADXL345_MODE_BYPASS</a></div><div class="ttdeci">@ ADXL345_MODE_BYPASS</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8h_source.html#l00207">driver_adxl345.h:207</a></div></div>
-<div class="ttc" id="agroup__adxl345__extern__driver_html_ga400b41a1b9f0e7b2b8efb65a6a74a3c0"><div class="ttname"><a href="group__adxl345__extern__driver.html#ga400b41a1b9f0e7b2b8efb65a6a74a3c0">adxl345_get_reg</a></div><div class="ttdeci">uint8_t adxl345_get_reg(adxl345_handle_t *handle, uint8_t reg, uint8_t *buf, uint16_t len)</div><div class="ttdoc">get the chip register</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l03638">driver_adxl345.c:3638</a></div></div>
-<div class="ttc" id="agroup__adxl345__extern__driver_html_ga73234553f77d29af76f5887075062d50"><div class="ttname"><a href="group__adxl345__extern__driver.html#ga73234553f77d29af76f5887075062d50">adxl345_set_reg</a></div><div class="ttdeci">uint8_t adxl345_set_reg(adxl345_handle_t *handle, uint8_t reg, uint8_t *buf, uint16_t len)</div><div class="ttdoc">set the chip register</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l03611">driver_adxl345.c:3611</a></div></div>
+<div class="ttc" id="agroup__adxl345__extern__driver_html_ga400b41a1b9f0e7b2b8efb65a6a74a3c0"><div class="ttname"><a href="group__adxl345__extern__driver.html#ga400b41a1b9f0e7b2b8efb65a6a74a3c0">adxl345_get_reg</a></div><div class="ttdeci">uint8_t adxl345_get_reg(adxl345_handle_t *handle, uint8_t reg, uint8_t *buf, uint16_t len)</div><div class="ttdoc">get the chip register</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l03890">driver_adxl345.c:3890</a></div></div>
+<div class="ttc" id="agroup__adxl345__extern__driver_html_ga73234553f77d29af76f5887075062d50"><div class="ttname"><a href="group__adxl345__extern__driver.html#ga73234553f77d29af76f5887075062d50">adxl345_set_reg</a></div><div class="ttdeci">uint8_t adxl345_set_reg(adxl345_handle_t *handle, uint8_t reg, uint8_t *buf, uint16_t len)</div><div class="ttdoc">set the chip register</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l03863">driver_adxl345.c:3863</a></div></div>
 <div class="ttc" id="agroup__adxl345__fifo__driver_html_ga3951f4583cfaeda6c300b7949ac5f619"><div class="ttname"><a href="group__adxl345__fifo__driver.html#ga3951f4583cfaeda6c300b7949ac5f619">adxl345_get_watermark</a></div><div class="ttdeci">uint8_t adxl345_get_watermark(adxl345_handle_t *handle, uint8_t *level)</div><div class="ttdoc">get the fifo watermark</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l02637">driver_adxl345.c:2637</a></div></div>
 <div class="ttc" id="agroup__adxl345__fifo__driver_html_gab02a914bb33b35d2735aed4f44be6c3b"><div class="ttname"><a href="group__adxl345__fifo__driver.html#gab02a914bb33b35d2735aed4f44be6c3b">adxl345_get_watermark_level</a></div><div class="ttdeci">uint8_t adxl345_get_watermark_level(adxl345_handle_t *handle, uint8_t *level)</div><div class="ttdoc">get the current fifo watermark level</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l02674">driver_adxl345.c:2674</a></div></div>
 <div class="ttc" id="agroup__adxl345__fifo__driver_html_gadb751a0438496cb126f842ace9f6f396"><div class="ttname"><a href="group__adxl345__fifo__driver.html#gadb751a0438496cb126f842ace9f6f396">adxl345_set_watermark</a></div><div class="ttdeci">uint8_t adxl345_set_watermark(adxl345_handle_t *handle, uint8_t level)</div><div class="ttdoc">set the fifo watermark</div><div class="ttdef"><b>Definition:</b> <a href="driver__adxl345_8c_source.html#l02600">driver_adxl345.c:2600</a></div></div>
