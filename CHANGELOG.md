@@ -1,3 +1,9 @@
+## 2.0.6 (2025-02-03)
+
+## Bug Fixes
+
+- fix interrupt bugs
+
 ## 2.0.5 (2025-02-02)
 
 ## Bug Fixes

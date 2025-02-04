@@ -109,6 +109,8 @@ uint8_t adxl345_fifo_init(adxl345_interface_t interface, adxl345_address_t addr_
                           void (*callback)(float (*g)[3], uint16_t len))
 {
     uint8_t res;
+    uint8_t source;
+    uint8_t status;
     int8_t reg;
     
     /* link interface function */
@@ -717,6 +719,26 @@ uint8_t adxl345_fifo_init(adxl345_interface_t interface, adxl345_address_t addr_
     if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt failed.\n");
+        (void)adxl345_deinit(&gs_handle);
+        
+        return 1;
+    }
+    
+    /* clear interrupt */
+    res = adxl345_get_interrupt_source(&gs_handle, &source);
+    if (res != 0)
+    {
+        adxl345_interface_debug_print("adxl345: get interrupt source failed.\n");
+        (void)adxl345_deinit(&gs_handle);
+        
+        return 1;
+    }
+    
+    /* get fifo status */
+    res = adxl345_get_watermark_level(&gs_handle, &status);
+    if (res != 0)
+    {
+        adxl345_interface_debug_print("adxl345: get watermark level failed.\n");
         (void)adxl345_deinit(&gs_handle);
         
         return 1;

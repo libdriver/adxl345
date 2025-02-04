@@ -156,6 +156,7 @@ static uint8_t a_adxl345_test_server(void)
 uint8_t adxl345_tap_action_fall_test(adxl345_interface_t interface, adxl345_address_t addr_pin)
 {
     uint8_t res;
+    uint8_t source;
     int8_t reg;
     adxl345_info_t info;
     
@@ -803,6 +804,16 @@ uint8_t adxl345_tap_action_fall_test(adxl345_interface_t interface, adxl345_addr
     if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt failed.\n");
+        (void)adxl345_deinit(&gs_handle);
+        
+        return 1;
+    }
+    
+    /* clear interrupt */
+    res = adxl345_get_interrupt_source(&gs_handle, &source);
+    if (res != 0)
+    {
+        adxl345_interface_debug_print("adxl345: get interrupt source failed.\n");
         (void)adxl345_deinit(&gs_handle);
         
         return 1;
