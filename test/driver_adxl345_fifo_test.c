@@ -126,6 +126,8 @@ uint8_t adxl345_fifo_test(adxl345_interface_t interface, adxl345_address_t addr_
 {
     uint8_t res;
     uint8_t timeout;
+    uint8_t source;
+    uint8_t status;
     int8_t reg;
     adxl345_info_t info;
     
@@ -783,6 +785,26 @@ uint8_t adxl345_fifo_test(adxl345_interface_t interface, adxl345_address_t addr_
     adxl345_interface_debug_print("adxl345: start fifo test.\n");
     gs_watermark_flag = 0;
     timeout = 0;
+    
+    /* clear interrupt */
+    res = adxl345_get_interrupt_source(&gs_handle, &source);
+    if (res != 0)
+    {
+        adxl345_interface_debug_print("adxl345: get interrupt source failed.\n");
+        (void)adxl345_deinit(&gs_handle);
+        
+        return 1;
+    }
+    
+    /* get fifo status */
+    res = adxl345_get_watermark_level(&gs_handle, &status);
+    if (res != 0)
+    {
+        adxl345_interface_debug_print("adxl345: get watermark level failed.\n");
+        (void)adxl345_deinit(&gs_handle);
+        
+        return 1;
+    }
     
     /* start measure */
     res = adxl345_set_measure(&gs_handle, ADXL345_BOOL_TRUE);

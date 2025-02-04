@@ -149,6 +149,7 @@ uint8_t adxl345_interrupt_init(adxl345_interface_t interface, adxl345_address_t 
                                adxl345_bool_t inaction_enable, adxl345_bool_t fall_enable)
 {
     uint8_t res;
+    uint8_t source;
     int8_t reg;
 
     /* link interface function */
@@ -753,6 +754,16 @@ uint8_t adxl345_interrupt_init(adxl345_interface_t interface, adxl345_address_t 
     if (res != 0)
     {
         adxl345_interface_debug_print("adxl345: set interrupt failed.\n");
+        (void)adxl345_deinit(&gs_handle);
+        
+        return 1;
+    }
+    
+    /* clear interrupt */
+    res = adxl345_get_interrupt_source(&gs_handle, &source);
+    if (res != 0)
+    {
+        adxl345_interface_debug_print("adxl345: get interrupt source failed.\n");
         (void)adxl345_deinit(&gs_handle);
         
         return 1;
