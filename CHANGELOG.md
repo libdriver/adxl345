@@ -1,3 +1,9 @@
+## 2.0.7 (2025-02-05)
+
+## Bug Fixes
+
+- fix fifo bugs
+
 ## 2.0.6 (2025-02-03)
 
 ## Bug Fixes
