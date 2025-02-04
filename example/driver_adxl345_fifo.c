@@ -112,6 +112,7 @@ uint8_t adxl345_fifo_init(adxl345_interface_t interface, adxl345_address_t addr_
     uint8_t source;
     uint8_t status;
     int8_t reg;
+    uint16_t len;
     
     /* link interface function */
     DRIVER_ADXL345_LINK_INIT(&gs_handle, adxl345_handle_t);
@@ -753,6 +754,18 @@ uint8_t adxl345_fifo_init(adxl345_interface_t interface, adxl345_address_t addr_
         
         return 1;
     }
+    
+    /* delay 500ms */
+    adxl345_interface_delay_ms(500);
+    len = 20;
+    if (adxl345_read(&gs_handle, (int16_t (*)[3])gs_raw, (float (*)[3])gs_data, (uint16_t *)&len) != 0)
+    {
+        adxl345_interface_debug_print("adxl345: read failed.\n");
+        (void)adxl345_deinit(&gs_handle);
+        
+        return 1;
+    }
+    
     a_callback = callback;
     
     return 0;
