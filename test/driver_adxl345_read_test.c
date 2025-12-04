@@ -53,8 +53,9 @@ static float gs_test[20][3];              /**< test buffer */
  */
 uint8_t adxl345_read_test(adxl345_interface_t interface, adxl345_address_t addr_pin, uint32_t times)
 {
-    uint8_t res, i;
+    uint8_t res;
     int8_t reg;
+    uint32_t i;
     adxl345_info_t info;
     
     /* link interface function */
