@@ -3382,7 +3382,7 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
            
             return 1;                                                                             /* return error */
         }
-        raw[0][0] = (int16_t)(buf[1] << 8) | buf[0];                                              /* set raw z */
+        raw[0][0] = (int16_t)(buf[1] << 8) | buf[0];                                              /* set raw x */
         raw[0][1] = (int16_t)(buf[3] << 8) | buf[2];                                              /* set raw y */
         raw[0][2] = (int16_t)(buf[5] << 8) | buf[4];                                              /* set raw z */
         if (full_res == 1)                                                                        /* if full resolution */
