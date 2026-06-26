@@ -1542,19 +1542,6 @@ uint8_t adxl345_get_sleep(adxl345_handle_t *handle, adxl345_bool_t *enable);
 uint8_t adxl345_set_sleep_frequency(adxl345_handle_t *handle, adxl345_sleep_frequency_t sleep_frequency);
 
 /**
- * @brief     set the sleep frequency
- * @param[in] *handle pointer to an adxl345 handle structure
- * @param[in] sleep_frequency sleep frequency
- * @return    status code
- *            - 0 success
- *            - 1 set sleep frequency failed
- *            - 2 handle is NULL
- *            - 3 handle is not initialized
- * @note      none
- */
-uint8_t adxl345_set_sleep_frequency(adxl345_handle_t *handle, adxl345_sleep_frequency_t sleep_frequency);
-
-/**
  * @brief      get the sleep frequency
  * @param[in]  *handle pointer to an adxl345 handle structure
  * @param[out] *sleep_frequency pointer to a sleep frequency buffer

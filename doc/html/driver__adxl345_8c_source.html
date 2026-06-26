@@ -2583,7 +2583,7 @@ $(function(){initNavTree('driver__adxl345_8c_source.html','',''); });
 <div class="line"><a id="l03420" name="l03420"></a><span class="lineno"> 3420</span>                {</div>
 <div class="line"><a id="l03421" name="l03421"></a><span class="lineno"> 3421</span>                    <span class="keywordflow">if</span> ((raw[0][0] &amp; (1 &lt;&lt; 15)) != 0)                                             <span class="comment">/* check sigend bit */</span></div>
 <div class="line"><a id="l03422" name="l03422"></a><span class="lineno"> 3422</span>                    {</div>
-<div class="line"><a id="l03423" name="l03423"></a><span class="lineno"> 3423</span>                        raw[0][0] = ((uint16_t)0xF3 &lt;&lt; 8) | ((raw[0][0] &gt;&gt; 5) &amp; 0x7FF);           <span class="comment">/* negative */</span></div>
+<div class="line"><a id="l03423" name="l03423"></a><span class="lineno"> 3423</span>                        raw[0][0] = ((uint16_t)0xF8 &lt;&lt; 8) | ((raw[0][0] &gt;&gt; 5) &amp; 0x7FF);           <span class="comment">/* negative */</span></div>
 <div class="line"><a id="l03424" name="l03424"></a><span class="lineno"> 3424</span>                    }</div>
 <div class="line"><a id="l03425" name="l03425"></a><span class="lineno"> 3425</span>                    <span class="keywordflow">else</span></div>
 <div class="line"><a id="l03426" name="l03426"></a><span class="lineno"> 3426</span>                    {</div>
@@ -2591,7 +2591,7 @@ $(function(){initNavTree('driver__adxl345_8c_source.html','',''); });
 <div class="line"><a id="l03428" name="l03428"></a><span class="lineno"> 3428</span>                    }</div>
 <div class="line"><a id="l03429" name="l03429"></a><span class="lineno"> 3429</span>                    <span class="keywordflow">if</span> ((raw[0][1] &amp; (1 &lt;&lt; 15)) != 0)                                             <span class="comment">/* check sigend bit */</span></div>
 <div class="line"><a id="l03430" name="l03430"></a><span class="lineno"> 3430</span>                    {</div>
-<div class="line"><a id="l03431" name="l03431"></a><span class="lineno"> 3431</span>                        raw[0][1] = ((uint16_t)0xF3 &lt;&lt; 8) | ((raw[0][1] &gt;&gt; 5) &amp; 0x7FF);           <span class="comment">/* negative */</span></div>
+<div class="line"><a id="l03431" name="l03431"></a><span class="lineno"> 3431</span>                        raw[0][1] = ((uint16_t)0xF8 &lt;&lt; 8) | ((raw[0][1] &gt;&gt; 5) &amp; 0x7FF);           <span class="comment">/* negative */</span></div>
 <div class="line"><a id="l03432" name="l03432"></a><span class="lineno"> 3432</span>                    }</div>
 <div class="line"><a id="l03433" name="l03433"></a><span class="lineno"> 3433</span>                    <span class="keywordflow">else</span></div>
 <div class="line"><a id="l03434" name="l03434"></a><span class="lineno"> 3434</span>                    {</div>
@@ -2599,7 +2599,7 @@ $(function(){initNavTree('driver__adxl345_8c_source.html','',''); });
 <div class="line"><a id="l03436" name="l03436"></a><span class="lineno"> 3436</span>                    }</div>
 <div class="line"><a id="l03437" name="l03437"></a><span class="lineno"> 3437</span>                    <span class="keywordflow">if</span> ((raw[0][2] &amp; (1 &lt;&lt; 15)) != 0)                                             <span class="comment">/* check sigend bit */</span></div>
 <div class="line"><a id="l03438" name="l03438"></a><span class="lineno"> 3438</span>                    {</div>
-<div class="line"><a id="l03439" name="l03439"></a><span class="lineno"> 3439</span>                        raw[0][2] = ((uint16_t)0xF3 &lt;&lt; 8) | ((raw[0][2] &gt;&gt; 5) &amp; 0x7FF);           <span class="comment">/* negative */</span></div>
+<div class="line"><a id="l03439" name="l03439"></a><span class="lineno"> 3439</span>                        raw[0][2] = ((uint16_t)0xF8 &lt;&lt; 8) | ((raw[0][2] &gt;&gt; 5) &amp; 0x7FF);           <span class="comment">/* negative */</span></div>
 <div class="line"><a id="l03440" name="l03440"></a><span class="lineno"> 3440</span>                    }</div>
 <div class="line"><a id="l03441" name="l03441"></a><span class="lineno"> 3441</span>                    <span class="keywordflow">else</span></div>
 <div class="line"><a id="l03442" name="l03442"></a><span class="lineno"> 3442</span>                    {</div>
@@ -2778,7 +2778,7 @@ $(function(){initNavTree('driver__adxl345_8c_source.html','',''); });
 <div class="line"><a id="l03615" name="l03615"></a><span class="lineno"> 3615</span>                    {</div>
 <div class="line"><a id="l03616" name="l03616"></a><span class="lineno"> 3616</span>                        <span class="keywordflow">if</span> ((raw[i][0] &amp; (1 &lt;&lt; 15)) != 0)                                         <span class="comment">/* check sigend bit */</span></div>
 <div class="line"><a id="l03617" name="l03617"></a><span class="lineno"> 3617</span>                        {</div>
-<div class="line"><a id="l03618" name="l03618"></a><span class="lineno"> 3618</span>                            raw[i][0] = ((uint16_t)0xF3 &lt;&lt; 8) | ((raw[i][0] &gt;&gt; 5) &amp; 0x7FF);       <span class="comment">/* negative */</span></div>
+<div class="line"><a id="l03618" name="l03618"></a><span class="lineno"> 3618</span>                            raw[i][0] = ((uint16_t)0xF8 &lt;&lt; 8) | ((raw[i][0] &gt;&gt; 5) &amp; 0x7FF);       <span class="comment">/* negative */</span></div>
 <div class="line"><a id="l03619" name="l03619"></a><span class="lineno"> 3619</span>                        }</div>
 <div class="line"><a id="l03620" name="l03620"></a><span class="lineno"> 3620</span>                        <span class="keywordflow">else</span></div>
 <div class="line"><a id="l03621" name="l03621"></a><span class="lineno"> 3621</span>                        {</div>
@@ -2786,7 +2786,7 @@ $(function(){initNavTree('driver__adxl345_8c_source.html','',''); });
 <div class="line"><a id="l03623" name="l03623"></a><span class="lineno"> 3623</span>                        }</div>
 <div class="line"><a id="l03624" name="l03624"></a><span class="lineno"> 3624</span>                        <span class="keywordflow">if</span> ((raw[i][1] &amp; (1 &lt;&lt; 15)) != 0)                                         <span class="comment">/* check sigend bit */</span></div>
 <div class="line"><a id="l03625" name="l03625"></a><span class="lineno"> 3625</span>                        {</div>
-<div class="line"><a id="l03626" name="l03626"></a><span class="lineno"> 3626</span>                            raw[i][1] = ((uint16_t)0xF3 &lt;&lt; 8) | ((raw[i][1] &gt;&gt; 5) &amp; 0x7FF);       <span class="comment">/* negative */</span></div>
+<div class="line"><a id="l03626" name="l03626"></a><span class="lineno"> 3626</span>                            raw[i][1] = ((uint16_t)0xF8 &lt;&lt; 8) | ((raw[i][1] &gt;&gt; 5) &amp; 0x7FF);       <span class="comment">/* negative */</span></div>
 <div class="line"><a id="l03627" name="l03627"></a><span class="lineno"> 3627</span>                        }</div>
 <div class="line"><a id="l03628" name="l03628"></a><span class="lineno"> 3628</span>                        <span class="keywordflow">else</span></div>
 <div class="line"><a id="l03629" name="l03629"></a><span class="lineno"> 3629</span>                        {</div>
@@ -2794,7 +2794,7 @@ $(function(){initNavTree('driver__adxl345_8c_source.html','',''); });
 <div class="line"><a id="l03631" name="l03631"></a><span class="lineno"> 3631</span>                        }</div>
 <div class="line"><a id="l03632" name="l03632"></a><span class="lineno"> 3632</span>                        <span class="keywordflow">if</span> ((raw[i][2] &amp; (1 &lt;&lt; 15)) != 0)                                         <span class="comment">/* check sigend bit */</span></div>
 <div class="line"><a id="l03633" name="l03633"></a><span class="lineno"> 3633</span>                        {</div>
-<div class="line"><a id="l03634" name="l03634"></a><span class="lineno"> 3634</span>                            raw[i][2] = ((uint16_t)0xF3 &lt;&lt; 8) | ((raw[i][2] &gt;&gt; 5) &amp; 0x7FF);       <span class="comment">/* negative */</span></div>
+<div class="line"><a id="l03634" name="l03634"></a><span class="lineno"> 3634</span>                            raw[i][2] = ((uint16_t)0xF8 &lt;&lt; 8) | ((raw[i][2] &gt;&gt; 5) &amp; 0x7FF);       <span class="comment">/* negative */</span></div>
 <div class="line"><a id="l03635" name="l03635"></a><span class="lineno"> 3635</span>                        }</div>
 <div class="line"><a id="l03636" name="l03636"></a><span class="lineno"> 3636</span>                        <span class="keywordflow">else</span></div>
 <div class="line"><a id="l03637" name="l03637"></a><span class="lineno"> 3637</span>                        {</div>

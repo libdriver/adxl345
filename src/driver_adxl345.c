@@ -3420,7 +3420,7 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
                 {
                     if ((raw[0][0] & (1 << 15)) != 0)                                             /* check sigend bit */
                     {
-                        raw[0][0] = ((uint16_t)0xF3 << 8) | ((raw[0][0] >> 5) & 0x7FF);           /* negative */
+                        raw[0][0] = ((uint16_t)0xF8 << 8) | ((raw[0][0] >> 5) & 0x7FF);           /* negative */
                     }
                     else
                     {
@@ -3428,7 +3428,7 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
                     }
                     if ((raw[0][1] & (1 << 15)) != 0)                                             /* check sigend bit */
                     {
-                        raw[0][1] = ((uint16_t)0xF3 << 8) | ((raw[0][1] >> 5) & 0x7FF);           /* negative */
+                        raw[0][1] = ((uint16_t)0xF8 << 8) | ((raw[0][1] >> 5) & 0x7FF);           /* negative */
                     }
                     else
                     {
@@ -3436,7 +3436,7 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
                     }
                     if ((raw[0][2] & (1 << 15)) != 0)                                             /* check sigend bit */
                     {
-                        raw[0][2] = ((uint16_t)0xF3 << 8) | ((raw[0][2] >> 5) & 0x7FF);           /* negative */
+                        raw[0][2] = ((uint16_t)0xF8 << 8) | ((raw[0][2] >> 5) & 0x7FF);           /* negative */
                     }
                     else
                     {
@@ -3615,7 +3615,7 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
                     {
                         if ((raw[i][0] & (1 << 15)) != 0)                                         /* check sigend bit */
                         {
-                            raw[i][0] = ((uint16_t)0xF3 << 8) | ((raw[i][0] >> 5) & 0x7FF);       /* negative */
+                            raw[i][0] = ((uint16_t)0xF8 << 8) | ((raw[i][0] >> 5) & 0x7FF);       /* negative */
                         }
                         else
                         {
@@ -3623,7 +3623,7 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
                         }
                         if ((raw[i][1] & (1 << 15)) != 0)                                         /* check sigend bit */
                         {
-                            raw[i][1] = ((uint16_t)0xF3 << 8) | ((raw[i][1] >> 5) & 0x7FF);       /* negative */
+                            raw[i][1] = ((uint16_t)0xF8 << 8) | ((raw[i][1] >> 5) & 0x7FF);       /* negative */
                         }
                         else
                         {
@@ -3631,7 +3631,7 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
                         }
                         if ((raw[i][2] & (1 << 15)) != 0)                                         /* check sigend bit */
                         {
-                            raw[i][2] = ((uint16_t)0xF3 << 8) | ((raw[i][2] >> 5) & 0x7FF);       /* negative */
+                            raw[i][2] = ((uint16_t)0xF8 << 8) | ((raw[i][2] >> 5) & 0x7FF);       /* negative */
                         }
                         else
                         {
