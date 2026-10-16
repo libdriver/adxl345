@@ -3567,8 +3567,12 @@ uint8_t adxl345_read(adxl345_handle_t *handle, int16_t (*raw)[3], float (*g)[3],
             return 1;                                                                             /* return error */
         }
         cnt = prev & 0x3F;                                                                        /* get cnt */
+        if (cnt > 32)                                                                             /* check range */
+        {
+            cnt = 32;                                                                             /* set 32 max */
+        }
         *len = ((*len) < cnt) ? (*len) : cnt;                                                     /* get min cnt */
-        res = a_adxl345_iic_spi_read(handle, ADXL345_REG_DATAX0, (uint8_t *)buf, 6*(*len));       /* read data */
+        res = a_adxl345_iic_spi_read(handle, ADXL345_REG_DATAX0, (uint8_t *)buf, 6 * (*len));     /* read data */
         if (res != 0)                                                                             /* check result */
         {
             handle->debug_print("adxl345: read failed.\n");                                       /* read failed */

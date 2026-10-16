@@ -1,3 +1,9 @@
+## 2.0.15 (2026-10-16)
+
+## Bug Fixes
+
+- fix fifo cnt bugs
+
 ## 2.0.14 (2026-06-26)
 
 ## Bug Fixes
